@@ -1,0 +1,156 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #d13050;
+    color: white;
+    position: relative;
+    z-index: 10;
+}
+
+.header.scrolled {
+    padding: 10px;
+}
+
+/* Logo in the center */
+.logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo img {
+    max-width: 100px; /* Set a maximum width for the logo */
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        max-width: 80px; /* Resize for mobile */
+    }
+}
+
+/* Navigation Styles */
+.nav-left, .nav-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-left a, .nav-right a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.nav-left a:hover, .nav-right a:hover {
+    text-decoration: underline;
+}
+
+/* Hamburger Menu Styles */
+.mobile-menu-icon {
+    display: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.hamburger {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    position: relative;
+    transition: 0.3s;
+}
+
+.hamburger:before, .hamburger:after {
+    content: '';
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    position: absolute;
+    transition: 0.3s;
+}
+
+.hamburger:before {
+    top: -10px;
+}
+
+.hamburger:after {
+    bottom: -10px;
+}
+
+.hamburger.open {
+    background-color: transparent;
+}
+
+.hamburger.open:before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.hamburger.open:after {
+    transform: rotate(-45deg);
+    bottom: 0;
+}
+
+/* Mobile Navigation Menu */
+.mobile-nav {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #d13050;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items */
+    width: 100%; /* Ensure the menu takes full width */
+}
+
+.mobile-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 15px 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+.mobile-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-left, .nav-right {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    .logo {
+        position: static;
+        transform: none;
+    }
+}
