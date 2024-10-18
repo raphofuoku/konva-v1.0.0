@@ -1,0 +1,88 @@
+.resize-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .resize-container h2 {
+    color: #d13050;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .resize-container p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .resize-box {
+    background-color: #f0f0f0;
+    padding: 20px;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .resize-dropdown {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #d13050;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .resize-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .resize-button {
+    background-color: #d13050;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 20px;
+  }
+  
+  .resize-button:hover {
+    background-color: #c12846;
+  }
+  
+  .resize-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .resize-preview {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .resize-box {
+      width: 100%;
+    }
+  
+    .resize-container h2 {
+      font-size: 1.5rem;
+    }
+  
+    .resize-container p {
+      font-size: 1rem;
+    }
+  }

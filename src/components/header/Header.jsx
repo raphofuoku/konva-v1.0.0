@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
-import Logo from "../../assets/Logo.png"
+import Logo from "../../assets/Logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,13 +27,13 @@ const Header = () => {
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
       <nav className="nav-left">
-        <a href="#page1">Image Converter</a>
+        <Link to="/converter">Image Converter</Link>
       </nav>
       <div className="logo">
-        <img src={Logo} alt='logo' />
+        <img src={Logo} alt="logo" />
       </div>
       <nav className="nav-right">
-        <a href="#page2">Resize Image</a>
+        <Link to="/resize">Resize Image</Link>
       </nav>
 
       {/* Hamburger menu for mobile */}
@@ -42,8 +43,8 @@ const Header = () => {
 
       {isMobileMenuOpen && (
         <nav className="mobile-nav">
-          <a href="#page1" onClick={toggleMobileMenu}>Image Converter</a>
-          <a href="#page2" onClick={toggleMobileMenu}>Resize Image</a>
+          <Link to="/converter" onClick={toggleMobileMenu}>Image Converter</Link>
+          <Link to="/resize" onClick={toggleMobileMenu}>Resize Image</Link>
         </nav>
       )}
     </header>

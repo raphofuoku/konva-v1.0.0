@@ -1,0 +1,71 @@
+.convert-options-page {
+    padding: 80px 60px;
+    background-color: #f5f5f5;
+    text-align: center;
+  }
+  
+  .convert-options {
+    margin-bottom: 20px;
+  }
+  
+  .convert-options h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #d13050;
+  }
+  
+  .format-select {
+    padding: 10px;
+    width: 200px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .convert-button {
+    padding: 10px 20px;
+    background-color: #d13050;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .download-section {
+    margin-top: 40px;
+  }
+  
+  .download-button {
+    padding: 10px 20px;
+    background-color: #d13050;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .download-button:hover {
+    background-color: #c12846;
+  }
+
+  .convert-options-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .convert-options {
+    margin-bottom: 20px;
+  }
+  
+  .format-select, .convert-button, .download-button {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .converted-preview {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+  }
+  
