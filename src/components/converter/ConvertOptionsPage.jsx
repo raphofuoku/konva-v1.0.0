@@ -1,26 +1,44 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './ConvertOptionsPage.css';
 import imageCompression from 'browser-image-compression';
 import { saveAs } from 'file-saver';
+import { useLocation } from 'react-router-dom';
 
-const ConvertOptionsPage = ({ location }) => {
-  const { files = [], imageUrl = '' } = location?.state || {};
+const ConvertOptionsPage = () => {
+  const location = useLocation();
+  const { files = [], imageUrl = '' } = location.state || {};
+
   const [format, setFormat] = useState('jpeg');
   const [quality, setQuality] = useState(0.8);
   const [maxWidth, setMaxWidth] = useState(800);
   const [isConverted, setIsConverted] = useState(false);
   const [convertedUrls, setConvertedUrls] = useState([]);
+  const [progress, setProgress] = useState(0);  // Track conversion progress
+  const [isLoading, setIsLoading] = useState(false);  // Loading state
+
+  // Check if files or imageUrl is present in state
+  useEffect(() => {
+    if (files.length === 0 && !imageUrl) {
+      alert('No images to convert. Please upload an image or enter a valid image URL.');
+    }
+  }, [files, imageUrl]);
 
   const handleFormatChange = (e) => setFormat(e.target.value);
   const handleQualityChange = (e) => setQuality(parseFloat(e.target.value));
   const handleMaxWidthChange = (e) => setMaxWidth(parseInt(e.target.value, 10));
 
   const handleConvert = useCallback(async () => {
+    if (files.length === 0 && !imageUrl) {
+      alert('No image to convert.');
+      return;
+    }
+
+    setIsLoading(true);
+    setProgress(0);  // Reset progress
+
     try {
-      console.log('Starting conversion process...');  // Log the start
       const compressAndConvertImage = async (imageSrc) => {
         const image = new Image();
-        console.log('Attempting to load image:', imageSrc);  // Log image source
         return new Promise((resolve, reject) => {
           image.onload = async () => {
             const canvas = document.createElement('canvas');
@@ -29,25 +47,19 @@ const ConvertOptionsPage = ({ location }) => {
             const ctx = canvas.getContext('2d');
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
             const convertedUrl = canvas.toDataURL(`image/${format}`, quality);
-            console.log('Image converted successfully:', convertedUrl);  // Log converted URL
             resolve(convertedUrl);
           };
-          image.onerror = (error) => {
-            console.error('Image loading failed:', error);  // Log image loading error
-            reject(error);
-          };
+          image.onerror = (error) => reject(error);
           image.src = imageSrc;
         });
       };
 
       const processFile = async (file) => {
-        console.log('Processing file:', file);  // Log file processing
         const compressedFile = await imageCompression(file, {
           maxSizeMB: 1,
           maxWidthOrHeight: maxWidth,
           useWebWorker: true,
         });
-        console.log('File compressed:', compressedFile);  // Log compressed file
         const reader = new FileReader();
         return new Promise((resolve) => {
           reader.onload = async (e) => {
@@ -61,26 +73,28 @@ const ConvertOptionsPage = ({ location }) => {
 
       let convertedImages = [];
       if (files.length > 0) {
-        console.log('Files to process:', files);  // Log the files array
-        convertedImages = await Promise.all(files.map(processFile));
+        convertedImages = await Promise.all(files.map(async (file, index) => {
+          const result = await processFile(file);
+          setProgress(((index + 1) / files.length) * 100);  // Update progress
+          return result;
+        }));
       } else if (imageUrl) {
-        console.log('Processing image URL:', imageUrl);  // Log image URL
         const convertedUrl = await compressAndConvertImage(imageUrl);
         convertedImages = [convertedUrl];
+        setProgress(100);  // Set progress to 100%
       }
 
       if (convertedImages.length > 0) {
-        console.log('Converted images:', convertedImages);  // Log converted images
         setConvertedUrls(convertedImages);
         setIsConverted(true);
       } else {
-        console.warn('No images were converted.');  // Log warning if no images converted
-        alert('No images were converted');
+        alert('No images were converted.');
       }
     } catch (error) {
-      console.error('Error during conversion:', error);  // Log conversion error
       alert('Something went wrong during the conversion process.');
     }
+
+    setIsLoading(false);
   }, [files, format, quality, maxWidth, imageUrl]);
 
   const downloadImage = (url, index) => {
@@ -89,6 +103,10 @@ const ConvertOptionsPage = ({ location }) => {
       .then((blob) => {
         saveAs(blob, `converted_image_${index + 1}.${format}`);
       });
+  };
+
+  const downloadAllImages = () => {
+    convertedUrls.forEach((url, index) => downloadImage(url, index));
   };
 
   return (
@@ -119,20 +137,32 @@ const ConvertOptionsPage = ({ location }) => {
             placeholder="Max Width"
           />
         </div>
-        <button onClick={handleConvert} className="convert-button">Convert</button>
+        <button onClick={handleConvert} className="convert-button">
+          {isLoading ? 'Converting...' : 'Convert'}
+        </button>
       </section>
 
-      {isConverted && convertedUrls?.length > 0 && (
+      {/* Progress Bar */}
+      {isLoading && (
+        <div className="progress-container">
+          <div className="progress-bar" style={{ width: `${progress}%` }} />
+          <p>{Math.round(progress)}% Completed</p>
+        </div>
+      )}
+
+      {/* Display converted images */}
+      {isConverted && convertedUrls.length > 0 && (
         <section className="download-section">
           <h2>Your Images are Ready!</h2>
           {convertedUrls.map((url, index) => (
-            <div key={index}>
+            <div key={index} className="converted-image-container">
               <img src={url} alt={`Converted ${index}`} className="converted-preview" />
               <button onClick={() => downloadImage(url, index)} className="download-button">
                 Download Image {index + 1}
               </button>
             </div>
           ))}
+          <button onClick={downloadAllImages} className="download-all-button">Download All</button>
         </section>
       )}
     </div>
