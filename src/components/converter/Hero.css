@@ -6,17 +6,17 @@
     background-color: white;
     gap: 20px;
   }
-  
+
   .hero-left {
     flex: 1;
     padding: 50px 20px;
   }
-  
+
   .hero-left h1 {
     font-size: 36px;
     color: #d13050;
   }
-  
+
   .hero-left p {
     font-size: 18px;
     color: #333;
@@ -24,7 +24,7 @@
     max-width: 400px; /* Controls the width for text wrapping */
     word-wrap: break-word;
   }
-  
+
   /* Right side (Convert box) */
   .hero-right {
     flex: 1;
@@ -32,7 +32,7 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   .convert-box {
     background-color: #e0e0e0;
     padding: 20px;
@@ -44,7 +44,7 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  
+
   .upload-select,
   .url-input,
   .file-input {
@@ -56,7 +56,7 @@
     text-align: center;
     box-sizing: border-box; /* Ensures padding doesn't affect width */
   }
-  
+
   .upload-select {
     background-color: #d13050;
     color: white;
@@ -79,22 +79,25 @@
     cursor: pointer;
     align-self: center; /* Makes button appear at the bottom of the box */
   }
-  
+
   .convert-button:hover {
     background-color: #c12846;
   }
-  
+
   @media (max-width: 768px) {
     .hero-section {
       flex-direction: column;
       text-align: center;
     }
-  
+
     .convert-box {
       width: 100%;
     }
-  
+
     .hero-left p {
       max-width: 100%; /* Ensures p text adjusts for smaller screens */
+    }
+    .hero-left h1 {
+      font-size: 1.6rem;
     }
   }

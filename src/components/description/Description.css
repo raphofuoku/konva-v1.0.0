@@ -17,9 +17,9 @@
     border-radius: 8px;
   }
 
-  .description-section h4 {
+  .description-section h6 {
     color: #d13050;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-top: 10px;
   }
 
@@ -46,7 +46,7 @@
       margin: 10px 0;
     }
 
-    .description-section h4 {
+    .description-section h6 {
       font-size: 1.5rem;
     }
 

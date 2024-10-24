@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Konva
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Konva** is a web application that allows users to upload images, convert them into various formats (JPEG, PNG, WEBP), resize images with customizable dimensions or percentage, and download the processed images in high quality. The app prioritizes user privacy and ensures that images are not stored on the server.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Image Conversion:
+Convert images to different formats (JPEG, PNG, WEBP) while maintaining high quality.
 
-### `npm start`
+### Image Resizing:
+Easily resize images by dimensions or percentage, with an option to lock the aspect ratio.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Multiple Upload Options:
+Upload images from your local device or enter an image URL.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Quality Control:
+Adjust the image quality during conversion.
 
-### `npm test`
+### Responsive Design:
+Fully responsive and optimized for both desktop and mobile devices.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Download:
+Save the converted or resized images with a simple download button.
 
-### `npm run build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**React.js:** For building the user interface.
+**Konva.js:** For handling image manipulation and canvas rendering.
+**Browser Image Compression:** To compress images without losing quality.
+**FileSaver.js:** For downloading images directly to the user's device.
+**CSS:** For responsive and aesthetic design.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How to Use
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Image Conversion
 
-### `npm run eject`
+**Upload an image:** Either from your device or by providing an image URL.
+**Select the desired format:** JPEG, PNG, or WEBP.
+**Adjust the image quality:** Use the quality slider to control the output quality.
+**Click "Convert":** The image will be processed.
+**Download the image:** A download button will appear to save the converted image.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Image Resizing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Upload an image:** From your device or by entering an image URL.
+**Choose resize method:** Resize by dimensions (width and height) or by percentage.
+**Lock aspect ratio:** (Optional) Enable the "Lock Aspect Ratio" checkbox to maintain the original aspect ratio while resizing.
+**Click "Resize":** Apply the resizing to the image.
+**Download the resized image:** A download button will appear to save the image.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Screenshots
 
-## Learn More
+### Homepage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Screenshot of Konva Homepage](./public/konva-homepage.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Image Conversion Page
 
-### Code Splitting
+[Screenshot of Konva Image Converter](./public/konva-converter.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Image Resizing Page
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Screenshot of Konva Image Resize](./public/konva-resize.png)

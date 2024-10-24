@@ -101,9 +101,9 @@
     }
 
     .format-select, .convert-button, .download-button, .download-all-button {
-      width: 100%;
+      width: 100px;
       padding: 12px;
-      font-size: 16px;
+      font-size: 13px;
     }
 
     .converted-preview {
