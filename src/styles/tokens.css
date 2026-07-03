@@ -1,0 +1,185 @@
+/**
+ * Konva Design Tokens
+ * ─────────────────────────────────────────────────────────────
+ * Single source of truth for color, typography, spacing, radius,
+ * shadow, and z-index across the app.
+ *
+ * Import this file ONCE, before any component CSS:
+ *   src/index.js  →  import './styles/tokens.css';
+ *
+ * Rules for the rest of the codebase:
+ *   - Component CSS files NEVER hardcode a hex color, px spacing,
+ *     or font stack. They reference a var(--token) from here.
+ *   - Prefer SEMANTIC tokens (--color-accent, --space-4) in
+ *     component CSS over PRIMITIVE tokens (--color-primary-500).
+ *     Semantic tokens are what make dark mode a one-file change.
+ */
+
+ :root {
+    /* ============================================================
+       COLOR — PRIMITIVES
+       Brand red/pink carried over from v1 (#d13050), expanded into
+       a full scale so hover/active/disabled states aren't ad-hoc.
+       ============================================================ */
+    --color-primary-50:  #fdf1f4;
+    --color-primary-100: #fbdde4;
+    --color-primary-200: #f5b8c7;
+    --color-primary-300: #ee8ea3;
+    --color-primary-400: #e05d7c;
+    --color-primary-500: #d13050; /* v1 brand color — unchanged */
+    --color-primary-600: #c12846; /* v1 hover color — unchanged */
+    --color-primary-700: #a11f3a;
+    --color-primary-800: #81192f;
+    --color-primary-900: #611326;
+
+    --color-neutral-0:   #ffffff;
+    --color-neutral-50:  #f7f7f7;
+    --color-neutral-100: #f0f0f0;
+    --color-neutral-200: #e0e0e0;
+    --color-neutral-300: #cec9c9;
+    --color-neutral-400: #b0b0b0;
+    --color-neutral-500: #888888;
+    --color-neutral-600: #5c5c5c;
+    --color-neutral-700: #3a3a3a;
+    --color-neutral-800: #232323;
+    --color-neutral-900: #141414;
+
+    --color-success-500: #2e9e5b;
+    --color-warning-500: #d1a230;
+    --color-danger-500:  #d13030;
+
+    /* ============================================================
+       COLOR — SEMANTIC
+       Components reference these, never the primitives directly.
+       Swapping these (see [data-theme="dark"] below) reskins the
+       whole app with zero component-level changes.
+       ============================================================ */
+    --color-bg-page:        var(--color-neutral-50);
+    --color-bg-surface:     var(--color-neutral-0);
+    --color-bg-surface-alt: var(--color-neutral-100);
+
+    --color-text-primary:   var(--color-neutral-900);
+    --color-text-secondary: var(--color-neutral-600);
+    --color-text-inverse:   var(--color-neutral-0);
+    --color-text-disabled:  var(--color-neutral-400);
+
+    --color-border:         var(--color-neutral-200);
+    --color-border-strong:  var(--color-neutral-300);
+
+    --color-accent:         var(--color-primary-500);
+    --color-accent-hover:   var(--color-primary-600);
+    --color-accent-active:  var(--color-primary-700);
+    --color-accent-subtle:  var(--color-primary-50);
+
+    --color-success:        var(--color-success-500);
+    --color-warning:        var(--color-warning-500);
+    --color-danger:         var(--color-danger-500);
+
+    /* ============================================================
+       TYPOGRAPHY
+       ============================================================ */
+    --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    --font-family-heading: var(--font-family-base);
+    --font-family-mono: source-code-pro, Menlo, Monaco, Consolas,
+      'Courier New', monospace;
+
+    --font-size-xs:   0.75rem;  /* 12px */
+    --font-size-sm:   0.875rem; /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg:   1.125rem; /* 18px */
+    --font-size-xl:   1.25rem;  /* 20px */
+    --font-size-2xl:  1.5rem;   /* 24px */
+    --font-size-3xl:  2rem;     /* 32px */
+    --font-size-4xl:  2.25rem;  /* 36px */
+
+    --font-weight-regular: 400;
+    --font-weight-medium:  500;
+    --font-weight-bold:    700;
+
+    --line-height-tight:  1.2;
+    --line-height-normal: 1.6;
+
+    /* ============================================================
+       SPACING — 4px base scale
+       ============================================================ */
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3:  12px;
+    --space-4:  16px;
+    --space-5:  20px;
+    --space-6:  24px;
+    --space-8:  32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-20: 80px;
+
+    /* ============================================================
+       RADIUS
+       ============================================================ */
+    --radius-sm:   4px;
+    --radius-md:   8px;
+    --radius-lg:   12px;
+    --radius-full: 9999px;
+
+    /* ============================================================
+       SHADOW
+       ============================================================ */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.15);
+
+    /* ============================================================
+       MOTION
+       ============================================================ */
+    --transition-fast: 150ms ease;
+    --transition-base: 300ms ease;
+    --transition-slow: 500ms ease;
+
+    /* ============================================================
+       Z-INDEX SCALE
+       ============================================================ */
+    --z-header:  10;
+    --z-dropdown: 50;
+    --z-modal:   100;
+    --z-toast:   1000;
+
+    /* ============================================================
+       BREAKPOINTS (reference only — CSS custom properties can't be
+       used inside @media queries directly. Keep these numbers in
+       sync with any @media (max-width: ...) rules by hand, or move
+       to a CSS-in-JS / PostCSS custom-media setup if this drifts.)
+       mobile:  max-width 480px
+       tablet:  max-width 768px
+       desktop: 1024px+
+       ============================================================ */
+  }
+
+  /* ==================================================================
+     DARK MODE
+     Toggle by setting data-theme="dark" on <html> (or <body>) and
+     persisting the choice in localStorage. Every component that uses
+     semantic tokens above re-themes automatically — no component CSS
+     changes required.
+     ================================================================== */
+  [data-theme='dark'] {
+    --color-bg-page:        var(--color-neutral-900);
+    --color-bg-surface:     var(--color-neutral-800);
+    --color-bg-surface-alt: var(--color-neutral-700);
+
+    --color-text-primary:   var(--color-neutral-0);
+    --color-text-secondary: var(--color-neutral-400);
+    --color-text-inverse:   var(--color-neutral-900);
+    --color-text-disabled:  var(--color-neutral-600);
+
+    --color-border:         var(--color-neutral-700);
+    --color-border-strong:  var(--color-neutral-600);
+
+    --color-accent-subtle:  var(--color-primary-900);
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.5);
+  }
