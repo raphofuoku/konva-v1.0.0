@@ -1,0 +1,51 @@
+/* This used to live inside Header.css as a bare `*` selector, which meant
+   the whole app's box model silently depended on the Header component
+   happening to be mounted. Moved here so it's not an accident. */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-bg-page);
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Theme changes fade instead of snapping. */
+    transition: background-color var(--transition-base), color var(--transition-base);
+  }
+
+  /* Every heading in the app picks up the display typeface from here —
+     component CSS shouldn't need to set font-family for headings at all. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.01em;
+  }
+
+  code,
+  kbd,
+  .mono {
+    font-family: var(--font-family-mono);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent-active);
+  }

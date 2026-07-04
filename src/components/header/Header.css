@@ -7,8 +7,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff;
-    color: #000;
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-primary);
 }
 
 /* Header Styles */
@@ -16,15 +16,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px;
-    background-color: #d13050;
-    color: white;
+    padding: var(--space-8);
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
     position: relative;
-    z-index: 10;
+    z-index: var(--z-header);
 }
 
 .header.scrolled {
-    padding: 10px;
+    padding: var(--space-3);
 }
 
 /* Logo in the center */
@@ -54,13 +54,14 @@ body {
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .nav-left a, .nav-right a {
-    color: white;
+    color: var(--color-text-inverse);
     text-decoration: none;
     font-weight: bold;
-    margin: 0 15px;
+    margin: 0 var(--space-4);
     font-size: 18px;
 }
 
@@ -78,7 +79,7 @@ body {
 .hamburger {
     width: 30px;
     height: 3px;
-    background-color: white;
+    background-color: var(--color-text-inverse);
     position: relative;
     transition: 0.3s;
 }
@@ -87,7 +88,7 @@ body {
     content: '';
     width: 30px;
     height: 3px;
-    background-color: white;
+    background-color: var(--color-text-inverse);
     position: absolute;
     transition: 0.3s;
 }
@@ -119,8 +120,8 @@ body {
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: #d13050;
-    padding: 20px;
+    background-color: var(--color-accent);
+    padding: var(--space-5);
     display: flex;
     flex-direction: column;
     align-items: center; /* Center items */
@@ -128,9 +129,9 @@ body {
 }
 
 .mobile-nav a {
-    color: white;
+    color: var(--color-text-inverse);
     text-decoration: none;
-    margin: 15px 0;
+    margin: var(--space-4) 0;
     font-size: 20px;
     text-align: center;
 }
