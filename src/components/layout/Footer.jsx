@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <hr className="footer-line" />
-      <p>2024 © Copyright. All Rights Reserved.</p>
+      <p>© {new Date().getFullYear()}. All Rights Reserved.</p>
       <div className="footer-author">
         <p>Raphael Ofuoku</p>
         <a href="https://www.linkedin.com/in/raphaelofuoku/" target="_blank" rel="noopener noreferrer">
