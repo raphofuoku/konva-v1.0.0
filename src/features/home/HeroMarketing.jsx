@@ -1,6 +1,6 @@
 import React from 'react';
 import './HeroMarketing.css';
-import konva from '../../assets/konva.png';
+import konva from '../../assets/konva.jpg';
 
 const steps = [
   'Open the Image Converter or Resize page.',
@@ -17,11 +17,14 @@ const HeroMarketing = () => (
     </div>
     <div className="hero-marketing-copy">
       <h2>How it works</h2>
-      <ol>
-        {steps.map((step) => (
-          <li key={step}>{step}</li>
+      <div className="hero-marketing-steps">
+        {steps.map((step, index) => (
+          <div className="hero-marketing-step" key={step}>
+            <span className="hero-marketing-step-number mono">{String(index + 1).padStart(2, '0')}</span>
+            <p>{step}</p>
+          </div>
         ))}
-      </ol>
+      </div>
     </div>
   </section>
 );

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ConverterUploadPage.css';
 import Header from '../../components/layout/Header';
+import BackButton from '../../components/ui/BackButton';
 import ImageUploader from '../../components/ui/ImageUploader';
 
 const ConverterUploadPage = () => {
@@ -18,6 +19,9 @@ const ConverterUploadPage = () => {
   return (
     <div>
       <Header />
+      <div className="page-nav">
+        <BackButton to="/">Back to home</BackButton>
+      </div>
       <section className="converter-upload-section">
         <div className="converter-upload-copy">
           <h1>Image Converter</h1>

@@ -6,7 +6,7 @@
     align-items: center;
     padding: var(--space-20) var(--space-16);
     width: 100%;
-    gap: var(--space-5);
+    gap: var(--space-8);
   }
 
   .hero-marketing-media {
@@ -32,20 +32,39 @@
   .hero-marketing-copy h2 {
     color: var(--color-accent);
     font-size: var(--font-size-3xl);
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-6);
   }
 
-  .hero-marketing-copy ol {
-    list-style: decimal;
-    padding-left: var(--space-5);
+  .hero-marketing-steps {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-5);
   }
 
-  .hero-marketing-copy li {
+  .hero-marketing-step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .hero-marketing-step-number {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent-subtle);
+    color: var(--color-accent-active);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .hero-marketing-step p {
     font-size: var(--font-size-lg);
     line-height: var(--line-height-normal);
+    padding-top: var(--space-1);
   }
 
   @media (max-width: 768px) {
@@ -67,7 +86,7 @@
       font-size: var(--font-size-xl);
     }
 
-    .hero-marketing-copy li {
+    .hero-marketing-step p {
       font-size: var(--font-size-base);
     }
   }

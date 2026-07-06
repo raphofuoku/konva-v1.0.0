@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import { saveAs } from 'file-saver';
+import { FaDownload } from 'react-icons/fa';
 import './ResizePage.css';
 import Header from '../../components/layout/Header';
+import BackButton from '../../components/ui/BackButton';
 import Button from '../../components/ui/Button';
 import StatChip from '../../components/ui/StatChip';
 import ImageUploader from '../../components/ui/ImageUploader';
@@ -106,6 +108,9 @@ const ResizePage = () => {
   return (
     <div>
       <Header />
+      <div className="page-nav">
+        <BackButton to="/">Back to home</BackButton>
+      </div>
       <div className="resize-container">
         <h2>Resize your image</h2>
         <p>Easily resize your images online for free.</p>
@@ -194,7 +199,7 @@ const ResizePage = () => {
                 <StatChip value={formatBytes(resizedImage.sizeBytes)} />
               </div>
               <Button variant="primary" onClick={handleDownload}>
-                Download resized image
+                <FaDownload /> Download resized image
               </Button>
             </div>
           )}

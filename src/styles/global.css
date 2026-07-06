@@ -49,3 +49,17 @@
     background-color: var(--color-accent-subtle);
     color: var(--color-accent-active);
   }
+
+  /* Shared back-button row, used at the top of Converter/ConvertOptions/Resize
+     pages. Lives here instead of per-page CSS because it's genuinely
+     identical everywhere it's used. */
+  .page-nav {
+    display: flex;
+    padding: var(--space-4) var(--space-8) 0;
+  }
+
+  @media (max-width: 768px) {
+    .page-nav {
+      padding: var(--space-4) var(--space-5) 0;
+    }
+  }

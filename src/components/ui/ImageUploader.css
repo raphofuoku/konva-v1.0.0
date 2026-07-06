@@ -62,6 +62,11 @@
     pointer-events: none;
   }
 
+  .image-uploader-icon {
+    font-size: 32px;
+    color: var(--color-accent);
+  }
+
   .image-uploader-instructions {
     color: var(--color-text-primary);
     font-size: var(--font-size-base);

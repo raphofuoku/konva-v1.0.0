@@ -1,4 +1,5 @@
 import React, { useId, useRef, useState } from 'react';
+import { FaCloudUploadAlt } from 'react-icons/fa';
 import { useDropAndPaste } from '../../hooks/useDropAndPaste';
 import Button from './Button';
 import TextField from './TextField';
@@ -84,6 +85,7 @@ const ImageUploader = ({
             className="image-uploader-input"
             tabIndex={-1}
           />
+          <FaCloudUploadAlt className="image-uploader-icon" />
           <p className="image-uploader-instructions">{instructions}</p>
           <span className="image-uploader-hint mono">
             {multiple ? 'multiple files supported' : 'png · jpeg · webp'}

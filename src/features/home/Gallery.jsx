@@ -18,6 +18,7 @@ const images = [
 
 const Gallery = () => (
   <section className="gallery-container">
+    <h2 className="gallery-heading">See it in action</h2>
     <div className="gallery-grid">
       {images.map((image) => (
         <div key={image.id} className="gallery-item">

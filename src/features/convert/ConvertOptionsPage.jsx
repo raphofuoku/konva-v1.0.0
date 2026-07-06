@@ -2,8 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { saveAs } from 'file-saver';
+import { FaDownload, FaFileArchive } from 'react-icons/fa';
 import './ConvertOptionsPage.css';
 import Header from '../../components/layout/Header';
+import BackButton from '../../components/ui/BackButton';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import StatChip from '../../components/ui/StatChip';
@@ -154,6 +156,9 @@ const ConvertOptionsPage = () => {
   return (
     <div>
       <Header />
+      <div className="page-nav">
+        <BackButton to="/converter">Back to converter</BackButton>
+      </div>
       <div className="convert-options-page">
         <section className="convert-options">
           <h2>Choose format and quality</h2>
@@ -245,7 +250,7 @@ const ConvertOptionsPage = () => {
                     <StatChip value={`${result.width}×${result.height}`} />
                   </div>
                   <Button variant="secondary" onClick={() => handleDownloadOne(result)}>
-                    Download
+                    <FaDownload /> Download
                   </Button>
                 </Card>
               ))}
@@ -253,7 +258,7 @@ const ConvertOptionsPage = () => {
 
             {results.length > 1 && (
               <Button variant="primary" onClick={handleDownloadAll} className="download-all-button">
-                Download all (.zip)
+                <FaFileArchive /> Download all (.zip)
               </Button>
             )}
           </section>
