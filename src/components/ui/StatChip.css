@@ -1,0 +1,42 @@
+.stat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background-color: var(--color-bg-surface-alt);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-tight);
+  }
+
+  .stat-chip-label {
+    color: var(--color-text-secondary);
+  }
+
+  .stat-chip-value {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .stat-chip-success {
+    border-color: var(--color-success);
+  }
+  .stat-chip-success .stat-chip-value {
+    color: var(--color-success);
+  }
+
+  .stat-chip-danger {
+    border-color: var(--color-danger);
+  }
+  .stat-chip-danger .stat-chip-value {
+    color: var(--color-danger);
+  }
+
+  .stat-chip-accent {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+  }
+  .stat-chip-accent .stat-chip-value {
+    color: var(--color-accent-active);
+  }

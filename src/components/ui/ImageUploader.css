@@ -1,0 +1,94 @@
+.image-uploader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .image-uploader-tabs {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .image-uploader-tab {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    transition: background-color var(--transition-fast), color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .image-uploader-tab.is-active {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-inverse);
+  }
+
+  .image-uploader-dropzone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-8) var(--space-5);
+    border: 2px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface-alt);
+    cursor: pointer;
+    text-align: center;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .image-uploader-dropzone:hover,
+  .image-uploader-dropzone:focus-visible {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+
+  .image-uploader-dropzone.is-dragging {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-subtle);
+  }
+
+  .image-uploader-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .image-uploader-icon {
+    font-size: 32px;
+    color: var(--color-accent);
+  }
+
+  .image-uploader-instructions {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    max-width: 320px;
+  }
+
+  .image-uploader-hint {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+  }
+
+  .image-uploader-url-form {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .image-uploader-url-form .text-field {
+    flex: 1;
+  }
+
+  @media (max-width: 480px) {
+    .image-uploader-url-form {
+      flex-direction: column;
+    }
+  }

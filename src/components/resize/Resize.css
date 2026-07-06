@@ -3,60 +3,60 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: var(--space-10);
   text-align: center;
 }
 
 .resize-container h2 {
-  color: #d13050;
+  color: var(--color-accent);
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-5);
 }
 
 .resize-container p {
   font-size: 1.2rem;
-  margin-bottom: 30px;
+  margin-bottom: var(--space-8);
 }
 
 .resize-box {
-  background-color: #f0f0f0;
-  padding: 20px;
+  background-color: var(--color-bg-surface-alt);
+  padding: var(--space-5);
   width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
 }
 
 .resize-dropdown {
   width: 100%;
-  padding: 10px;
+  padding: var(--space-3);
   font-size: 16px;
-  color: white;
-  background-color: #d13050;
+  color: var(--color-text-inverse);
+  background-color: var(--color-accent);
   border: none;
-  border-radius: 4px;
-  margin-bottom: 20px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-5);
 }
 
 .resize-input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: var(--space-3);
+  margin: var(--space-3) 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
 }
 
 .resize-button {
-  background-color: #d13050;
-  color: white;
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
   border: none;
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  padding: 10px 20px;
+  padding: var(--space-3) var(--space-5);
 }
 
 .resize-button:hover {
-  background-color: #c12846;
+  background-color: var(--color-accent-hover);
 }
 
 .resize-controls {
@@ -69,21 +69,21 @@
 .resize-preview {
   max-width: 100%;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-5);
 }
 
 .download-button {
-  padding: 10px 20px;
-  background-color: #d13050;
-  color: white;
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: var(--space-5);
 }
 
 .aspect-ratio-checkbox {
-  margin-top: 10px;
+  margin-top: var(--space-3);
 }
 
 .dimensions-inputs {

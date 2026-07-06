@@ -13,6 +13,27 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
     <title>Konva</title>
+
+    <!--
+      Sets data-theme on <html> before the CSS/React bundle loads.
+      Without this, the page briefly paints in light mode (the default
+      in tokens.css) even when the visitor has dark mode saved, then
+      flips once React mounts. Keep this logic in sync with
+      src/utils/theme.js if the storage key or fallback ever changes.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('konva-theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          // localStorage unavailable (e.g. privacy mode) — fall back to light, the tokens.css default.
+        }
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
