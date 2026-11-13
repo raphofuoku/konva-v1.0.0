@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0&amp;display=block">
+<script src="./konva-engine.js"></script>
+<style>
+body{margin:0;background:#FFF7C9}
+*{box-sizing:border-box}
+a{color:#3D63C9}
+a:hover{color:#6A3DF0}
+:focus-visible{outline:3px solid #6A3DF0;outline-offset:2px}
+input[type=range]{accent-color:#6A3DF0}
+@keyframes k-settle{from{transform:rotate(0deg) translateY(8px);opacity:0}}
+@keyframes k-pulse{0%{transform:scale(1)}40%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes k-up{from{transform:translateY(16px);opacity:0}}
+@keyframes k-shimmer{from{background-position:-400px 0}to{background-position:400px 0}}
+@keyframes k-indet{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+@keyframes k-flash{0%{box-shadow:0 0 0 5px #fff,0 0 3px 20px #FADF3C,0 0 4px 44px rgba(250,223,60,.6),0 0 10px 78px rgba(250,223,60,.3)}100%{}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+[style*="overflow-x:auto"]::-webkit-scrollbar,[style*="overflow-x: auto"]::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="--k-top:#FADF3C; --k-topink:#33366F; --k-mark:#33366F; --k-stage:#FFF7C9; --k-dot:rgba(51,54,111,.13); --k-surface:#FFFFFF; --k-surface2:#FFF7C9; --k-ink:#33366F; --k-ink2:#585C94; --k-line:rgba(51,54,111,.2); --k-shadow:#33366F; --k-btn:#33366F; --k-btnink:#FADF3C; --k-btnoff:#FADF3C; --k-h1:#FDEE8A; --k-h2:rgba(250,223,60,.3); --k-h3:rgba(250,223,60,.12); --k-ok-bg:#E3F3E9; --k-ok:#1D6E3E; --k-violet:#6A3DF0; --k-vio-bg:#EEE8FE; --k-vio-ink:#4B22C9; --k-warn-bg:#FFF1D6; --k-warn:#7A4B00; container-type:inline-size; width:100%; font:400 16px/1.6 Poppins, sans-serif; color:var(--k-ink)">
+<div style="{{ shellStyle }}">
+<a href="#k-main" style="position:absolute; left:12px; top:-60px; z-index:60; background:#33366F; color:#FADF3C; font:700 14px/1 Poppins, sans-serif; padding:12px 16px; text-decoration:none; box-shadow:4px 4px 0 #FADF3C" style-focus="top:12px">Skip to content</a>
+
+<header style="display:flex; align-items:center; gap:12px; padding:0 16px; height:64px; background:var(--k-top); color:var(--k-topink); border-bottom:2px solid var(--k-shadow)">
+  <a href="Home.dc.html" aria-label="Konva home" style="position:relative; display:inline-flex; padding:5px 11px 8px; color:var(--k-topink); text-decoration:none"><span style="position:absolute; right:0; top:0; width:15px; height:10px; border-top:3.5px solid var(--k-mark); border-right:3.5px solid var(--k-mark)"></span><span style="position:absolute; left:0; bottom:0; width:15px; height:10px; border-bottom:3.5px solid var(--k-mark); border-left:3.5px solid var(--k-mark)"></span><span style="font:800 24px/1 Poppins, sans-serif; letter-spacing:-0.03em">konva</span></a>
+  <sc-if value="{{ wideNav }}" hint-placeholder-val="{{ true }}">
+    <nav aria-label="Pages" style="display:flex; gap:4px; margin-left:12px; align-self:stretch">
+      <a href="Studio.dc.html" style="display:flex; align-items:center; padding:0 12px; font:500 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none" style-hover="box-shadow:inset 0 -4px 0 var(--k-line)">Studio</a>
+      <a href="Icons.dc.html" aria-current="page" style="display:flex; align-items:center; padding:0 12px; font:600 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none; box-shadow:inset 0 -4px 0 var(--k-topink)">Icon pack</a>
+      <a href="PDF.dc.html" style="display:flex; align-items:center; padding:0 12px; font:500 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none" style-hover="box-shadow:inset 0 -4px 0 var(--k-line)">Images to PDF</a>
+      <a href="Settings.dc.html" style="display:flex; align-items:center; padding:0 12px; font:500 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none" style-hover="box-shadow:inset 0 -4px 0 var(--k-line)">Settings</a>
+    </nav>
+  </sc-if>
+  <div style="flex:1"></div>
+  <sc-if value="{{ wideBar }}" hint-placeholder-val="{{ true }}">
+    <label style="display:flex; align-items:center; gap:8px; font:500 12px/1 'IBM Plex Mono', monospace; color:var(--k-topink)">preview state
+      <select value="{{ forced }}" onChange="{{ onForce }}" style="height:32px; border:1.5px dashed var(--k-topink); background:transparent; color:var(--k-topink); font:500 12px 'IBM Plex Mono', monospace; padding:0 8px; border-radius:6px">
+        <option value="live">live</option><option value="empty">empty</option><option value="loading">loading</option><option value="ready">ready</option><option value="processing">processing</option><option value="success">success</option><option value="error">error</option>
+      </select>
+    </label>
+  </sc-if>
+  <sc-if value="{{ wideNav }}" hint-placeholder-val="{{ true }}">
+    <span title="Every tool is cached on this device" style="display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 12px; border-radius:999px; background:var(--k-ok-bg); color:var(--k-ok); border:1.5px solid #2E9E5B; font:600 12px/1 Poppins, sans-serif"><span style="font:500 16px/1 'Material Symbols Sharp'">offline_pin</span>Offline ready</span>
+  </sc-if>
+  <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" style="width:40px; height:40px; display:grid; place-items:center; border:2px solid var(--k-topink); background:transparent; color:var(--k-topink); border-radius:999px; cursor:pointer"><span style="font:400 20px/1 'Material Symbols Sharp'">{{ themeIcon }}</span></button>
+</header>
+<sc-if value="{{ narrowNav }}" hint-placeholder-val="{{ false }}">
+  <nav aria-label="Pages" style="display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; padding:0 8px; background:var(--k-top); border-bottom:2px solid var(--k-shadow)">
+    <a href="Studio.dc.html" style="flex:none; display:flex; align-items:center; height:44px; padding:0 12px; font:500 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none">Studio</a>
+    <a href="Icons.dc.html" aria-current="page" style="flex:none; display:flex; align-items:center; height:44px; padding:0 12px; font:600 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none; box-shadow:inset 0 -4px 0 var(--k-topink)">Icon pack</a>
+    <a href="PDF.dc.html" style="flex:none; display:flex; align-items:center; height:44px; padding:0 12px; font:500 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none">Images to PDF</a>
+    <a href="Settings.dc.html" style="flex:none; display:flex; align-items:center; height:44px; padding:0 12px; font:500 14px/1 Poppins, sans-serif; color:var(--k-topink); text-decoration:none">Settings</a>
+  </nav>
+</sc-if>
+
+<main id="k-main" tabindex="-1" style="max-width:1360px; margin:0 auto; padding:clamp(28px,4cqw,56px) clamp(16px,3cqw,40px) 72px; display:flex; flex-direction:column; gap:36px">
+  <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:20px 40px">
+    <div style="display:flex; flex-direction:column; align-items:flex-start; gap:20px">
+      <h1 style="margin:0; background:#33366F; color:#FADF3C; font:800 clamp(30px,4cqw,56px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 #FADF3C">Icon pack.</h1>
+      <p style="margin:0 0 0 clamp(8px,2cqw,24px); width:max-content; max-width:100%; background:#FFFFFF; color:#1F2150; font:600 clamp(16px,1.6cqw,20px)/1.3 Poppins, sans-serif; padding:.45em .8em; transform:rotate(-1deg); box-shadow:4px 4px 0 #33366F; animation:k-settle .35s .1s cubic-bezier(.2,.9,.3,1.2) both">One logo in, <span style="color:#3D63C9">every size</span> out.</p>
+    </div>
+    <p style="margin:0; max-width:440px; color:var(--k-ink2); text-wrap:pretty">Favicons, touch icons, a multi-size ICO and the manifest, drawn on this device and zipped. Nothing is uploaded.</p>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:32px; align-items:flex-start">
+    <section aria-label="Your logo" style="flex:1 1 320px; max-width:100%; background:var(--k-surface); border:2px solid var(--k-shadow); border-radius:12px; box-shadow:6px 6px 0 var(--k-shadow); padding:24px; display:flex; flex-direction:column; gap:22px">
+      <div onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" style="display:flex; flex-direction:column; align-items:center; gap:28px; padding:44px 0 8px">
+        <div style="{{ stickerStyle }}">
+          <sc-if value="{{ hasSrc }}" hint-placeholder-val="{{ false }}">{{ __img0 }}</sc-if>
+          <sc-if value="{{ showEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="position:absolute; inset:0; border-radius:inherit; background:repeating-linear-gradient(135deg,#F4EFD6 0 10px,#ECE5C4 10px 20px); display:grid; place-items:center"><span style="font:500 11px/1.4 'IBM Plex Mono', monospace; color:#585C94; background:#FFFFFFCC; padding:4px 8px; text-align:center">your logo</span></div>
+          </sc-if>
+          <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; inset:0; border-radius:inherit; background:linear-gradient(90deg,#F4EFD6 0%,#FFFFFF 50%,#F4EFD6 100%) 0 0/400px 100%; animation:k-shimmer 1.2s linear infinite"></div>
+          </sc-if>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center">
+          <span style="font:600 15px/1.3 Poppins, sans-serif; overflow-wrap:anywhere">{{ srcName }}</span>
+          <span style="font:500 12px/1 'IBM Plex Mono', monospace; color:var(--k-ink2)">{{ srcMeta }}</span>
+        </div>
+        <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="width:min(240px,100%); height:6px; border-radius:999px; background:var(--k-vio-bg); overflow:hidden; margin-top:-12px"><div style="width:40%; height:100%; background:#6A3DF0; border-radius:999px; animation:k-indet 1.1s ease-in-out infinite"></div></div>
+        </sc-if>
+      </div>
+      <sc-if value="{{ warn }}" hint-placeholder-val="{{ false }}">
+        <p role="note" style="margin:0; display:flex; gap:8px; align-items:flex-start; background:var(--k-warn-bg); color:var(--k-warn); border:1.5px solid #D9A400; border-radius:8px; padding:10px 12px; font:500 13px/1.5 Poppins, sans-serif"><span style="font:500 18px/1 'Material Symbols Sharp'">warning</span>{{ warn }}</p>
+      </sc-if>
+      <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}">
+        <p role="alert" style="margin:0; display:flex; gap:8px; align-items:flex-start; background:#FBE6E6; color:#A32222; border:1.5px solid #D13030; border-radius:8px; padding:10px 12px; font:500 13px/1.5 Poppins, sans-serif"><span style="font:500 18px/1 'Material Symbols Sharp'">error</span>{{ err }}</p>
+      </sc-if>
+      <div style="display:flex; flex-wrap:wrap; gap:12px">
+        <button onClick="{{ openPicker }}" style="display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 18px; border:0; background:var(--k-btn); color:var(--k-btnink); font:800 14px/1 Poppins, sans-serif; letter-spacing:.02em; text-transform:uppercase; box-shadow:6px 6px 0 var(--k-btnoff); cursor:pointer; transition:transform .08s, box-shadow .08s" style-hover="transform:translate(3px,3px); box-shadow:3px 3px 0 var(--k-btnoff)" style-active="transform:translate(6px,6px); box-shadow:0 0 0 var(--k-btnoff)"><span style="font:500 20px/1 'Material Symbols Sharp'">upload_file</span>Choose logo</button>
+        <sc-if value="{{ showSampleBtn }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ useSample }}" style="height:48px; padding:0 16px; border:1.5px solid var(--k-line); background:transparent; color:var(--k-ink); border-radius:8px; font:600 13px Poppins, sans-serif; cursor:pointer">Use the sample</button>
+        </sc-if>
+      </div>
+      <p style="margin:-8px 0 0; font:400 13px/1.5 Poppins, sans-serif; color:var(--k-ink2)">SVG, or a square PNG of 512 px or more, gives the sharpest results. You can also drop or paste it.</p>
+
+      <div style="display:flex; flex-direction:column; gap:10px">
+        <span style="font:600 12px/1 Poppins, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--k-ink2)">Background</span>
+        <div role="group" aria-label="Background" style="display:flex; flex-wrap:wrap; gap:10px; align-items:center">
+          <sc-for list="{{ bgList }}" as="b" hint-placeholder-count="4"><button onClick="{{ b.onClick }}" aria-pressed="{{ b.pressed }}" aria-label="{{ b.label }}" title="{{ b.label }}" style="{{ b.style }}"></button></sc-for>
+          <label title="Custom colour" style="position:relative; width:40px; height:40px; border-radius:8px; border:1.5px dashed var(--k-line); display:grid; place-items:center; cursor:pointer"><span style="font:500 20px/1 'Material Symbols Sharp'">colorize</span><input type="color" value="{{ customBg }}" onChange="{{ onCustomBg }}" aria-label="Custom background colour" style="position:absolute; inset:0; opacity:0; cursor:pointer"></label>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px">
+        <span style="font:600 12px/1 Poppins, sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--k-ink2)">Shape</span>
+        <div role="group" aria-label="Shape" style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px">
+          <sc-for list="{{ shapeSeg }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.pressed }}" style="{{ o.style }}">{{ o.label }}</button></sc-for>
+        </div>
+      </div>
+      <label style="display:flex; flex-direction:column; gap:6px">
+        <span style="display:flex; justify-content:space-between; font:500 14px/1 Poppins, sans-serif">Padding <b style="font:600 14px/1 'IBM Plex Mono', monospace; color:var(--k-violet)">{{ padLabel }}</b></span>
+        <input type="range" min="0" max="30" value="{{ pad }}" onChange="{{ onPad }}" style="width:100%">
+      </label>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+        <label style="display:flex; flex-direction:column; gap:6px; font:500 13px/1 Poppins, sans-serif">App name
+          <input type="text" value="{{ appName }}" onChange="{{ onName }}" style="height:44px; width:100%; border:1.5px solid var(--k-line); border-radius:8px; background:var(--k-surface2); color:var(--k-ink); padding:0 12px; font:400 15px Poppins, sans-serif">
+        </label>
+        <label style="display:flex; flex-direction:column; gap:6px; font:500 13px/1 Poppins, sans-serif">Short name
+          <input type="text" value="{{ shortName }}" onChange="{{ onShort }}" style="height:44px; width:100%; border:1.5px solid var(--k-line); border-radius:8px; background:var(--k-surface2); color:var(--k-ink); padding:0 12px; font:400 15px Poppins, sans-serif">
+        </label>
+      </div>
+      <label style="display:flex; align-items:center; justify-content:space-between; gap:12px; font:500 14px/1 Poppins, sans-serif">Theme colour
+        <span style="display:flex; align-items:center; gap:10px"><b style="font:500 13px/1 'IBM Plex Mono', monospace">{{ themeColor }}</b><input type="color" value="{{ themeColor }}" onChange="{{ onThemeColor }}" aria-label="Theme colour" style="width:44px; height:36px; border:1.5px solid var(--k-line); border-radius:8px; padding:2px; background:var(--k-surface)"></span>
+      </label>
+    </section>
+
+    <div style="flex:999 1 560px; min-width:0; display:flex; flex-direction:column; gap:28px">
+      <section aria-label="Preview" style="background:var(--k-surface); border:2px solid var(--k-shadow); border-radius:12px; box-shadow:6px 6px 0 var(--k-shadow); overflow:hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; padding:18px 24px; border-bottom:1.5px solid var(--k-line)">
+          <h2 style="margin:0; font:600 18px/1.2 Poppins, sans-serif">Every size, light and dark</h2>
+          <span style="font:500 12px/1 'IBM Plex Mono', monospace; color:var(--k-ink2)">shown at real size up to 64 px</span>
+        </div>
+        <div role="table" aria-label="Generated icons">
+          <sc-for list="{{ icons }}" as="i" hint-placeholder-count="7">
+            <div role="row" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(96px,128px) minmax(96px,128px); align-items:stretch; border-bottom:1.5px solid var(--k-line)">
+              <div role="cell" style="display:flex; flex-direction:column; justify-content:center; gap:4px; padding:14px 24px; min-width:0">
+                <span style="font:600 14px/1.3 Poppins, sans-serif">{{ i.use }}</span>
+                <span style="font:500 12px/1.3 'IBM Plex Mono', monospace; color:var(--k-ink2); overflow-wrap:anywhere">{{ i.file }} · {{ i.px }}</span>
+              </div>
+              <div role="cell" style="display:grid; place-items:center; padding:14px; background:#FFFFFF; border-left:1.5px solid var(--k-line)">
+                <sc-if value="{{ i.url }}" hint-placeholder-val="{{ false }}">{{ i.__img1 }}</sc-if>
+                <sc-if value="{{ i.noUrl }}" hint-placeholder-val="{{ true }}"><span style="{{ i.ph }}"></span></sc-if>
+              </div>
+              <div role="cell" style="display:grid; place-items:center; padding:14px; background:#1B1D45; border-left:1.5px solid var(--k-line)">
+                <sc-if value="{{ i.url }}" hint-placeholder-val="{{ false }}">{{ i.__img2 }}</sc-if>
+                <sc-if value="{{ i.noUrl }}" hint-placeholder-val="{{ true }}"><span style="{{ i.phDark }}"></span></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:16px; padding:20px 24px; background:var(--k-surface2)">
+          <div style="display:flex; align-items:center; gap:10px; height:40px; padding:0 14px; width:240px; max-width:100%; background:#FFFFFF; color:#1F2150; border-radius:10px 10px 0 0; box-shadow:0 0 0 1.5px var(--k-line)">{{ __img3 }}<span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 13px Poppins, sans-serif">{{ appName }}</span><span style="font:400 16px/1 'Material Symbols Sharp'; color:#585C94">close</span></div>
+          <div style="display:flex; align-items:center; gap:10px; height:40px; padding:0 14px; width:240px; max-width:100%; background:#262960; color:#FFFFFF; border-radius:10px 10px 0 0">{{ __img4 }}<span style="flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font:500 13px Poppins, sans-serif">{{ appName }}</span><span style="font:400 16px/1 'Material Symbols Sharp'; color:#C9CBF0">close</span></div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px; padding:10px 18px; background:#33366F; border-radius:12px">{{ __img5 }}<span style="font:500 11px/1 Poppins, sans-serif; color:#FFFFFF; max-width:72px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ shortName }}</span></div>
+        </div>
+      </section>
+
+      <section aria-label="Export" style="background:var(--k-surface); border:2px solid var(--k-shadow); border-radius:12px; box-shadow:6px 6px 0 var(--k-shadow); padding:20px 24px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px">
+        <sc-if value="{{ isBusy }}" hint-placeholder-val="{{ false }}">
+          <div role="status" aria-live="polite" style="flex:1 0 100%; display:flex; flex-direction:column; gap:8px">
+            <div style="display:flex; justify-content:space-between; gap:12px; font:600 14px/1.3 Poppins, sans-serif"><span>{{ busyText }}</span><span style="font:600 13px/1 'IBM Plex Mono', monospace; color:var(--k-violet)">{{ busyPct }}</span></div>
+            <div style="height:10px; border-radius:999px; background:var(--k-vio-bg); overflow:hidden"><div style="{{ busyBar }}"></div></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isSaved }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="flex:1 0 100%; display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:10px; background:var(--k-ok-bg); color:var(--k-ok); border:1.5px solid #2E9E5B; font:600 14px/1.4 Poppins, sans-serif"><span style="font:500 22px/1 'Material Symbols Sharp'">check_circle</span><span>{{ savedText }}</span></div>
+        </sc-if>
+        <div style="display:flex; flex-wrap:wrap; gap:6px">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="3"><span style="{{ c.style }}"><span style="font:500 14px/1 'Material Symbols Sharp'">{{ c.icon }}</span>{{ c.label }} <b style="font:600 12.5px/1 'IBM Plex Mono', monospace">{{ c.value }}</b></span></sc-for>
+        </div>
+        <button onClick="{{ exportZip }}" disabled="{{ noSrc }}" style="{{ zipStyle }}"><span style="font:500 20px/1 'Material Symbols Sharp'">folder_zip</span>{{ zipLabel }}</button>
+      </section>
+
+      <section aria-label="Code" style="background:var(--k-surface); border:2px solid var(--k-shadow); border-radius:12px; box-shadow:6px 6px 0 var(--k-shadow); overflow:hidden">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; padding:14px 24px; border-bottom:1.5px solid var(--k-line)">
+          <div role="group" aria-label="Snippet" style="display:flex; gap:6px">
+            <sc-for list="{{ codeSeg }}" as="o" hint-placeholder-count="2"><button onClick="{{ o.onClick }}" aria-pressed="{{ o.pressed }}" style="{{ o.style }}">{{ o.label }}</button></sc-for>
+          </div>
+          <button onClick="{{ copyCode }}" style="display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 14px; border:1.5px solid var(--k-line); background:transparent; color:var(--k-ink); border-radius:8px; font:600 13px Poppins, sans-serif; cursor:pointer"><span style="font:500 18px/1 'Material Symbols Sharp'">content_copy</span>Copy</button>
+        </div>
+        <pre style="margin:0; padding:20px 24px; background:#1B1D45; color:#E8E9FF; font:400 13px/1.7 'IBM Plex Mono', monospace; white-space:pre-wrap; overflow-wrap:anywhere">{{ code }}</pre>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer style="background:#33366F; color:#FFFFFF; padding:22px 20px; text-align:center; font:600 clamp(18px,2.4cqw,28px)/1.1 Poppins, sans-serif; letter-spacing:.03em; text-transform:uppercase">Edit locally. Stay private.</footer>
+
+<div aria-live="polite" style="{{ toastWrap }}">
+  <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0"><div role="status" style="{{ t.style }}"><span style="{{ t.iconStyle }}">{{ t.icon }}</span><span>{{ t.text }}</span></div></sc-for>
+</div>
+<input ref="{{ fileRef }}" type="file" accept="image/*,.svg" onChange="{{ onPick }}" style="display:none">
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;state&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;live&quot;, &quot;empty&quot;, &quot;loading&quot;, &quot;ready&quot;, &quot;processing&quot;, &quot;success&quot;, &quot;error&quot;], &quot;default&quot;: &quot;live&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;theme&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;auto&quot;, &quot;light&quot;, &quot;dark&quot;], &quot;default&quot;: &quot;auto&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;embedded&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;boolean&quot;}}">
+const SPECS = [
+  { size: 16, file: 'favicon-16x16.png', use: 'Browser tab' },
+  { size: 32, file: 'favicon-32x32.png', use: 'Browser tab, high density' },
+  { size: 48, file: 'favicon-48x48.png', use: 'Windows, bookmarks' },
+  { size: 180, file: 'apple-touch-icon.png', use: 'iPhone and iPad home screen' },
+  { size: 192, file: 'android-chrome-192x192.png', use: 'Android home screen' },
+  { size: 512, file: 'android-chrome-512x512.png', use: 'Install prompt and splash' },
+  { size: 512, file: 'maskable-512x512.png', use: 'Android adaptive (maskable)', maskable: true }
+];
+const BGS = [['transparent', 'Transparent'], ['#FFFFFF', 'White'], ['#33366F', 'Ink Navy'], ['#FADF3C', 'Amp Yellow']];
+
+class Component extends DCLogic {
+  state = { w: 1280, dark: false, src: null, bg: '#FADF3C', customBg: '#6A3DF0', shape: 'rounded', pad: 10, name: 'My App', short: 'App', theme: '#33366F', drag: false, icons: [], codeTab: 'html', toasts: [], busy: false, err: null, zipSize: null };
+  rootRef = React.createRef(); fileRef = React.createRef();
+
+  componentDidMount() {
+    const go = () => { if (window.KonvaEngine) { clearInterval(this.boot); this.init(); } };
+    this.boot = setInterval(go, 50); go();
+  }
+  componentWillUnmount() { clearInterval(this.boot); this.ro?.disconnect(); clearTimeout(this.t); if (this.onPaste) window.removeEventListener('paste', this.onPaste); }
+  async init() {
+    this.ro = new ResizeObserver(e => this.setState({ w: e[0].contentRect.width }));
+    if (this.rootRef.current) this.ro.observe(this.rootRef.current);
+    const t = this.props.theme; let dark = false;
+    if (t === 'dark' || t === 'light') dark = t === 'dark';
+    else { try { const v = localStorage.getItem('konva-theme'); dark = v === 'dark' || (v === 'system' && matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) {} }
+    this.setState({ dark });
+    if (!this.props.embedded) { this.onPaste = e => { const f = [...(e.clipboardData?.files || [])][0]; if (f) this.load(f); }; window.addEventListener('paste', this.onPaste); }
+    this.useSample();
+  }
+  toast(tone, text) {
+    const id = Math.random();
+    this.setState(s => ({ toasts: [...s.toasts, { id, tone, text }].slice(-3) }));
+    setTimeout(() => this.setState(s => ({ toasts: s.toasts.filter(x => x.id !== id) })), 4000);
+  }
+  useSample = async () => {
+    try { await document.fonts.load('800 300px Poppins'); } catch (e) {}
+    const E = window.KonvaEngine; const c = E.canvas(512, 512); const x = c.getContext('2d');
+    const t = 44, bw = 150, bh = 108, m = 56;
+    x.fillStyle = '#33366F';
+    x.fillRect(512 - m - bw, m, bw, t); x.fillRect(512 - m - t, m, t, bh);
+    x.fillRect(m, 512 - m - t, bw, t); x.fillRect(m, 512 - m - bh, t, bh);
+    x.font = '800 360px Poppins, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillText('k', 256, 380);
+    this.setState({ src: { img: c, url: c.toDataURL('image/png'), name: 'Konva mark (sample)', w: 512, h: 512, sample: true, svg: false }, err: null }, this.regen);
+  };
+  load = file => {
+    const E = window.KonvaEngine;
+    if (!E.isImage(file) && !/svg/.test(file.type)) { this.setState({ err: 'That isn’t an image. Use SVG, PNG, JPEG or WEBP.' }); return; }
+    const url = URL.createObjectURL(file); const img = new Image();
+    img.onload = () => {
+      const svg = /svg/.test(file.type) || /\.svg$/i.test(file.name);
+      const w = img.naturalWidth || 512, h = img.naturalHeight || 512;
+      this.setState({ src: { img, url, name: file.name, w, h, svg, size: file.size }, err: null }, this.regen);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); this.setState({ err: `Couldn’t read ${file.name}. Use SVG, PNG, JPEG or WEBP.` }); };
+    img.src = url;
+  };
+  bgColor() { return this.state.bg === 'custom' ? this.state.customBg : this.state.bg; }
+  draw(spec) {
+    const E = window.KonvaEngine; const { src, shape, pad, theme } = this.state;
+    const S = spec.size; const c = E.canvas(S, S); const x = c.getContext('2d'); x.imageSmoothingQuality = 'high';
+    let bg = this.bgColor(); if (spec.maskable && bg === 'transparent') bg = theme;
+    const shp = spec.maskable ? 'square' : shape;
+    x.beginPath();
+    if (shp === 'circle') x.arc(S / 2, S / 2, S / 2, 0, Math.PI * 2);
+    else if (shp === 'rounded') { const r = S * 0.22; x.moveTo(r, 0); x.arcTo(S, 0, S, S, r); x.arcTo(S, S, 0, S, r); x.arcTo(0, S, 0, 0, r); x.arcTo(0, 0, S, 0, r); x.closePath(); }
+    else x.rect(0, 0, S, S);
+    if (bg !== 'transparent') { x.fillStyle = bg; x.fill(); }
+    x.clip();
+    const p = spec.maskable ? Math.max(pad, 20) : pad; const box = S * (1 - 2 * p / 100);
+    const k = Math.min(box / src.w, box / src.h); const w = src.w * k, h = src.h * k;
+    let source = src.img;
+    if (S <= 64 && !src.svg && Math.max(src.w, src.h) > 256) { const mid = E.canvas(src.w * 256 / Math.max(src.w, src.h), src.h * 256 / Math.max(src.w, src.h)); const mx = mid.getContext('2d'); mx.imageSmoothingQuality = 'high'; mx.drawImage(src.img, 0, 0, mid.width, mid.height); source = mid; }
+    x.drawImage(source, (S - w) / 2, (S - h) / 2, w, h);
+    return c;
+  }
+  regen = () => {
+    clearTimeout(this.t);
+    this.t = setTimeout(() => {
+      if (!this.state.src) return;
+      const icons = SPECS.map(sp => ({ ...sp, url: this.draw(sp).toDataURL('image/png') }));
+      this.setState({ icons, zipSize: null });
+    }, 80);
+  };
+  setOpt(o) { this.setState(o, this.regen); }
+  manifest() {
+    const bg = this.bgColor();
+    return JSON.stringify({
+      name: this.state.name, short_name: this.state.short,
+      icons: [
+        { src: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+        { src: '/maskable-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+      ],
+      theme_color: this.state.theme, background_color: bg === 'transparent' ? '#FFFFFF' : bg, display: 'standalone'
+    }, null, 2);
+  }
+  html() {
+    return `<link rel="icon" href="/favicon.ico" sizes="48x48">\n<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">\n<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">\n<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n<link rel="manifest" href="/site.webmanifest">\n<meta name="theme-color" content="${this.state.theme}">`;
+  }
+  exportZip = async () => {
+    const E = window.KonvaEngine; if (!this.state.src || this.state.busy) return;
+    this.setState({ busy: true });
+    try {
+      const entries = []; const icoParts = [];
+      for (const [n, sp] of SPECS.entries()) {
+        this.setState({ busyN: n }); await new Promise(r => setTimeout(r, 30));
+        const b = await E.toBlob(this.draw(sp), 'image/png'); const data = new Uint8Array(await b.arrayBuffer());
+        entries.push({ name: sp.file, data });
+        if (sp.size <= 48) icoParts.push({ size: sp.size, data });
+      }
+      entries.push({ name: 'favicon.ico', data: new Uint8Array(await E.ico(icoParts).arrayBuffer()) });
+      const enc = new TextEncoder();
+      entries.push({ name: 'site.webmanifest', data: enc.encode(this.manifest()) });
+      entries.push({ name: 'head-snippet.html', data: enc.encode(this.html() + '\n') });
+      const zip = E.zip(entries);
+      E.download(zip, 'icon-pack.zip');
+      this.setState({ busy: false, zipSize: zip.size });
+      this.toast('success', `icon-pack.zip saved · ${entries.length} files · ${E.fmt(zip.size)}`);
+    } catch (e) { this.setState({ busy: false }); this.toast('error', 'Couldn’t build the ZIP. Try a smaller logo file.'); }
+  };
+  toggleTheme = () => { const d = !this.state.dark; this.setState({ dark: d }); if (!this.props.embedded) { try { localStorage.setItem('konva-theme', d ? 'dark' : 'light'); } catch (e) {} } };
+
+  _imgs(v) {
+    const R = React.createElement, B = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', S = [{"key":"__img0","src":"srcUrl","alt":{"hole":"srcName"},"style":{"width":"100%","height":"100%","objectFit":"contain","display":"block"},"list":null},{"key":"__img1","src":"url","alt":{"hole":"alt"},"style":{"hole":"style"},"list":"icons"},{"key":"__img2","src":"url","alt":"","style":{"hole":"style"},"list":"icons"},{"key":"__img3","src":"tabIcon","alt":"","style":{"width":"16px","height":"16px"},"list":null},{"key":"__img4","src":"tabIcon","alt":"","style":{"width":"16px","height":"16px"},"list":null},{"key":"__img5","src":"homeIcon","alt":"","style":{"width":"60px","height":"60px","borderRadius":"14px"},"list":null}];
+    const mk = (sp, o) => !o[sp.src] || o[sp.src] === B ? null : R('img', { src: o[sp.src], alt: typeof sp.alt === 'string' ? sp.alt : (o[sp.alt.hole] || ''), style: sp.style.hole ? o[sp.style.hole] : sp.style });
+    for (const sp of S) {
+      if (!sp.list) v[sp.key] = mk(sp, v);
+      else if (Array.isArray(v[sp.list])) v[sp.list] = v[sp.list].map(it => (it && typeof it === 'object' ? { ...it, [sp.key]: mk(sp, it) } : it));
+    }
+    return v;
+  }
+  renderVals() { return this._imgs(this._rv()); }
+  _rv() {
+    const st = this.state, p = this.props, E = window.KonvaEngine;
+    const dark = st.dark;
+    const darkVars = dark ? {
+      '--k-top': '#262960', '--k-topink': '#FFFFFF', '--k-mark': '#FADF3C', '--k-stage': '#1B1D45', '--k-dot': 'rgba(255,255,255,.07)', '--k-surface': '#262960', '--k-surface2': '#1F2254',
+      '--k-ink': '#FFFFFF', '--k-ink2': '#C9CBF0', '--k-line': 'rgba(255,255,255,.18)', '--k-shadow': '#0E0F2B', '--k-btn': '#FADF3C', '--k-btnink': '#33366F', '--k-btnoff': '#FFFFFF',
+      '--k-h1': 'rgba(250,223,60,.42)', '--k-h2': 'rgba(250,223,60,.2)', '--k-h3': 'rgba(250,223,60,.08)', '--k-ok-bg': 'rgba(46,158,91,.22)', '--k-ok': '#86E3AC',
+      '--k-violet': '#B39DFF', '--k-vio-bg': 'rgba(106,61,240,.32)', '--k-vio-ink': '#DCD0FF', '--k-warn-bg': 'rgba(217,164,0,.2)', '--k-warn': '#FFD98A'
+    } : {};
+    const seg = on => ({ minHeight: 40, padding: '0 12px', borderRadius: 8, cursor: 'pointer', font: '600 13px/1 Poppins, sans-serif', border: on ? '1.5px solid #6A3DF0' : '1.5px solid var(--k-line)', background: on ? '#6A3DF0' : 'transparent', color: on ? '#FFFFFF' : 'var(--k-ink)' });
+    const chip = tone => ({ display: 'inline-flex', alignItems: 'center', gap: 6, borderRadius: 999, padding: '6px 11px', font: '500 12px/1 Poppins, sans-serif', whiteSpace: 'nowrap', ...(tone === 'vio' ? { background: 'var(--k-vio-bg)', color: 'var(--k-vio-ink)', border: '1.5px solid var(--k-violet)' } : tone === 'ok' ? { background: 'var(--k-ok-bg)', color: 'var(--k-ok)', border: '1.5px solid #2E9E5B' } : { background: 'var(--k-surface2)', color: 'var(--k-ink)', border: '1.5px solid var(--k-line)' }) });
+    const forced = st.forced ?? p.state ?? 'live';
+    const noSrcState = forced === 'empty' || forced === 'loading';
+    const src = noSrcState ? null : st.src;
+    const busyOn = forced === 'processing' || st.busy;
+    const busyN = forced === 'processing' ? 4 : (st.busyN || 0);
+    const savedOn = forced === 'success' || (!st.busy && st.zipSize);
+    const errMsg = forced === 'error' ? 'Couldn’t read logo.tiff. Use SVG, PNG, JPEG or WEBP.' : st.err;
+    const checker = 'repeating-conic-gradient(#E9E5D2 0% 25%, #FFFFFF 0% 50%) 0 0/16px 16px';
+    const bgNow = this.bgColor();
+    const halo = st.drag ? '0 0 0 5px #FFFFFF, 0 0 3px 26px var(--k-h1), 0 0 4px 50px var(--k-h2), 0 0 10px 76px var(--k-h3)' : '0 0 0 5px #FFFFFF, 0 0 3px 18px var(--k-h1), 0 0 4px 34px var(--k-h2), 0 0 8px 52px var(--k-h3)';
+    const sh = st.shape === 'circle' ? '50%' : st.shape === 'rounded' ? '22%' : '6px';
+    const toneCol = { success: '#2E9E5B', error: '#D13030', info: '#6A3DF0' };
+    const icons = (src ? st.icons : SPECS).map(i => {
+      const disp = i.size <= 64 ? i.size : 88;
+      const ph = d => ({ display: 'block', width: disp, height: disp, borderRadius: sh, background: d ? 'rgba(255,255,255,.12)' : '#F1EEE0', animation: forced === 'loading' ? 'k-shimmer 1.2s linear infinite' : 'none' });
+      return { use: i.use, file: i.file, px: `${i.size}×${i.size}`, url: src ? i.url : null, noUrl: !src, ph: ph(false), phDark: ph(true), alt: `${i.file} preview`, style: { width: disp, height: disp, display: 'block' } };
+    });
+    const wideNav = st.w >= 900;
+    return {
+      rootRef: this.rootRef, fileRef: this.fileRef,
+      wideBar: st.w >= 1200 && !p.embedded, forced, onForce: e => this.setState({ forced: e.target.value }),
+      showEmpty: forced === 'empty' || (!src && forced !== 'loading'), isLoading: forced === 'loading',
+      isBusy: !!busyOn, busyText: `Drawing ${SPECS[Math.min(busyN, SPECS.length - 1)].file}`, busyPct: `${Math.round((busyN + 1) / (SPECS.length + 1) * 100)}%`,
+      busyBar: { width: `${Math.round((busyN + 1) / (SPECS.length + 1) * 100)}%`, height: '100%', background: '#6A3DF0', borderRadius: 999, transition: 'width .2s' },
+      isSaved: !!savedOn && !busyOn, savedText: `icon-pack.zip saved to Downloads · 10 files · ${st.zipSize && E ? E.fmt(st.zipSize) : '38.4 KB'}`,
+      shellStyle: { ...darkVars, position: 'relative', minHeight: p.embedded ? 'auto' : '100vh', backgroundColor: 'var(--k-stage)', backgroundImage: 'radial-gradient(var(--k-dot) 1.2px, transparent 1.6px)', backgroundSize: '22px 22px', color: 'var(--k-ink)' },
+      wideNav, narrowNav: !wideNav,
+      themeIcon: dark ? 'light_mode' : 'dark_mode', themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode', toggleTheme: this.toggleTheme,
+      onDragOver: e => { e.preventDefault(); if (!st.drag) this.setState({ drag: true }); },
+      onDragLeave: e => { if (!e.currentTarget.contains(e.relatedTarget)) this.setState({ drag: false }); },
+      onDrop: e => { e.preventDefault(); this.setState({ drag: false }); const f = e.dataTransfer?.files?.[0]; if (f) this.load(f); },
+      stickerStyle: { position: 'relative', width: 'min(200px, 60vw)', aspectRatio: '1 / 1', borderRadius: sh, overflow: 'hidden', background: bgNow === 'transparent' ? checker : bgNow, padding: `${st.pad * 0.8}%`, boxShadow: halo, transition: 'box-shadow .18s, border-radius .15s', animation: st.drag ? 'k-pulse .7s ease-out infinite' : 'none' },
+      hasSrc: !!src, srcUrl: src ? src.url : '', srcName: src ? src.name : 'No logo yet',
+      srcMeta: src ? `${src.svg ? 'SVG · vector' : `${src.w}×${src.h}`}${src.size ? ' · ' + E.fmt(src.size) : ''}` : 'drop an SVG or PNG',
+      warn: src && !src.svg && Math.min(src.w, src.h) < 512 ? `Your logo is ${Math.min(src.w, src.h)} px across. The 512 px icons will look soft; an SVG or a 512 px PNG works best.` : (src && src.w !== src.h && !src.svg ? 'Your logo isn’t square, so it’s centred with space on two sides.' : null),
+      err: errMsg,
+      openPicker: () => this.fileRef.current?.click(), onPick: e => { const f = e.target.files[0]; if (f) this.load(f); e.target.value = ''; },
+      showSampleBtn: !!(src && !src.sample), useSample: this.useSample,
+      bgList: BGS.map(([v, label]) => ({ label, pressed: st.bg === v, onClick: () => this.setOpt({ bg: v }),
+        style: { width: 40, height: 40, borderRadius: 8, cursor: 'pointer', border: 0, background: v === 'transparent' ? checker : v, boxShadow: st.bg === v ? '0 0 0 2px var(--k-surface), 0 0 0 5px #6A3DF0' : '0 0 0 1.5px var(--k-line)' } })),
+      customBg: st.customBg, onCustomBg: e => this.setOpt({ bg: 'custom', customBg: e.target.value.toUpperCase() }),
+      shapeSeg: [['square', 'Square'], ['rounded', 'Rounded'], ['circle', 'Circle']].map(([v, label]) => ({ label, pressed: st.shape === v, style: seg(st.shape === v), onClick: () => this.setOpt({ shape: v }) })),
+      pad: st.pad, padLabel: `${st.pad}%`, onPad: e => this.setOpt({ pad: +e.target.value }),
+      appName: st.name, shortName: st.short,
+      onName: e => this.setState({ name: e.target.value }), onShort: e => this.setState({ short: e.target.value }),
+      themeColor: st.theme, onThemeColor: e => this.setOpt({ theme: e.target.value.toUpperCase() }),
+      icons, tabIcon: (src && (st.icons[1] || {}).url) || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', homeIcon: (src && (st.icons[3] || {}).url) || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+      chips: [
+        { label: 'files', value: '10', icon: 'inventory_2', style: chip() },
+        { label: 'ICO sizes', value: '16 · 32 · 48', icon: 'grid_view', style: chip() },
+        { label: 'zip', value: st.zipSize ? E.fmt(st.zipSize) : 'on export', icon: 'folder_zip', style: chip(st.zipSize ? 'ok' : undefined) },
+        { label: 'bg', value: bgNow === 'transparent' ? 'none' : bgNow, icon: 'format_color_fill', style: chip('vio') }
+      ],
+      noSrc: !src || st.busy,
+      zipLabel: st.busy ? 'Zipping…' : 'Download icon pack (.zip)',
+      zipStyle: { display: 'inline-flex', alignItems: 'center', gap: 10, height: 52, padding: '0 22px', border: 0, background: 'var(--k-btn)', color: 'var(--k-btnink)', font: '800 15px/1 Poppins, sans-serif', letterSpacing: '.02em', textTransform: 'uppercase', boxShadow: !src || st.busy ? 'none' : '6px 6px 0 var(--k-btnoff)', opacity: !src || st.busy ? 0.4 : 1, cursor: !src || st.busy ? 'not-allowed' : 'pointer' },
+      exportZip: this.exportZip,
+      codeSeg: [['html', 'HTML head'], ['manifest', 'site.webmanifest']].map(([v, label]) => ({ label, pressed: st.codeTab === v, style: { ...seg(st.codeTab === v), minHeight: 36, borderRadius: 999 }, onClick: () => this.setState({ codeTab: v }) })),
+      code: st.codeTab === 'html' ? this.html() : this.manifest(),
+      copyCode: async () => { try { await navigator.clipboard.writeText(st.codeTab === 'html' ? this.html() : this.manifest()); this.toast('success', 'Copied to the clipboard.'); } catch (e) { this.toast('error', 'Clipboard blocked. Select the code and copy it.'); } },
+      toastWrap: { position: p.embedded ? 'absolute' : 'fixed', left: '50%', bottom: 24, transform: 'translateX(-50%)', zIndex: 30, display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', pointerEvents: 'none', width: 'calc(100% - 32px)' },
+      toasts: st.toasts.map(t => ({ text: t.text, icon: t.tone === 'success' ? 'check_circle' : t.tone === 'error' ? 'error' : 'info', iconStyle: { font: "500 22px/1 'Material Symbols Sharp'", color: toneCol[t.tone] }, style: { display: 'flex', alignItems: 'center', gap: 10, background: 'var(--k-surface)', color: 'var(--k-ink)', border: `2px solid ${toneCol[t.tone]}`, borderRadius: 10, boxShadow: `4px 4px 0 ${toneCol[t.tone]}`, padding: '12px 16px', font: '500 14px/1.4 Poppins, sans-serif', maxWidth: 460, animation: 'k-up .18s ease-out both' } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

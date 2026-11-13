@@ -1,0 +1,106 @@
+/* Konva "Amplified" tokens. Import once in main.jsx, before components.css.
+   Theme: <html data-theme="light|dark">. "system" is resolved in src/lib/theme.js
+   with matchMedia('(prefers-color-scheme: dark)') and written to data-theme. */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0&display=block');
+
+:root {
+  /* Brand (fixed in both themes) */
+  --amp-yellow: #FADF3C;
+  --ink-navy: #33366F;
+  --ink-deep: #1F2150;
+  --night: #1B1D45;
+  --night-2: #262960;
+  --night-3: #1F2254;
+  --shadow-night: #0E0F2B;
+  --violet: #6A3DF0;
+  --link: #3D63C9;
+  --ok: #2E9E5B;
+  --danger: #D13030;
+  --warn: #D9A400;
+
+  /* Type */
+  --font-sans: Poppins, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-icon: 'Material Symbols Sharp';
+  --fs-display: clamp(34px, 5.2vw, 84px);
+  --fs-h1: clamp(30px, 4vw, 56px);
+  --fs-h2: 22px;
+  --fs-body: 16px;
+  --fs-small: 13px;
+  --fs-mono: 12px;
+
+  /* Shape and space */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 72px;
+  --hit: 44px;
+  --stroke: 2px;
+
+  /* Motion */
+  --ease-settle: cubic-bezier(.2, .9, .3, 1.2);
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --dur-press: 80ms;
+  --dur-ui: 180ms;
+}
+
+/* Light (default) */
+:root, [data-theme="light"] {
+  --top: var(--amp-yellow);
+  --top-ink: var(--ink-navy);
+  --mark: var(--ink-navy);
+  --hero: var(--amp-yellow);
+  --hero-ink: var(--ink-navy);
+  --paper: #FFFFFF;
+  --stage: #FFF7C9;
+  --dot: rgba(51, 54, 111, .13);
+  --surface: #FFFFFF;
+  --surface-2: #FFF7C9;
+  --ink: var(--ink-navy);
+  --ink-2: #585C94;
+  --line: rgba(51, 54, 111, .2);
+  --shadow: var(--ink-navy);
+  --btn: var(--ink-navy);
+  --btn-ink: var(--amp-yellow);
+  --btn-offset: var(--amp-yellow);
+  --halo-1: #FDEE8A;
+  --halo-2: rgba(250, 223, 60, .3);
+  --halo-3: rgba(250, 223, 60, .12);
+  --ok-bg: #E3F3E9; --ok-ink: #1D6E3E;
+  --vio: var(--violet); --vio-bg: #EEE8FE; --vio-ink: #4B22C9;
+  --warn-bg: #FFF1D6; --warn-ink: #7A4B00;
+  --bad-bg: #FBE6E6; --bad-ink: #A32222;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --top: var(--night-2);
+  --top-ink: #FFFFFF;
+  --mark: var(--amp-yellow);
+  --hero: var(--night);
+  --hero-ink: #FFFFFF;
+  --paper: var(--amp-yellow);
+  --stage: var(--night);
+  --dot: rgba(255, 255, 255, .07);
+  --surface: var(--night-2);
+  --surface-2: var(--night-3);
+  --ink: #FFFFFF;
+  --ink-2: #C9CBF0;
+  --line: rgba(255, 255, 255, .18);
+  --shadow: var(--shadow-night);
+  --btn: var(--amp-yellow);
+  --btn-ink: var(--ink-navy);
+  --btn-offset: #FFFFFF;
+  --halo-1: rgba(250, 223, 60, .42);
+  --halo-2: rgba(250, 223, 60, .2);
+  --halo-3: rgba(250, 223, 60, .08);
+  --ok-bg: rgba(46, 158, 91, .22); --ok-ink: #86E3AC;
+  --vio: #B39DFF; --vio-bg: rgba(106, 61, 240, .32); --vio-ink: #DCD0FF;
+  --warn-bg: rgba(217, 164, 0, .2); --warn-ink: #FFD98A;
+  --bad-bg: rgba(209, 48, 48, .2); --bad-ink: #FF9A9A;
+  color-scheme: dark;
+}

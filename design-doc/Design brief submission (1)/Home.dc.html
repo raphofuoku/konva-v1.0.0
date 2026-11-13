@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0&amp;display=block">
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#FADF3C}
+a{color:#3D63C9}
+a:hover{color:#6A3DF0}
+*{box-sizing:border-box}
+:focus-visible{outline:3px solid #6A3DF0;outline-offset:3px}
+@keyframes k-lift{from{transform:translate(10px,10px);box-shadow:0 0 0 transparent}}
+@keyframes k-settle{from{transform:rotate(0deg) translateY(10px);opacity:0}}
+@keyframes k-pulse{0%{transform:scale(1)}40%{transform:scale(1.025)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+[style*="overflow-x:auto"]::-webkit-scrollbar,[style*="overflow-x: auto"]::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="--k-hero:#FADF3C; --k-heroink:#33366F; --k-page:#FFF7C9; --k-surface:#FFFFFF; --k-ink:#33366F; --k-ink2:#4E5189; --k-line:rgba(51,54,111,.18); --k-shadow:#33366F; --k-paper:#FFFFFF; --k-block:#33366F; --k-h1:#FDEE8A; --k-h2:#FFF7C9; --k-h3:rgba(255,247,201,.55); --k-chip:#FFFFFF; --k-link:#3D63C9; --k-violet:#6A3DF0; --k-white:#FFFFFF; --k-offset2:#FADF3C; --k-ok-bg:#E3F3E9; --k-ok:#1D6E3E; --k-mark:#33366F; container-type:inline-size; width:100%">
+<div style="{{ themeVars }}">
+<div style="background:var(--k-page); color:var(--k-ink); font:400 16px/1.6 Poppins, sans-serif; min-height:100vh">
+
+<a href="#k-main" style="position:absolute; left:12px; top:-60px; z-index:60; background:#33366F; color:#FADF3C; font:700 14px/1 Poppins, sans-serif; padding:12px 16px; text-decoration:none; box-shadow:4px 4px 0 #FADF3C" style-focus="top:12px">Skip to content</a>
+<header style="background:var(--k-hero); color:var(--k-heroink); display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px clamp(20px,4cqw,56px)">
+  <a href="Home.dc.html" aria-label="Konva home" style="position:relative; display:inline-flex; padding:6px 13px 10px; color:var(--k-heroink); text-decoration:none"><span style="position:absolute; right:0; top:0; width:18px; height:12px; border-top:4px solid var(--k-mark); border-right:4px solid var(--k-mark)"></span><span style="position:absolute; left:0; bottom:0; width:18px; height:12px; border-bottom:4px solid var(--k-mark); border-left:4px solid var(--k-mark)"></span><span style="font:800 28px/1 Poppins, sans-serif; letter-spacing:-0.03em">konva</span></a>
+  <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex; gap:28px; align-items:center; font:600 15px/1 Poppins, sans-serif">
+      <a href="Studio.dc.html" style="color:var(--k-heroink); text-decoration:none">Studio</a>
+      <a href="#tools" style="color:var(--k-heroink); text-decoration:none">Tools</a>
+      <a href="#how" style="color:var(--k-heroink); text-decoration:none">How it works</a>
+      <a href="Settings.dc.html" style="color:var(--k-heroink); text-decoration:none">Privacy</a>
+    </nav>
+  </sc-if>
+  <div style="display:flex; gap:12px; align-items:center">
+    <button onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" style="width:44px; height:44px; display:grid; place-items:center; border:2px solid var(--k-heroink); background:transparent; color:var(--k-heroink); border-radius:999px; cursor:pointer"><span style="font:400 22px/1 'Material Symbols Sharp'">{{ themeIcon }}</span></button>
+    <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}">
+      <a href="Studio.dc.html" style="display:inline-flex; align-items:center; height:44px; padding:0 22px; border-radius:999px; background:linear-gradient(180deg,#FDE65A 0%,#EFC41C 100%); border:2px solid #33366F; color:#33366F; font:600 14px/1 Poppins, sans-serif; letter-spacing:.04em; text-transform:uppercase; text-decoration:none; transition:transform .12s, filter .12s" style-hover="transform:translateY(-1px); filter:brightness(1.05)">Start editing</a>
+    </sc-if>
+    <sc-if value="{{ mobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="width:44px; height:44px; display:grid; place-items:center; border:0; background:#33366F; color:#FADF3C; cursor:pointer"><span style="font:400 24px/1 'Material Symbols Sharp'">{{ menuIcon }}</span></button>
+    </sc-if>
+  </div>
+</header>
+<div id="k-main" tabindex="-1"></div>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <nav style="background:var(--k-hero); display:flex; flex-direction:column; gap:4px; padding:0 20px 20px; font:600 18px/1 Poppins, sans-serif">
+    <a href="Studio.dc.html" style="color:var(--k-heroink); text-decoration:none; padding:14px 0; border-bottom:2px solid var(--k-heroink)">Studio</a>
+    <a href="#tools" onClick="{{ toggleMenu }}" style="color:var(--k-heroink); text-decoration:none; padding:14px 0; border-bottom:2px solid var(--k-heroink)">Tools</a>
+    <a href="#how" onClick="{{ toggleMenu }}" style="color:var(--k-heroink); text-decoration:none; padding:14px 0; border-bottom:2px solid var(--k-heroink)">How it works</a>
+    <a href="#privacy" onClick="{{ toggleMenu }}" style="color:var(--k-heroink); text-decoration:none; padding:14px 0">Privacy</a>
+  </nav>
+</sc-if>
+
+<sc-if value="{{ heroPoster }}" hint-placeholder-val="{{ true }}">
+<section aria-label="Intro" style="background:var(--k-hero); color:var(--k-heroink); padding:clamp(24px,5cqw,64px) clamp(20px,4cqw,56px) clamp(64px,8cqw,112px); overflow:hidden">
+  <div style="display:flex; flex-wrap:wrap; gap:clamp(40px,6cqw,88px); align-items:center; max-width:1320px; margin:0 auto">
+    <div style="flex:1 1 520px; min-width:0; display:flex; flex-direction:column; gap:32px">
+      <h1 style="margin:0; display:flex; flex-direction:column; align-items:flex-start; gap:clamp(18px,2.2cqw,30px)">
+        <span style="background:var(--k-block); color:#FADF3C; font:800 clamp(42px,7.4cqw,108px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .26em .14em; box-shadow:clamp(6px,.7cqw,10px) clamp(6px,.7cqw,10px) 0 var(--k-paper); animation:k-lift .45s cubic-bezier(.2,.8,.2,1) both">Your images.</span>
+        <span style="margin-left:clamp(28px,8cqw,128px); background:var(--k-block); color:#FADF3C; font:800 clamp(42px,7.4cqw,108px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .26em .14em; box-shadow:clamp(6px,.7cqw,10px) clamp(6px,.7cqw,10px) 0 var(--k-paper); animation:k-lift .45s .08s cubic-bezier(.2,.8,.2,1) both">Amplified.</span>
+      </h1>
+      <div style="display:flex; flex-direction:column; align-items:flex-start">
+        <p style="margin:0; background:#FFFFFF; color:#1F2150; font:600 clamp(18px,2cqw,28px)/1.25 Poppins, sans-serif; padding:.45em .8em; width:max-content; max-width:100%; transform:rotate(-1.5deg); animation:k-settle .4s .25s cubic-bezier(.2,.9,.3,1.2) both">Convert your <span style="color:#3D63C9">images</span></p>
+        <p style="margin:-4px 0 0 clamp(16px,3cqw,48px); background:#FFFFFF; color:#1F2150; font:600 clamp(18px,2cqw,28px)/1.25 Poppins, sans-serif; padding:.45em .8em; width:max-content; max-width:100%; transform:rotate(1deg); animation:k-settle .4s .33s cubic-bezier(.2,.9,.3,1.2) both">without <span style="color:#3D63C9">uploading</span> a thing.</p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px 20px; margin-top:8px">
+        <a href="Studio.dc.html" style="display:inline-flex; align-items:center; gap:10px; height:60px; padding:0 34px; border-radius:999px; background:linear-gradient(180deg,#FDE65A 0%,#EFC41C 100%); border:2px solid #33366F; color:#33366F; font:600 18px/1 Poppins, sans-serif; letter-spacing:.04em; text-transform:uppercase; text-decoration:none; transition:transform .12s, filter .12s" style-hover="transform:translateY(-1px); filter:brightness(1.05)">Start editing <span style="font:500 22px/1 'Material Symbols Sharp'">arrow_forward</span></a>
+        <span style="font:500 14px/1.4 Poppins, sans-serif; color:var(--k-heroink)">or paste an image anywhere on this page</span>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px">
+        <span style="display:inline-flex; align-items:center; gap:8px; background:var(--k-chip); color:var(--k-ink); border:1.5px solid var(--k-line); border-radius:999px; padding:7px 14px; font:500 13px/1 Poppins, sans-serif">server uploads <b style="font:600 13px/1 'IBM Plex Mono', monospace">0</b></span>
+        <span style="display:inline-flex; align-items:center; gap:8px; background:var(--k-chip); color:var(--k-ink); border:1.5px solid var(--k-line); border-radius:999px; padding:7px 14px; font:500 13px/1 Poppins, sans-serif">accounts <b style="font:600 13px/1 'IBM Plex Mono', monospace">0</b></span>
+        <span style="display:inline-flex; align-items:center; gap:8px; background:var(--k-chip); color:var(--k-ink); border:1.5px solid var(--k-line); border-radius:999px; padding:7px 14px; font:500 13px/1 Poppins, sans-serif">output formats <b style="font:600 13px/1 'IBM Plex Mono', monospace">4</b></span>
+      </div>
+    </div>
+    <div style="flex:1 1 340px; display:flex; justify-content:center; padding:clamp(48px,5cqw,72px) clamp(40px,4cqw,64px)">
+      <div style="position:relative; width:min(100%,420px); aspect-ratio:4/5; border-radius:14px; box-shadow:0 0 0 6px #FFFFFF, 0 0 3px 24px var(--k-h1), 0 0 4px 46px var(--k-h2), 0 0 10px 68px var(--k-h3); animation:k-pulse .6s .5s ease-out both">
+        <image-slot id="home-hero-sample" shape="rounded" radius="10" placeholder="Sample image: cut-out portrait or product shot" style="width:100%; height:100%"></image-slot>
+        <div style="position:absolute; left:-28px; bottom:32px; display:flex; flex-direction:column; align-items:flex-start; pointer-events:none">
+          <span style="display:inline-flex; align-items:center; gap:10px; background:#FFFFFF; color:#1F2150; padding:10px 16px; font:500 15px/1 'IBM Plex Mono', monospace; transform:rotate(-2deg); box-shadow:5px 5px 0 #33366F">4.1 MB <span style="font:500 18px/1 'Material Symbols Sharp'">arrow_forward</span> 612 KB</span>
+          <span style="margin:-2px 0 0 36px; display:inline-flex; align-items:center; gap:6px; background:#E3F3E9; color:#1D6E3E; border:1.5px solid #2E9E5B; border-radius:999px; padding:6px 12px; font:600 13px/1 'IBM Plex Mono', monospace; transform:rotate(1deg)"><span style="font:500 16px/1 'Material Symbols Sharp'">south</span>85% smaller</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ heroDrop }}" hint-placeholder-val="{{ false }}">
+<section aria-label="Intro" style="background:var(--k-hero); color:var(--k-heroink); padding:clamp(32px,5cqw,72px) clamp(20px,4cqw,56px) clamp(80px,9cqw,128px); overflow:hidden">
+  <div style="max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center">
+    <h1 style="margin:0; display:flex; flex-direction:column; align-items:center; gap:clamp(18px,2.2cqw,30px)">
+      <span style="transform:translateX(calc(-1 * clamp(16px,5cqw,90px))); background:var(--k-block); color:#FADF3C; font:800 clamp(42px,8cqw,116px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .26em .14em; box-shadow:clamp(6px,.7cqw,10px) clamp(6px,.7cqw,10px) 0 var(--k-paper)">Your images.</span>
+      <span style="transform:translateX(clamp(16px,5cqw,90px)); background:var(--k-block); color:#FADF3C; font:800 clamp(42px,8cqw,116px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .26em .14em; box-shadow:clamp(6px,.7cqw,10px) clamp(6px,.7cqw,10px) 0 var(--k-paper)">Amplified.</span>
+    </h1>
+    <div style="display:flex; flex-direction:column; align-items:center; margin-top:40px">
+      <p style="margin:0; background:#FFFFFF; color:#1F2150; font:600 clamp(18px,2cqw,26px)/1.25 Poppins, sans-serif; padding:.45em .8em; width:max-content; max-width:100%; transform:rotate(-1.5deg) translateX(-20px); animation:k-settle .4s .2s cubic-bezier(.2,.9,.3,1.2) both">Drop an <span style="color:#3D63C9">image</span> below.</p>
+      <p style="margin:-4px 0 0; background:#FFFFFF; color:#1F2150; font:600 clamp(18px,2cqw,26px)/1.25 Poppins, sans-serif; padding:.45em .8em; width:max-content; max-width:100%; transform:rotate(1deg) translateX(24px); animation:k-settle .4s .28s cubic-bezier(.2,.9,.3,1.2) both">It <span style="color:#3D63C9">never</span> leaves this tab.</p>
+    </div>
+    <div style="width:100%; padding:clamp(56px,6cqw,80px) clamp(8px,5cqw,72px) 0">
+      <div onDragOver="{{ onDragOver }}" onDragLeave="{{ onDragLeave }}" onDrop="{{ onDrop }}" style="{{ dropStyle }}">
+        <div style="width:72px; height:72px; display:grid; place-items:center; background:#33366F; color:#FADF3C; box-shadow:5px 5px 0 #FADF3C"><span style="font:400 36px/1 'Material Symbols Sharp'">{{ dropIcon }}</span></div>
+        <div style="font:600 clamp(20px,2.2cqw,28px)/1.2 Poppins, sans-serif; color:#1F2150">{{ dropTitle }}</div>
+        <div style="font:400 15px/1.5 Poppins, sans-serif; color:#4E5189">JPEG, PNG, WEBP, AVIF and HEIC · several files at once · opens in Studio</div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:16px 20px; margin-top:8px">
+          <label style="display:inline-flex; align-items:center; gap:10px; height:52px; padding:0 24px; background:#33366F; color:#FADF3C; font:800 16px/1 Poppins, sans-serif; letter-spacing:.02em; text-transform:uppercase; box-shadow:6px 6px 0 #FADF3C; cursor:pointer; transition:transform .08s, box-shadow .08s" style-hover="transform:translate(3px,3px); box-shadow:3px 3px 0 #FADF3C" style-active="transform:translate(6px,6px); box-shadow:0 0 0 #FADF3C"><span style="font:500 22px/1 'Material Symbols Sharp'">folder_open</span>Browse files<input type="file" accept="image/*,.heic,.heif,.avif" multiple="" onChange="{{ onPick }}" style="position:absolute; width:1px; height:1px; opacity:0"></label>
+          <form onSubmit="{{ onUrl }}" style="display:flex; align-items:stretch; height:52px; border:2px solid #33366F; border-radius:999px; overflow:hidden; background:#FFFFFF">
+            <input type="url" value="{{ url }}" onChange="{{ setUrl }}" placeholder="or paste an image URL" aria-label="Image URL" style="border:0; outline:0; padding:0 18px; font:400 15px Poppins, sans-serif; color:#1F2150; width:220px; background:transparent">
+            <button type="submit" style="border:0; background:#FADF3C; color:#33366F; font:600 14px/1 Poppins, sans-serif; text-transform:uppercase; letter-spacing:.04em; padding:0 18px; cursor:pointer">Fetch</button>
+          </form>
+        </div>
+        <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="display:flex; gap:8px; align-items:flex-start; text-align:left; max-width:520px; color:#A32222; font:500 14px/1.5 Poppins, sans-serif"><span style="font:500 20px/1 'Material Symbols Sharp'">error</span>{{ err }}</div>
+        </sc-if>
+      </div>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:clamp(56px,6cqw,80px)">
+      <span style="display:inline-flex; align-items:center; gap:8px; background:var(--k-chip); color:var(--k-ink); border:1.5px solid var(--k-line); border-radius:999px; padding:7px 14px; font:500 13px/1 Poppins, sans-serif">server uploads <b style="font:600 13px/1 'IBM Plex Mono', monospace">0</b></span>
+      <span style="display:inline-flex; align-items:center; gap:8px; background:var(--k-chip); color:var(--k-ink); border:1.5px solid var(--k-line); border-radius:999px; padding:7px 14px; font:500 13px/1 Poppins, sans-serif">accounts <b style="font:600 13px/1 'IBM Plex Mono', monospace">0</b></span>
+      <span style="display:inline-flex; align-items:center; gap:8px; background:var(--k-chip); color:var(--k-ink); border:1.5px solid var(--k-line); border-radius:999px; padding:7px 14px; font:500 13px/1 Poppins, sans-serif">output formats <b style="font:600 13px/1 'IBM Plex Mono', monospace">4</b></span>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<section id="tools" style="padding:clamp(64px,8cqw,120px) clamp(20px,4cqw,56px); scroll-margin-top:16px">
+  <div style="max-width:1320px; margin:0 auto">
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:24px 48px; margin-bottom:56px">
+      <h2 style="margin:0; display:flex; flex-direction:column; align-items:flex-start; gap:16px">
+        <span style="background:var(--k-block); color:#FADF3C; font:800 clamp(32px,4.4cqw,64px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 var(--k-offset2)">Every tool.</span>
+        <span style="margin-left:clamp(24px,5cqw,80px); background:var(--k-block); color:#FADF3C; font:800 clamp(32px,4.4cqw,64px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 var(--k-offset2)">One tab.</span>
+      </h2>
+      <p style="margin:0; max-width:420px; font:400 18px/1.6 Poppins, sans-serif; color:var(--k-ink2); text-wrap:pretty">The image jobs you usually spread across five websites, in one editor. Each one runs on your device.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%,290px), 1fr)); gap:28px">
+      <sc-for list="{{ tools }}" as="t" hint-placeholder-count="9">
+        <a href="{{ t.href }}" style="display:flex; flex-direction:column; gap:14px; padding:24px; background:var(--k-surface); color:var(--k-ink); border:2px solid var(--k-shadow); border-radius:12px; box-shadow:6px 6px 0 var(--k-shadow); text-decoration:none; transition:transform .1s, box-shadow .1s" style-hover="transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--k-shadow); color:var(--k-ink)" style-active="transform:translate(4px,4px); box-shadow:2px 2px 0 var(--k-shadow)">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start">
+            <span style="width:48px; height:48px; display:grid; place-items:center; background:#FADF3C; color:#33366F"><span style="font:500 26px/1 'Material Symbols Sharp'">{{ t.icon }}</span></span>
+            <span style="font:500 12px/1 'IBM Plex Mono', monospace; color:var(--k-ink2); padding-top:4px">{{ t.where }}</span>
+          </div>
+          <div style="font:600 20px/1.25 Poppins, sans-serif">{{ t.name }}</div>
+          <div style="font:400 15px/1.55 Poppins, sans-serif; color:var(--k-ink2); text-wrap:pretty">{{ t.desc }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="how" style="background:var(--k-hero); color:var(--k-heroink); padding:clamp(64px,8cqw,120px) clamp(20px,4cqw,56px); overflow:hidden; scroll-margin-top:16px">
+  <div style="max-width:1320px; margin:0 auto; display:flex; flex-wrap:wrap; gap:56px clamp(40px,6cqw,96px); align-items:flex-start">
+    <h2 style="margin:0; flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-start; gap:16px">
+      <span style="background:var(--k-block); color:#FADF3C; font:800 clamp(32px,4.4cqw,64px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 var(--k-paper)">How it</span>
+      <span style="margin-left:clamp(24px,4cqw,64px); background:var(--k-block); color:#FADF3C; font:800 clamp(32px,4.4cqw,64px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 var(--k-paper)">works.</span>
+    </h2>
+    <ol style="list-style:none; margin:0; padding:8px 0 0; flex:1 1 480px; min-width:0; display:flex; flex-direction:column; align-items:flex-start">
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+        <li style="{{ s.style }}">
+          <span style="font:600 clamp(22px,2.4cqw,32px)/1 'IBM Plex Mono', monospace; color:#33366F">{{ s.n }}</span>
+          <span style="font:600 clamp(17px,1.9cqw,24px)/1.3 Poppins, sans-serif; color:#1F2150">{{ s.a }}<span style="color:#3D63C9">{{ s.k }}</span>{{ s.b }}</span>
+        </li>
+      </sc-for>
+    </ol>
+  </div>
+</section>
+
+<section id="privacy" style="background:var(--k-white); color:var(--k-ink); padding:clamp(64px,8cqw,120px) clamp(20px,4cqw,56px); scroll-margin-top:16px">
+  <div style="max-width:1320px; margin:0 auto">
+    <h2 style="margin:0 0 56px; display:flex; flex-direction:column; align-items:flex-start; gap:16px">
+      <span style="background:#33366F; color:#FADF3C; font:800 clamp(32px,4.4cqw,64px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 #FADF3C">Nothing leaves</span>
+      <span style="margin-left:clamp(24px,6cqw,96px); background:#33366F; color:#FADF3C; font:800 clamp(32px,4.4cqw,64px)/1 Poppins, sans-serif; letter-spacing:-0.01em; text-transform:uppercase; padding:.16em .28em .14em; box-shadow:8px 8px 0 #FADF3C">your device.</span>
+    </h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,280px), 1fr)); gap:40px">
+      <div style="display:flex; flex-direction:column; gap:12px; border-top:3px solid var(--k-ink); padding-top:24px">
+        <span style="font:500 32px/1 'Material Symbols Sharp'; color:var(--k-ink)">memory</span>
+        <h3 style="margin:0; font:600 20px/1.3 Poppins, sans-serif">Processed in this tab</h3>
+        <p style="margin:0; color:var(--k-ink2); text-wrap:pretty">Your browser does the decoding, editing and encoding. Konva has no upload endpoint, so there is nowhere for a file to go.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; border-top:3px solid var(--k-ink); padding-top:24px">
+        <span style="font:500 32px/1 'Material Symbols Sharp'; color:var(--k-ink)">location_off</span>
+        <h3 style="margin:0; font:600 20px/1.3 Poppins, sans-serif">Metadata stripped by default</h3>
+        <p style="margin:0; color:var(--k-ink2); text-wrap:pretty">Camera details and GPS location are removed when you export. You can switch it off per file if you need them.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; border-top:3px solid var(--k-ink); padding-top:24px">
+        <span style="font:500 32px/1 'Material Symbols Sharp'; color:var(--k-ink)">wifi_off</span>
+        <h3 style="margin:0; font:600 20px/1.3 Poppins, sans-serif">Works offline</h3>
+        <p style="margin:0; color:var(--k-ink2); text-wrap:pretty">Install Konva as an app. After the first visit every tool runs without a connection, including background removal once its model is cached.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:#33366F; color:#FFFFFF">
+  <div style="padding:clamp(22px,2.6cqw,32px) 20px; text-align:center; font:600 clamp(20px,3cqw,36px)/1.1 Poppins, sans-serif; letter-spacing:.03em; text-transform:uppercase">Edit locally. Stay private.</div>
+  <div style="border-top:1px solid rgba(255,255,255,.18); padding:20px clamp(20px,4cqw,56px); display:flex; flex-wrap:wrap; gap:12px 24px; align-items:center; justify-content:space-between; font:400 14px/1.4 Poppins, sans-serif; color:#D9DBF5">
+    <a href="Home.dc.html" aria-label="Konva home" style="position:relative; display:inline-flex; padding:5px 10px 8px; color:#FFFFFF; text-decoration:none"><span style="position:absolute; right:0; top:0; width:14px; height:10px; border-top:3px solid #FADF3C; border-right:3px solid #FADF3C"></span><span style="position:absolute; left:0; bottom:0; width:14px; height:10px; border-bottom:3px solid #FADF3C; border-left:3px solid #FADF3C"></span><span style="font:800 22px/1 Poppins, sans-serif; letter-spacing:-0.03em">konva</span></a>
+    <span>Made by Raphael Ofuoku · open source</span>
+    <a href="https://github.com/raphofuoku/konva-v1.0.0" style="color:#FFFFFF">GitHub</a>
+  </div>
+</footer>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;hero&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;poster&quot;, &quot;drop&quot;], &quot;default&quot;: &quot;drop&quot;, &quot;tsType&quot;: &quot;'poster' | 'drop'&quot;, &quot;section&quot;: &quot;Layout&quot;}, &quot;theme&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;auto&quot;, &quot;light&quot;, &quot;dark&quot;], &quot;default&quot;: &quot;auto&quot;, &quot;tsType&quot;: &quot;'auto' | 'light' | 'dark'&quot;, &quot;section&quot;: &quot;Layout&quot;}}">
+class Component extends DCLogic {
+  state = { w: 1280, dark: null, menu: false, drag: false, busy: false, url: '', err: '' };
+  rootRef = React.createRef();
+
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (el) {
+      this.ro = new ResizeObserver(e => this.setState({ w: e[0].contentRect.width }));
+      this.ro.observe(el);
+    }
+    const t = this.props.theme;
+    let dark = false;
+    if (t === 'dark' || t === 'light') dark = t === 'dark';
+    else { try { const v = localStorage.getItem('konva-theme'); dark = v === 'dark' || (v === 'system' && matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) {} }
+    this.setState({ dark });
+    this.onPaste = e => {
+      const files = [...(e.clipboardData?.files || [])].filter(this.isImage);
+      if (files.length) this.handoff(files);
+    };
+    if (!this.props.embedded) window.addEventListener('paste', this.onPaste);
+  }
+  componentWillUnmount() { this.ro?.disconnect(); window.removeEventListener('paste', this.onPaste); }
+
+  isImage = f => f.type.startsWith('image/') || /\.(heic|heif|avif)$/i.test(f.name);
+
+  handoff = async files => {
+    this.setState({ busy: true, err: '' });
+    const items = [];
+    for (const f of files.slice(0, 12)) {
+      const dataUrl = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(f); });
+      items.push({ name: f.name, size: f.size, type: f.type, lastModified: f.lastModified, dataUrl });
+    }
+    try { sessionStorage.setItem('konva-handoff', JSON.stringify(items)); }
+    catch (e) { try { sessionStorage.setItem('konva-handoff', JSON.stringify(items.slice(0, 1))); } catch (e2) {} }
+    location.href = 'Studio.dc.html';
+  };
+
+  toggleTheme = () => {
+    const d = !this.state.dark;
+    this.setState({ dark: d });
+    try { localStorage.setItem('konva-theme', d ? 'dark' : 'light'); } catch (e) {}
+  };
+
+  renderVals() {
+    const { w, dark, menu, drag, busy, url, err } = this.state;
+    const mobile = w < 820;
+    const hero = this.props.hero ?? 'drop';
+    const themeVars = dark ? {
+      '--k-hero': '#1B1D45', '--k-heroink': '#FFFFFF', '--k-page': '#202352', '--k-surface': '#262960',
+      '--k-ink': '#FFFFFF', '--k-ink2': '#C9CBF0', '--k-line': 'rgba(255,255,255,.2)', '--k-shadow': '#0E0F2B',
+      '--k-paper': '#FADF3C', '--k-block': '#33366F', '--k-h1': 'rgba(250,223,60,.45)', '--k-h2': 'rgba(250,223,60,.22)',
+      '--k-h3': 'rgba(250,223,60,.09)', '--k-chip': '#262960', '--k-link': '#9DB4FF', '--k-violet': '#B39DFF',
+      '--k-white': '#1B1D45', '--k-offset2': '#FADF3C', '--k-ok-bg': 'rgba(46,158,91,.22)', '--k-ok': '#86E3AC', '--k-mark': '#FADF3C'
+    } : {};
+    const halo = drag
+      ? '0 0 0 6px #FFFFFF, 0 0 3px 34px var(--k-h1), 0 0 4px 66px var(--k-h2), 0 0 12px 100px var(--k-h3)'
+      : '0 0 0 6px #FFFFFF, 0 0 3px 22px var(--k-h1), 0 0 4px 42px var(--k-h2), 0 0 10px 62px var(--k-h3)';
+    const tilt = [-1.5, 1, -1, 1.5];
+    const steps = [
+      { n: '01', a: 'Drop, paste or ', k: 'browse', b: ' an image.' },
+      { n: '02', a: 'Pick a ', k: 'tool', b: ' from the rail.' },
+      { n: '03', a: 'Watch the ', k: 'file size', b: ' update as you tweak.' },
+      { n: '04', a: '', k: 'Download', b: ' it, or zip the whole batch.' }
+    ].map((s, i) => ({ ...s, style: {
+      display: 'flex', alignItems: 'center', gap: 18, background: '#FFFFFF', padding: '18px 26px',
+      maxWidth: '100%', marginLeft: `calc(${i} * clamp(12px, 5cqw, 88px))`, marginTop: i ? -6 : 0,
+      transform: `rotate(${tilt[i]}deg)`, boxShadow: '6px 6px 0 #33366F',
+      animation: `k-settle .4s ${0.1 + i * 0.08}s cubic-bezier(.2,.9,.3,1.2) both`, position: 'relative', zIndex: 4 - i
+    } }));
+    const tools = [
+      ['sync_alt', 'Convert', 'JPEG, PNG, WEBP and AVIF out, iPhone HEIC in. A live size estimate moves with the quality slider, or set a target like 200 KB.', 'Studio.dc.html#convert', 'studio'],
+      ['crop', 'Resize & crop', 'Pixels or percent with aspect lock. Crop presets for Instagram, LinkedIn, X and YouTube. Rotate and flip.', 'Studio.dc.html#crop', 'studio'],
+      ['tune', 'Adjust', 'Brightness, contrast, saturation, grayscale and blur, checked against the original with a before/after slider.', 'Studio.dc.html#adjust', 'studio'],
+      ['branding_watermark', 'Watermark', 'Text or logo in any corner or tiled across the image, at the opacity you choose.', 'Studio.dc.html#watermark', 'studio'],
+      ['blur_on', 'Redact', 'Blur or pixelate faces, number plates and addresses before you share a photo.', 'Studio.dc.html#redact', 'studio'],
+      ['palette', 'Metadata & palette', 'Read the EXIF, strip location on export, and copy the image’s colour palette as hex codes.', 'Studio.dc.html#metadata', 'studio'],
+      ['auto_fix_high', 'Background removal', 'An optional AI model that downloads once, then cuts out subjects in your browser.', 'Studio.dc.html#adjust', 'studio'],
+      ['apps', 'Icon & favicon pack', 'One logo in. Every favicon, touch icon, ICO file and manifest snippet out, zipped.', 'Icons.dc.html', 'page'],
+      ['picture_as_pdf', 'Images to PDF', 'Drag pages into order, choose a page size and margins, save a single PDF.', 'PDF.dc.html', 'page']
+    ].map(([icon, name, desc, href, where]) => ({ icon, name, desc, href, where }));
+
+    return {
+      rootRef: this.rootRef, themeVars,
+      desktop: !mobile, mobile, menuOpen: mobile && menu,
+      menuIcon: menu ? 'close' : 'menu',
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      toggleTheme: this.toggleTheme,
+      themeIcon: dark ? 'light_mode' : 'dark_mode',
+      themeLabel: dark ? 'Switch to light mode' : 'Switch to dark mode',
+      heroPoster: hero !== 'drop', heroDrop: hero === 'drop',
+      tools, steps,
+      dropStyle: {
+        position: 'relative', background: '#FFFFFF', borderRadius: 14, boxShadow: halo,
+        transition: 'box-shadow .18s cubic-bezier(.2,.8,.2,1)', animation: drag ? 'k-pulse .7s ease-out infinite' : 'none',
+        padding: 'clamp(36px,4cqw,56px) clamp(20px,3cqw,40px)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16,
+        outline: drag ? '3px dashed #6A3DF0' : 'none', outlineOffset: -14
+      },
+      dropIcon: busy ? 'hourglass_top' : drag ? 'download' : 'add_photo_alternate',
+      dropTitle: busy ? 'Opening in Studio…' : drag ? 'Let go to open it in Studio' : 'Drop, paste or browse',
+      onDragOver: e => { e.preventDefault(); if (!drag) this.setState({ drag: true }); },
+      onDragLeave: () => this.setState({ drag: false }),
+      onDrop: e => {
+        e.preventDefault(); this.setState({ drag: false });
+        const files = [...(e.dataTransfer?.files || [])].filter(this.isImage);
+        if (files.length) this.handoff(files);
+        else this.setState({ err: 'That doesn’t look like an image. Konva reads JPEG, PNG, WEBP, AVIF and HEIC.' });
+      },
+      onPick: e => { const files = [...e.target.files].filter(this.isImage); if (files.length) this.handoff(files); },
+      url, err,
+      setUrl: e => this.setState({ url: e.target.value }),
+      onUrl: async e => {
+        e.preventDefault();
+        if (!url) return;
+        try {
+          const res = await fetch(url);
+          const blob = await res.blob();
+          if (!blob.type.startsWith('image/')) throw new Error('not image');
+          const name = (url.split('/').pop() || 'image').split('?')[0] || 'image';
+          this.handoff([new File([blob], name, { type: blob.type })]);
+        } catch (er) {
+          this.setState({ err: 'That site doesn’t let other pages fetch its images. Save the image to your device, then drop it here.' });
+        }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
