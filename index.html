@@ -24,13 +24,11 @@
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem('konva-theme');
-          var theme = stored === 'light' || stored === 'dark'
-            ? stored
-            : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-          document.documentElement.setAttribute('data-theme', theme);
+          var p = localStorage.getItem('konva-theme') || 'system';
+          var dark = p === 'dark' || (p === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
         } catch (e) {
-          // localStorage unavailable (e.g. privacy mode) — fall back to light, the tokens.css default.
+          document.documentElement.dataset.theme = 'light';
         }
       })();
     </script>

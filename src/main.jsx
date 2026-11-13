@@ -1,9 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-
-import './styles/tokens.css';
-import './styles/global.css';
 
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
@@ -12,19 +8,16 @@ import '@fontsource/poppins/700.css';
 import '@fontsource/poppins/800.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/ibm-plex-mono/600.css';
+import 'material-symbols/sharp.css';
 
+import './styles/tokens.css';
+import './styles/components.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// Note: the CRA service-worker registration block that lived here has been
-// removed. It pointed at `${process.env.PUBLIC_URL}/service-worker.js`,
-// which doesn't resolve under Vite (no PUBLIC_URL env var), and unless you
-// were using CRA's PWA template, that file likely never existed anyway —
-// so this was silently failing before too. If you want real offline/PWA
-// support later (it's a P2 item in the v2 PRD), add it properly via
-// `vite-plugin-pwa` rather than resurrecting this.

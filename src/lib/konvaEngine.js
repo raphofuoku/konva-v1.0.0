@@ -1,6 +1,5 @@
 // Konva image engine (ES module). Everything runs in the browser: canvas, File APIs, WASM.
-// Ported from the design prototype. Replaces src/lib/image.js, src/lib/formatBytes.js and src/lib/downloadZip.js.
-// npm i @jsquash/avif heic-to @huggingface/transformers
+
 const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif' };
 const EXT = { jpeg: 'jpg', png: 'png', webp: 'webp', avif: 'avif' };
 const CROPS = [

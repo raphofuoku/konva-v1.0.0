@@ -1,5 +1,5 @@
 /* Konva components. Plain class names, one block per component; values come from tokens.css.
-   Naming: .k-<component>, modifiers .is-<state> or --<variant>. */
+Naming: .k-<component>, modifiers .is-<state> or --<variant>. */
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; }
@@ -33,9 +33,9 @@ input[type="range"] { accent-color: var(--violet); }
 .k-topbar__spacer { flex: 1; }
 .k-iconbtn { width: 40px; height: 40px; display: grid; place-items: center; border: var(--stroke) solid currentColor; background: transparent; color: inherit; border-radius: var(--radius-pill); cursor: pointer; }
 @media (max-width: 899px) {
-  .k-topbar__nav { display: none; }
-  .k-subnav { display: flex; gap: 4px; overflow-x: auto; padding: 0 8px; background: var(--top); border-bottom: var(--stroke) solid var(--shadow); }
-  .k-subnav .k-topbar__link { flex: none; height: var(--hit); }
+    .k-topbar__nav { display: none; }
+    .k-subnav { display: flex; gap: 4px; overflow-x: auto; padding: 0 8px; background: var(--top); border-bottom: var(--stroke) solid var(--shadow); }
+    .k-subnav .k-topbar__link { flex: none; height: var(--hit); }
 }
 @media (min-width: 900px) { .k-subnav { display: none; } }
 
@@ -132,6 +132,6 @@ input[type="range"] { accent-color: var(--violet); }
 @keyframes k-indet { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
 }

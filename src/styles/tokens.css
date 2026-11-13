@@ -1,367 +1,104 @@
-/**
- * Konva Design Tokens: "Amplified"
- * -------------------------------------------------------------
- * Single source of truth for color, typography, spacing, radius,
- * shadow, motion and z-index across the app.
- *
- * Import this file ONCE, before any component CSS:
- *   src/main.jsx  ->  import './styles/tokens.css';
- *
- * Rules for the rest of the codebase:
- *   - Component CSS files NEVER hardcode a hex color, px spacing,
- *     or font stack. They reference a var(--token) from here.
- *   - Prefer SEMANTIC tokens (--color-accent, --space-4) over
- *     PRIMITIVE tokens (--color-ink-600). Semantic tokens are what
- *     make dark mode a one-file change.
- *   - The semantic names from v2 are kept on purpose, so existing
- *     components re-skin without edits. New "Amplified" component
- *     tokens (block, pill, caption, halo) are added at the bottom
- *     of :root for components to adopt as they are redesigned.
- *
- * Fonts: requires @fontsource/poppins (400, 500, 600, 700, 800)
- * and @fontsource/ibm-plex-mono (400, 500), imported in main.jsx.
- */
+/* Konva "Amplified" tokens. Import once in main.jsx, before components.css.
+   Theme: <html data-theme="light|dark">. "system" is resolved in src/lib/theme.js
+   with matchMedia('(prefers-color-scheme: dark)') and written to data-theme. */
 
- :root {
-   /* ============================================================
-      COLOR: PRIMITIVES
-      ============================================================ */
- 
-   /* Amp Yellow: the loud brand background */
-   --color-yellow-50:  #fffbe6;
-   --color-yellow-100: #fff7c9; /* Halo Pale */
-   --color-yellow-200: #fdee8a; /* Halo Yellow */
-   --color-yellow-300: #fce65f;
-   --color-yellow-400: #fadf3c; /* Amp Yellow (brand) */
-   --color-yellow-500: #f2cc1f;
-   --color-yellow-600: #e0b30f; /* deep golden, pill gradient base */
-   --color-yellow-700: #b88d0a;
- 
-   /* Ink Navy: headline blocks, primary actions, text on yellow */
-   --color-ink-50:  #eeeef6;
-   --color-ink-100: #d9daec;
-   --color-ink-200: #b3b5d7;
-   --color-ink-300: #8a8dbe;
-   --color-ink-400: #5f63a0;
-   --color-ink-500: #44478a;
-   --color-ink-600: #33366f; /* Ink Navy (brand) */
-   --color-ink-700: #2c2f67;
-   --color-ink-800: #262960; /* dark mode surface */
-   --color-ink-900: #1b1d45; /* dark mode page, light mode body text */
- 
-   /* Electric Violet: yellow's complement. Interactive states only. */
-   --color-violet-300: #a48bf7;
-   --color-violet-400: #8563f4;
-   --color-violet-500: #6a3df0; /* Electric Violet (brand) */
-   --color-violet-600: #5a2fd6;
-   --color-violet-700: #4724ad;
- 
-   /* Signal Blue: one highlighted keyword in caption strips, links */
-   --color-blue-300: #8fa8ec;
-   --color-blue-500: #3d63c9;
-   --color-blue-700: #2c4a9c;
- 
-   /* Cool neutrals, tinted toward the navy */
-   --color-neutral-0:   #ffffff; /* Paper White */
-   --color-neutral-50:  #f6f6fa;
-   --color-neutral-100: #ededf4;
-   --color-neutral-200: #dcdce8;
-   --color-neutral-300: #c4c5d6;
-   --color-neutral-400: #9c9eb5;
-   --color-neutral-500: #74768f;
-   --color-neutral-600: #555770;
-   --color-neutral-700: #3b3d52;
-   --color-neutral-800: #26283a;
-   --color-neutral-900: #14152a;
- 
-   --color-success-500: #2e9e5b;
-   --color-success-300: #4cc17e;
-   --color-warning-500: #d18a1f;
-   --color-danger-500:  #d13030;
-   --color-danger-300:  #f0635f;
- 
-   /* ============================================================
-      COLOR: SEMANTIC (v2 names, re-pointed)
-      Components reference these, never the primitives directly.
-      ============================================================ */
-   --color-bg-page:        var(--color-neutral-50);
-   --color-bg-surface:     var(--color-neutral-0);
-   --color-bg-surface-alt: var(--color-yellow-100);
- 
-   --color-text-primary:   var(--color-ink-900);
-   --color-text-secondary: var(--color-neutral-600);
-   --color-text-inverse:   var(--color-neutral-0);
-   --color-text-disabled:  var(--color-neutral-400);
- 
-   --color-border:         var(--color-neutral-200);
-   --color-border-strong:  var(--color-neutral-300);
- 
-   /* Accent is Ink Navy in light mode (header, primary buttons, headings). */
-   --color-accent:         var(--color-ink-600);
-   --color-accent-hover:   var(--color-ink-700);
-   --color-accent-active:  var(--color-ink-900);
-   --color-accent-subtle:  var(--color-yellow-100);
- 
-   --color-success:        var(--color-success-500);
-   --color-warning:        var(--color-warning-500);
-   --color-danger:         var(--color-danger-500);
- 
-   /* ============================================================
-      COLOR: SEMANTIC (new in Amplified)
-      ============================================================ */
-   --color-brand:          var(--color-yellow-400); /* loud backgrounds: hero, marketing */
-   --color-on-brand:       var(--color-ink-600);    /* text on yellow. Never white. */
-   --color-paper:          var(--color-neutral-0);  /* offset layers, caption strips, outlines */
-   --color-highlight:      var(--color-blue-500);   /* keyword inside a caption strip */
-   --color-link:           var(--color-blue-500);
- 
-   --color-interactive:        var(--color-violet-500); /* sliders, progress, selected tool */
-   --color-interactive-hover:  var(--color-violet-600);
-   --color-interactive-subtle: rgba(106, 61, 240, 0.1);
-   --color-focus:              var(--color-violet-500);
- 
-   /* ============================================================
-      TYPOGRAPHY
-      ============================================================ */
-   --font-family-base: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto,
-     'Helvetica Neue', Arial, sans-serif;
-   --font-family-display: var(--font-family-base);
-   --font-family-heading: var(--font-family-display); /* v2 alias */
-   --font-family-mono: 'IBM Plex Mono', ui-monospace, Menlo, Monaco, Consolas,
-     'Courier New', monospace;
- 
-   --font-size-xs:   0.75rem;  /* 12px */
-   --font-size-sm:   0.875rem; /* 14px */
-   --font-size-base: 1rem;     /* 16px */
-   --font-size-lg:   1.125rem; /* 18px */
-   --font-size-xl:   1.25rem;  /* 20px */
-   --font-size-2xl:  1.5rem;   /* 24px */
-   --font-size-3xl:  2rem;     /* 32px */
-   --font-size-4xl:  2.25rem;  /* 36px */
-   --font-size-5xl:  3rem;     /* 48px */
-   --font-size-6xl:  4.5rem;   /* 72px, hero "AMPLIFIED." */
- 
-   --font-weight-regular:   400;
-   --font-weight-medium:    500;
-   --font-weight-semibold:  600;
-   --font-weight-bold:      700;
-   --font-weight-extrabold: 800; /* display blocks only */
- 
-   --line-height-display: 1;
-   --line-height-tight:   1.2;
-   --line-height-normal:  1.6;
- 
-   --letter-spacing-display: -0.01em;
-   --letter-spacing-strap:   0.04em; /* uppercase strapline band */
- 
-   /* ============================================================
-      SPACING: 4px base scale
-      ============================================================ */
-   --space-1:  4px;
-   --space-2:  8px;
-   --space-3:  12px;
-   --space-4:  16px;
-   --space-5:  20px;
-   --space-6:  24px;
-   --space-8:  32px;
-   --space-10: 40px;
-   --space-12: 48px;
-   --space-16: 64px;
-   --space-20: 80px;
-   --space-24: 96px;
- 
-   /* ============================================================
-      RADIUS
-      Blocks and caption strips are square. Cards are soft.
-      Pills and chips are fully round.
-      ============================================================ */
-   --radius-none: 0;
-   --radius-sm:   6px;
-   --radius-md:   12px;
-   --radius-lg:   16px;
-   --radius-full: 9999px;
- 
-   /* ============================================================
-      SHADOW
-      Hard, unblurred offsets (cut paper), not soft drop shadows.
-      ============================================================ */
-   --shadow-color: var(--color-ink-600);
- 
-   --shadow-sm: 3px 3px 0 0 var(--shadow-color);
-   --shadow-md: 6px 6px 0 0 var(--shadow-color);
-   --shadow-lg: 10px 10px 0 0 var(--shadow-color);
- 
-   /* ============================================================
-      MOTION
-      ============================================================ */
-   --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
- 
-   --transition-press: 120ms var(--ease-snap); /* blocks pressing into their offset */
-   --transition-fast:  150ms ease;
-   --transition-base:  300ms ease;
-   --transition-slow:  500ms ease;
-   --duration-halo-pulse: 900ms;
- 
-   /* ============================================================
-      Z-INDEX SCALE
-      ============================================================ */
-   --z-header:   10;
-   --z-dropdown: 50;
-   --z-sheet:    80;
-   --z-modal:    100;
-   --z-toast:    1000;
- 
-   /* ============================================================
-      COMPONENT TOKENS: AMPLIFIED BLOCK
-      Navy rectangle, yellow uppercase ExtraBold text, Paper White
-      layer offset down-right behind it. Used for display headlines
-      and the primary button.
-      ============================================================ */
-   --amp-block-bg:           var(--color-ink-600);
-   --amp-block-text:         var(--color-yellow-400);
-   --amp-block-offset-color: var(--color-paper);
-   --amp-block-radius:       var(--radius-none);
-   --amp-block-padding:      var(--space-2) var(--space-5);
- 
-   --amp-offset:       10px;  /* headline blocks */
-   --amp-offset-btn:   6px;   /* buttons */
-   --amp-press-hover:  3px;   /* how far the block moves toward its offset on hover */
- 
-   --shadow-amp:     var(--amp-offset) var(--amp-offset) 0 0 var(--amp-block-offset-color);
-   --shadow-amp-btn: var(--amp-offset-btn) var(--amp-offset-btn) 0 0 var(--amp-block-offset-color);
-   --shadow-amp-btn-hover:
-     calc(var(--amp-offset-btn) - var(--amp-press-hover))
-     calc(var(--amp-offset-btn) - var(--amp-press-hover)) 0 0 var(--amp-block-offset-color);
-   --shadow-amp-btn-pressed: 0 0 0 0 var(--amp-block-offset-color);
- 
-   /* ============================================================
-      COMPONENT TOKENS: PILL CTA
-      ============================================================ */
-   --pill-bg: linear-gradient(180deg, var(--color-yellow-300) 0%, var(--color-yellow-600) 100%);
-   --pill-bg-hover: linear-gradient(180deg, var(--color-yellow-200) 0%, var(--color-yellow-500) 100%);
-   --pill-text: var(--color-ink-600);
-   --pill-padding: var(--space-3) var(--space-8);
- 
-   /* ============================================================
-      COMPONENT TOKENS: CAPTION STRIPS
-      ============================================================ */
-   --caption-bg:        var(--color-paper);
-   --caption-text:      var(--color-ink-900);
-   --caption-highlight: var(--color-highlight);
-   --caption-padding:   var(--space-3) var(--space-5);
-   --caption-tilt-a:    -1.5deg;
-   --caption-tilt-b:    1deg;
- 
-   /* ============================================================
-      COMPONENT TOKENS: STRAPLINE BAND
-      ============================================================ */
-   --strap-bg:   var(--color-ink-600);
-   --strap-text: var(--color-paper);
- 
-   /* ============================================================
-      COMPONENT TOKENS: HALO (image "sticker" treatment)
-      White outline, then three stepped yellow rings. Box-shadows
-      paint first-listed on top, so the outline comes first.
-      For transparent PNG cutouts, apply the same colors via stacked
-      filter: drop-shadow() so the rings follow the alpha contour.
-      ============================================================ */
-   --halo-outline-width: 5px;
-   --halo-outline: var(--color-paper);
-   --halo-ring-1:  var(--color-yellow-200);
-   --halo-ring-2:  var(--color-yellow-100);
-   --halo-ring-3:  rgba(250, 223, 60, 0.28);
- 
-   --shadow-halo:
-     0 0 0 var(--halo-outline-width) var(--halo-outline),
-     0 0 3px 14px var(--halo-ring-1),
-     0 0 5px 26px var(--halo-ring-2),
-     0 0 24px 36px var(--halo-ring-3);
- 
-   /* Peak of the drag-over pulse / "smaller file" flash */
-   --shadow-halo-amplified:
-     0 0 0 var(--halo-outline-width) var(--halo-outline),
-     0 0 3px 20px var(--halo-ring-1),
-     0 0 6px 38px var(--halo-ring-2),
-     0 0 32px 54px var(--halo-ring-3);
- 
-   /* ============================================================
-      FOCUS
-      ============================================================ */
-   --focus-ring: 0 0 0 3px var(--color-focus);
-   --focus-ring-offset: 2px;
- 
-   /* ============================================================
-      BREAKPOINTS (reference only; custom properties can't be used
-      inside @media queries. Keep @media rules in sync by hand.)
-      mobile:  max-width 480px
-      tablet:  max-width 768px
-      desktop: 1024px+
-      ============================================================ */
- }
- 
- /* ==================================================================
-    DARK MODE
-    Set data-theme="dark" on <html> (index.html does this before
-    paint). Yellow becomes the accent, surfaces become navy.
-    ================================================================== */
- [data-theme='dark'] {
-   --color-bg-page:        var(--color-ink-900);
-   --color-bg-surface:     var(--color-ink-800);
-   --color-bg-surface-alt: var(--color-ink-700);
- 
-   --color-text-primary:   var(--color-neutral-0);
-   --color-text-secondary: var(--color-ink-200);
-   --color-text-inverse:   var(--color-ink-900);
-   --color-text-disabled:  var(--color-ink-400);
- 
-   --color-border:         var(--color-ink-500);
-   --color-border-strong:  var(--color-ink-400);
- 
-   --color-accent:         var(--color-yellow-400);
-   --color-accent-hover:   var(--color-yellow-300);
-   --color-accent-active:  var(--color-yellow-500);
-   --color-accent-subtle:  rgba(250, 223, 60, 0.14);
- 
-   --color-success:        var(--color-success-300);
-   --color-danger:         var(--color-danger-300);
- 
-   --color-highlight:      var(--color-blue-300);
-   --color-link:           var(--color-blue-300);
- 
-   --color-interactive:        var(--color-violet-400);
-   --color-interactive-hover:  var(--color-violet-300);
-   --color-interactive-subtle: rgba(133, 99, 244, 0.18);
-   --color-focus:              var(--color-violet-300);
- 
-   --shadow-color: rgba(0, 0, 0, 0.45);
- 
-   /* Navy block now sits on a navy page, so the offset turns yellow. */
-   --amp-block-bg:           var(--color-ink-600);
-   --amp-block-text:         var(--color-yellow-400);
-   --amp-block-offset-color: var(--color-yellow-400);
- 
-   --caption-bg:   var(--color-ink-700);
-   --caption-text: var(--color-neutral-0);
- 
-   --strap-bg:   var(--color-yellow-400);
-   --strap-text: var(--color-ink-900);
- 
-   --halo-outline: var(--color-neutral-0);
-   --halo-ring-1:  rgba(250, 223, 60, 0.45);
-   --halo-ring-2:  rgba(250, 223, 60, 0.22);
-   --halo-ring-3:  rgba(250, 223, 60, 0.1);
- }
- 
- /* ==================================================================
-    REDUCED MOTION
-    Halo pulses and press animations collapse to instant changes.
-    ================================================================== */
- @media (prefers-reduced-motion: reduce) {
-   :root {
-     --transition-press: 0ms linear;
-     --transition-fast:  0ms linear;
-     --transition-base:  0ms linear;
-     --transition-slow:  0ms linear;
-     --duration-halo-pulse: 0ms;
-   }
- }
+
+:root {
+   /* Brand (fixed in both themes) */
+   --amp-yellow: #FADF3C;
+   --ink-navy: #33366F;
+   --ink-deep: #1F2150;
+   --night: #1B1D45;
+   --night-2: #262960;
+   --night-3: #1F2254;
+   --shadow-night: #0E0F2B;
+   --violet: #6A3DF0;
+   --link: #3D63C9;
+   --ok: #2E9E5B;
+   --danger: #D13030;
+   --warn: #D9A400;
+
+   /* Type */
+   --font-sans: Poppins, system-ui, sans-serif;
+   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+   --font-icon: 'Material Symbols Sharp';
+   --fs-display: clamp(34px, 5.2vw, 84px);
+   --fs-h1: clamp(30px, 4vw, 56px);
+   --fs-h2: 22px;
+   --fs-body: 16px;
+   --fs-small: 13px;
+   --fs-mono: 12px;
+
+   /* Shape and space */
+   --radius-sm: 6px;
+   --radius: 8px;
+   --radius-md: 12px;
+   --radius-lg: 14px;
+   --radius-pill: 999px;
+   --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 72px;
+   --hit: 44px;
+   --stroke: 2px;
+
+   /* Motion */
+   --ease-settle: cubic-bezier(.2, .9, .3, 1.2);
+   --ease-out: cubic-bezier(.2, .8, .2, 1);
+   --dur-press: 80ms;
+   --dur-ui: 180ms;
+}
+
+/* Light (default) */
+:root, [data-theme="light"] {
+   --top: var(--amp-yellow);
+   --top-ink: var(--ink-navy);
+   --mark: var(--ink-navy);
+   --hero: var(--amp-yellow);
+   --hero-ink: var(--ink-navy);
+   --paper: #FFFFFF;
+   --stage: #FFF7C9;
+   --dot: rgba(51, 54, 111, .13);
+   --surface: #FFFFFF;
+   --surface-2: #FFF7C9;
+   --ink: var(--ink-navy);
+   --ink-2: #585C94;
+   --line: rgba(51, 54, 111, .2);
+   --shadow: var(--ink-navy);
+   --btn: var(--ink-navy);
+   --btn-ink: var(--amp-yellow);
+   --btn-offset: var(--amp-yellow);
+   --halo-1: #FDEE8A;
+   --halo-2: rgba(250, 223, 60, .3);
+   --halo-3: rgba(250, 223, 60, .12);
+   --ok-bg: #E3F3E9; --ok-ink: #1D6E3E;
+   --vio: var(--violet); --vio-bg: #EEE8FE; --vio-ink: #4B22C9;
+   --warn-bg: #FFF1D6; --warn-ink: #7A4B00;
+   --bad-bg: #FBE6E6; --bad-ink: #A32222;
+   color-scheme: light;
+}
+
+[data-theme="dark"] {
+   --top: var(--night-2);
+   --top-ink: #FFFFFF;
+   --mark: var(--amp-yellow);
+   --hero: var(--night);
+   --hero-ink: #FFFFFF;
+   --paper: var(--amp-yellow);
+   --stage: var(--night);
+   --dot: rgba(255, 255, 255, .07);
+   --surface: var(--night-2);
+   --surface-2: var(--night-3);
+   --ink: #FFFFFF;
+   --ink-2: #C9CBF0;
+   --line: rgba(255, 255, 255, .18);
+   --shadow: var(--shadow-night);
+   --btn: var(--amp-yellow);
+   --btn-ink: var(--ink-navy);
+   --btn-offset: #FFFFFF;
+   --halo-1: rgba(250, 223, 60, .42);
+   --halo-2: rgba(250, 223, 60, .2);
+   --halo-3: rgba(250, 223, 60, .08);
+   --ok-bg: rgba(46, 158, 91, .22); --ok-ink: #86E3AC;
+   --vio: #B39DFF; --vio-bg: rgba(106, 61, 240, .32); --vio-ink: #DCD0FF;
+   --warn-bg: rgba(217, 164, 0, .2); --warn-ink: #FFD98A;
+   --bad-bg: rgba(209, 48, 48, .2); --bad-ink: #FF9A9A;
+   color-scheme: dark;
+}
