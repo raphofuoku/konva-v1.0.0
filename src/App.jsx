@@ -1,7 +1,14 @@
+/**
+ * App
+ * Path: src/App.jsx
+ *
+ * Router and toast provider. Pages not built yet render PlaceholderPage.
+ */
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastProvider } from './components/ui/Toasts';
 import { useTheme } from './hooks/useTheme';
 import HomePage from './features/home/HomePage';
+import StudioPage from './features/studio/StudioPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 const toStudio = (hash) => <Navigate to={{ pathname: '/studio', hash }} replace />;
@@ -14,7 +21,7 @@ export default function App() {
       <ToastProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/studio" element={<PlaceholderPage title="Studio" />} />
+          <Route path="/studio" element={<StudioPage />} />
           <Route path="/icons" element={<PlaceholderPage title="Icon pack" />} />
           <Route path="/pdf" element={<PlaceholderPage title="Images to PDF" />} />
           <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
