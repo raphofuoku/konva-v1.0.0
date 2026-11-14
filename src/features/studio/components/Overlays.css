@@ -1,0 +1,142 @@
+/**
+ * Overlays styles
+ * Path: src/features/studio/components/Overlays.css
+ *
+ * Top bar search button, command palette and first-run tour. Shared pieces
+ * (.k-scrim, .k-scrim--solid, .k-kbd, .k-headline, .k-caption, .k-btn) live in components.css.
+ */
+
+/* ---------- Search button (top bar) ---------- */
+.studio-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  border: var(--stroke) solid var(--top-ink);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--top-ink);
+  font: 500 13px/1 var(--font-sans);
+  cursor: pointer;
+}
+.studio-search:hover { background: color-mix(in srgb, var(--top-ink) 10%, transparent); }
+.studio-search__kbd {
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: var(--top-ink);
+  color: var(--top);
+  font: 500 11px/1 var(--font-mono);
+}
+@media (max-width: 819px) {
+  .studio-search { width: 40px; padding: 0; justify-content: center; }
+  .studio-search__label,
+  .studio-search__kbd { display: none; }
+}
+
+/* ---------- Command palette ---------- */
+.studio-cmdk {
+  width: min(560px, 100%);
+  max-height: calc(100dvh - 14vh - 16px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--stroke) solid var(--shadow);
+  border-radius: var(--radius-md);
+  box-shadow: 8px 8px 0 var(--amp-yellow);
+  animation: k-up .15s ease-out both;
+}
+.studio-cmdk__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1.5px solid var(--line);
+}
+.studio-cmdk__search input {
+  flex: 1;
+  min-width: 0;
+  height: 56px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 400 17px var(--font-sans);
+}
+.studio-cmdk__search input::placeholder { color: var(--ink-2); }
+.studio-cmdk__esc { height: 24px; min-width: 0; font-size: 11px; }
+.studio-cmdk__list { flex: 1; min-height: 0; max-height: 340px; overflow: auto; padding: 8px; }
+.studio-cmdk__opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: var(--radius);
+  font: 500 15px/1.2 var(--font-sans);
+  cursor: pointer;
+}
+/* Fixed violet (not the lighter dark-mode --vio) so white text keeps its contrast in both themes. */
+.studio-cmdk__opt[aria-selected="true"] { background: var(--violet); color: #FFFFFF; }
+.studio-cmdk__label { flex: 1; min-width: 0; }
+.studio-cmdk__hint { font: 500 11px/1 var(--font-mono); opacity: .8; }
+.studio-cmdk__none { margin: 0; padding: 16px; color: var(--ink-2); font: 400 14px/1.5 var(--font-sans); }
+.studio-cmdk__foot {
+  margin: 0;
+  padding: 10px 16px;
+  border-top: 1.5px solid var(--line);
+  color: var(--ink-2);
+  font: 500 11px/1.5 var(--font-mono);
+}
+@media (max-width: 819px) {
+  .studio-cmdk__foot { display: none; } /* keyboard hints don't help on touch */
+}
+
+/* ---------- First-run tour ---------- */
+.studio-tour { padding: 24px 16px; overflow: auto; }
+.studio-tour__dialog {
+  width: min(620px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+.studio-tour__count { color: var(--amp-yellow); font: 600 12px/1 var(--font-mono); letter-spacing: .08em; }
+.studio-tour__body { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.studio-tour__title { font-size: clamp(28px, 4.4vw, 52px); line-height: 1.05; text-wrap: balance; }
+.studio-tour__lines { display: flex; flex-direction: column; align-items: flex-start; padding-left: clamp(8px, 3vw, 32px); }
+.studio-tour__lines .k-caption { font-size: clamp(16px, 2vw, 22px); }
+.studio-tour__lines .k-caption--right.is-entering { animation-delay: .08s; }
+.studio-tour__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 6px; }
+.studio-tour__next {
+  /* Yellow on the dark scrim, whatever the theme. */
+  --btn: var(--amp-yellow);
+  --btn-ink: var(--ink-navy);
+  --btn-offset: #FFFFFF;
+  min-height: 52px;
+  padding: 0 22px;
+}
+.studio-tour__next:focus-visible,
+.studio-tour__skip:focus-visible { outline-color: var(--amp-yellow); }
+.studio-tour__skip {
+  min-height: 52px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: #FFFFFF;
+  font: 600 14px var(--font-sans);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.studio-tour__dots { display: flex; gap: 6px; }
+.studio-tour__dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .4);
+  transition: width .15s;
+}
+.studio-tour__dots span.is-on { width: 28px; background: var(--amp-yellow); }

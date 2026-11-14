@@ -27,7 +27,8 @@ export default function RedactPanel({ st }) {
     if (!hasAreas) return undefined;
     const onKey = (e) => {
       if (!e.key.startsWith('Arrow') || e.metaKey || e.ctrlKey || e.altKey) return;
-      if (e.target instanceof Element && e.target.closest(TYPING)) return;
+      // Not while typing, and not while a dialog (palette, tour, code view) has focus.
+      if (e.target instanceof Element && e.target.closest(`${TYPING}, [role="dialog"]`)) return;
       e.preventDefault();
       const d = e.shiftKey ? NUDGE.big : NUDGE.step;
       const dx = e.key === 'ArrowLeft' ? -d : e.key === 'ArrowRight' ? d : 0;

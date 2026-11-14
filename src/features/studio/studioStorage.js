@@ -2,13 +2,14 @@
  * studioStorage
  * Path: src/features/studio/studioStorage.js
  *
- * localStorage helpers for konva-defaults, konva-history and konva-model.
+ * localStorage helpers for konva-defaults, konva-history, konva-model and konva-onboarded.
  */
 import { DEF, MIME } from '../../lib/konvaEngine';
 import { DEFAULT_KEYS, HISTORY_MAX } from './studioConstants';
 
-// Studio touches three of the five konva-* keys. Settings (Part 10) lists and clears all five.
-export const KEYS = { defaults: 'konva-defaults', history: 'konva-history', model: 'konva-model' };
+// Studio touches four of the five konva-* keys (theme is handled by src/lib/theme.js).
+// Settings (Part 10) lists and clears all five.
+export const KEYS = { defaults: 'konva-defaults', history: 'konva-history', model: 'konva-model', onboarded: 'konva-onboarded' };
 
 function read(key) {
   try {
@@ -80,3 +81,7 @@ export function writeHistory(list) {
 
 export const readModelCached = () => read(KEYS.model) === 'cached';
 export const writeModelCached = () => write(KEYS.model, 'cached');
+
+// First-run tour: shown until it has been finished or skipped once.
+export const readOnboarded = () => read(KEYS.onboarded) === '1';
+export const writeOnboarded = () => write(KEYS.onboarded, '1');
