@@ -1,0 +1,259 @@
+/**
+ * Icons styles
+ * Path: src/features/icons/Icons.css
+ *
+ * Icon pack page: header, logo card, preview table, tab and home-screen mocks, export and
+ * code cards. Shared pieces (.k-card, .k-btn, .k-seg, .k-chip, .k-sticker, .k-note,
+ * .k-progress) live in components.css; .panel-range comes from the Studio's Panels.css.
+ */
+
+/* ---------- Page ---------- */
+.icons-page { min-height: 100vh; display: flex; flex-direction: column; color: var(--ink); }
+.icons-page > main { flex: 1; }
+.icons {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 56px) clamp(16px, 3vw, 40px) 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.icons:focus { outline: none; }
+.icons-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.icons-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; }
+.icons-head__titles { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.icons-head__caption {
+  margin-left: clamp(8px, 2vw, 24px);
+  font-size: clamp(16px, 1.6vw, 20px);
+  transform: rotate(-1deg);
+}
+.icons-head__lede { margin: 0; max-width: 440px; color: var(--ink-2); text-wrap: pretty; }
+
+.icons-grid { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+.icons-side { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+/* ---------- Logo card ---------- */
+.icons-logo { position: relative; flex: 1 1 320px; max-width: 100%; display: flex; flex-direction: column; gap: 22px; }
+
+.icons-drop { display: flex; flex-direction: column; align-items: center; gap: 28px; padding: 44px 0 8px; }
+.icons-sticker {
+  width: min(200px, 60vw);
+  aspect-ratio: 1 / 1;
+  transition: box-shadow var(--dur-ui), border-radius .15s;
+}
+.icons-sticker img { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; }
+.icons-sticker.is-hot { outline: 3px dashed var(--violet); outline-offset: -12px; }
+.icons-sticker__empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: repeating-linear-gradient(135deg, #F4EFD6 0 10px, #ECE5C4 10px 20px);
+}
+.icons-sticker__empty span {
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, .8);
+  color: #585C94;
+  font: 500 11px/1.4 var(--font-mono);
+}
+.icons-sticker__loading { position: absolute; inset: 0; }
+
+.icons-src { display: flex; flex-direction: column; align-items: center; gap: 4px; max-width: 100%; text-align: center; }
+.icons-src__name { font: 600 15px/1.3 var(--font-sans); overflow-wrap: anywhere; }
+.icons-src__meta { font: 500 12px/1.2 var(--font-mono); color: var(--ink-2); }
+.icons-src__bar { width: min(240px, 100%); height: 6px; margin-top: 8px; }
+
+.icons-note { margin: 0; font-size: 13px; }
+.icons-note .k-icon { flex: none; margin-top: 1px; }
+
+.icons-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.icons-actions__ghost { min-height: 48px; }
+.icons-hint { margin: -8px 0 0; color: var(--ink-2); font: 400 13px/1.5 var(--font-sans); }
+.icons-hint--flush { margin: 0; }
+
+.icons-group { display: flex; flex-direction: column; gap: 10px; }
+.icons-group .k-eyebrow { margin: 0; }
+
+.icons-swatches { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.icons-swatch {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1.5px var(--line);
+  cursor: pointer;
+}
+/* The ring uses --vio: it reads on both the white and the night surface. */
+.icons-swatch[aria-pressed="true"],
+.icons-swatch.is-on { box-shadow: 0 0 0 2px var(--surface), 0 0 0 5px var(--vio); }
+.icons-swatch--custom { border: 1.5px dashed var(--line); box-shadow: none; background: transparent; color: var(--ink); }
+.icons-swatch--custom.is-on { border-color: transparent; }
+.icons-swatch--custom input {
+  position: absolute;
+  inset: -1.5px; /* cover the dashed border too */
+  width: calc(100% + 3px);
+  height: calc(100% + 3px);
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.icons-swatch--custom:focus-within { outline: 3px solid var(--violet); outline-offset: 2px; }
+
+.icons-names { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.icons-label { display: flex; flex-direction: column; gap: 6px; font: 500 13px/1 var(--font-sans); }
+
+.icons-theme { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 500 14px/1 var(--font-sans); }
+.icons-theme__val { display: flex; align-items: center; gap: 10px; }
+.icons-theme__val b { font: 500 13px/1 var(--font-mono); }
+.icons-theme__val input {
+  width: 44px;
+  height: 36px;
+  padding: 2px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+/* ---------- Preview card ---------- */
+.icons-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 18px 24px;
+  border-bottom: 1.5px solid var(--line);
+}
+.icons-card-head__title { margin: 0; font: 600 18px/1.2 var(--font-sans); }
+.icons-card-head__aside { font: 500 12px/1 var(--font-mono); color: var(--ink-2); }
+
+.icons-table { width: 100%; border-collapse: collapse; }
+.icons-table td, .icons-table th { border-bottom: 1.5px solid var(--line); }
+.icons-table__use { padding: 14px 24px; text-align: left; font-weight: inherit; vertical-align: middle; }
+.icons-table__name { display: block; font: 600 14px/1.3 var(--font-sans); }
+.icons-table__file { display: block; margin-top: 4px; font: 500 12px/1.3 var(--font-mono); color: var(--ink-2); overflow-wrap: anywhere; }
+
+.icons-tile {
+  width: 128px;
+  height: 116px;
+  padding: 14px;
+  border-left: 1.5px solid var(--line);
+  text-align: center;
+  vertical-align: middle;
+}
+.icons-tile--light { background: #FFFFFF; }
+.icons-tile--dark { background: var(--night); }
+.icons-tile img, .icons-tile__ph { display: inline-block; vertical-align: middle; }
+.icons-tile .is-big { width: 88px; height: 88px; }
+.icons-tile__ph { background: #F1EEE0; }
+.icons-tile--dark .icons-tile__ph { background: rgba(255, 255, 255, .12); }
+.icons-tile__ph--rounded { border-radius: 22%; }
+.icons-tile__ph--circle { border-radius: 50%; }
+.icons-tile__ph--square { border-radius: 2px; }
+
+.icons-mocks { display: flex; flex-wrap: wrap; gap: 16px; padding: 20px 24px; background: var(--surface-2); }
+.icons-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 240px;
+  max-width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 0 0 1.5px var(--line);
+}
+.icons-tab--light { background: #FFFFFF; color: var(--ink-deep); }
+.icons-tab--light .k-icon { color: #585C94; }
+.icons-tab--dark { background: var(--night-2); color: #FFFFFF; }
+.icons-tab--dark .k-icon { color: #C9CBF0; }
+.icons-tab img { flex: none; }
+.icons-tab__ph { flex: none; width: 16px; height: 16px; border-radius: 4px; background: currentColor; opacity: .2; }
+.icons-tab__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 13px/1 var(--font-sans); }
+.icons-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  background: var(--ink-navy);
+}
+.icons-home img, .icons-home__ph { width: 60px; height: 60px; border-radius: 14px; }
+.icons-home__ph { background: rgba(255, 255, 255, .16); }
+.icons-home__name {
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #FFFFFF;
+  font: 500 11px/1 var(--font-sans);
+}
+
+/* ---------- Export card ---------- */
+.icons-export { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; }
+.icons-export__status { flex: 1 0 100%; display: flex; flex-direction: column; gap: 8px; }
+.icons-export__row { display: flex; justify-content: space-between; gap: 12px; font: 600 14px/1.3 var(--font-sans); }
+.icons-export__row b { font: 600 13px/1.3 var(--font-mono); color: var(--vio); }
+.icons-export__note { flex: 1 0 100%; margin: 0; align-items: center; font-weight: 600; }
+.icons-export__note .k-icon { flex: none; }
+.icons-export__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.icons-export__btn { min-height: 52px; padding: 0 22px; }
+
+/* ---------- Code card ---------- */
+.icons-code-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border-bottom: 1.5px solid var(--line);
+}
+.icons-code-head .k-seg { grid-auto-columns: auto; }
+.icons-code-head .k-seg__opt { padding: 0 14px; }
+.icons-code-head__copy { min-height: 36px; padding: 0 14px; gap: 6px; }
+.icons-code {
+  margin: 0;
+  padding: 20px 24px;
+  background: var(--night);
+  color: #E8E9FF;
+  font: 400 13px/1.7 var(--font-mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 599px) {
+  .icons-card-head, .icons-mocks, .icons-code-head, .icons-code { padding-left: 16px; padding-right: 16px; }
+  .icons-export { padding: 18px 16px; }
+  .icons-export__btn { width: 100%; }
+  .icons-table__use { padding: 12px 14px; }
+  .icons-tile { width: 84px; height: 92px; padding: 10px; }
+  .icons-tile .is-big { width: 64px; height: 64px; }
+  .icons-names { grid-template-columns: 1fr; }
+}
+
+/* Every tap target at least 44px */
+@media (max-width: 819px) {
+  .icons-page .k-seg__opt,
+  .icons-actions__ghost,
+  .icons-code-head__copy { min-height: var(--hit); }
+  .icons-swatch { width: var(--hit); height: var(--hit); }
+  .icons-theme__val input { height: var(--hit); }
+}
