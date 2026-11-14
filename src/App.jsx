@@ -10,6 +10,7 @@ import { useTheme } from './hooks/useTheme';
 import HomePage from './features/home/HomePage';
 import StudioPage from './features/studio/StudioPage';
 import IconsPage from './features/icons/IconsPage';
+import PdfPage from './features/pdf/PdfPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 const toStudio = (hash) => <Navigate to={{ pathname: '/studio', hash }} replace />;
@@ -24,7 +25,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/studio" element={<StudioPage />} />
           <Route path="/icons" element={<IconsPage />} />
-          <Route path="/pdf" element={<PlaceholderPage title="Images to PDF" />} />
+          <Route path="/pdf" element={<PdfPage />} />
           <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
 
           {/* v2 routes redirect into Studio */}
