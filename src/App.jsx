@@ -1,62 +1,41 @@
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Hero from './components/converter/Hero';
-// import ConvertOptionsPage from './components/converter/ConvertOptionsPage';
-// import './App.css';
-// import HomePage from './components/HomePage';
-// import Resize from './components/resize/Resize';
-
-// function App() {
-//   return (
-//      <Router>
-//       <Routes>
-//         <Route path="/" element={<HomePage />} />
-//         <Route path="/converter" element={<Hero />} />
-//         <Route path="/convert-options" element={<ConvertOptionsPage />} />
-//         <Route path="/resize" element={<Resize />} />
-//       </Routes>
-//     </Router>
-//   );
-// }
-
-// export default App;
-
-
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
+/**
+ * App
+ * Path: src/App.jsx
+ *
+ * Router and toast provider.
+ */
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { ToastProvider } from './components/ui/Toasts';
+import { useTheme } from './hooks/useTheme';
+import './lib/installPrompt'; // catches beforeinstallprompt at startup, for Settings' Install button
 import HomePage from './features/home/HomePage';
-import ConverterUploadPage from './features/convert/ConverterUploadPage';
-import ConvertOptionsPage from './features/convert/ConvertOptionsPage';
-import ResizePage from './features/resize/ResizePage';
+import StudioPage from './features/studio/StudioPage';
+import IconsPage from './features/icons/IconsPage';
+import PdfPage from './features/pdf/PdfPage';
+import SettingsPage from './features/settings/SettingsPage';
 
-function App() {
+const toStudio = (hash) => <Navigate to={{ pathname: '/studio', hash }} replace />;
+
+export default function App() {
+  useTheme(); // keeps <html data-theme> in sync with the OS while the app is open
+
   return (
-    <Router>
-      <Toaster
-        position="bottom-center"
-        toastOptions={{
-          style: {
-            background: 'var(--color-bg-surface)',
-            color: 'var(--color-text-primary)',
-            border: '1px solid var(--color-border)',
-            borderRadius: 'var(--radius-md)',
-            boxShadow: 'var(--shadow-lg)',
-            fontFamily: 'var(--font-family-base)',
-            fontSize: 'var(--font-size-sm)',
-          },
-          success: { iconTheme: { primary: 'var(--color-success)', secondary: 'var(--color-bg-surface)' } },
-          error: { iconTheme: { primary: 'var(--color-danger)', secondary: 'var(--color-bg-surface)' } },
-        }}
-      />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/converter" element={<ConverterUploadPage />} />
-        <Route path="/convert-options" element={<ConvertOptionsPage />} />
-        <Route path="/resize" element={<ResizePage />} />
-      </Routes>
-    </Router>
+    <BrowserRouter>
+      <ToastProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/studio" element={<StudioPage />} />
+          <Route path="/icons" element={<IconsPage />} />
+          <Route path="/pdf" element={<PdfPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+
+          {/* v2 routes redirect into Studio */}
+          <Route path="/converter" element={toStudio('#convert')} />
+          <Route path="/convert-options" element={toStudio('#convert')} />
+          <Route path="/resize" element={toStudio('#resize')} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </ToastProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;

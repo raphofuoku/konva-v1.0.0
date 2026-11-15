@@ -1,0 +1,218 @@
+/**
+ * Pdf styles
+ * Path: src/features/pdf/Pdf.css
+ *
+ * Images to PDF: header, halo dropzone, page grid and cards, the Add images tile and the
+ * settings card. Shared pieces (.k-card, .k-btn, .k-seg, .k-chip, .k-sticker, .k-note,
+ * .k-progress, .k-skeleton) live in components.css.
+ */
+
+/* ---------- Page ---------- */
+.pdf-page { min-height: 100vh; display: flex; flex-direction: column; color: var(--ink); }
+.pdf-page > main { flex: 1; }
+.pdf {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 56px) clamp(16px, 3vw, 40px) 72px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+.pdf:focus { outline: none; }
+.pdf-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pdf-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 40px; }
+.pdf-head__titles { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.pdf-head__caption {
+  margin-left: clamp(8px, 2vw, 24px);
+  font-size: clamp(16px, 1.6vw, 20px);
+  transform: rotate(-1deg);
+}
+.pdf-head__lede { margin: 0; max-width: 440px; color: var(--ink-2); text-wrap: pretty; }
+
+.pdf-grid-wrap { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+.pdf-pages { flex: 999 1 560px; min-width: 0; }
+
+/* ---------- Empty: halo dropzone ---------- */
+.pdf-empty { display: flex; justify-content: center; padding: 64px clamp(16px, 4vw, 72px); }
+.pdf-drop {
+  /* Always a white sticker: pin the button colours to the light theme. */
+  --btn: var(--ink-navy);
+  --btn-ink: var(--amp-yellow);
+  --btn-offset: var(--amp-yellow);
+  width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 28px;
+  overflow: visible;
+  color: var(--ink-deep);
+  text-align: center;
+}
+.pdf-drop.is-hot { outline: 3px dashed var(--violet); outline-offset: -14px; }
+.pdf-drop__badge {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  background: var(--ink-navy);
+  color: var(--amp-yellow);
+  box-shadow: 5px 5px 0 var(--amp-yellow);
+}
+.pdf-drop__title { margin: 0; font: 600 20px/1.3 var(--font-sans); }
+.pdf-drop__hint { margin: 0; color: #4E5189; font: 400 14px/1.5 var(--font-sans); }
+.pdf-drop__btn { margin-top: 4px; }
+.pdf-drop__paste {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 0;
+  color: #4E5189;
+  font: 400 13px/1 var(--font-sans);
+}
+.pdf-drop__paste .k-kbd { background: #FFF7C9; border-color: rgba(51, 54, 111, .2); box-shadow: 0 2px 0 rgba(51, 54, 111, .2); color: var(--ink-navy); }
+
+/* ---------- Bar above the grid ---------- */
+.pdf-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-bottom: 20px; }
+.pdf-bar__count { margin: 0; font: 600 15px/1.3 var(--font-sans); }
+.pdf-bar__size { margin-left: 4px; color: var(--ink-2); font: 500 12px/1 var(--font-mono); }
+.pdf-bar__hint { flex: 1; margin: 0; color: var(--ink-2); font: 400 13px/1.3 var(--font-sans); }
+.pdf-bar__clear { min-height: 36px; padding: 0 12px; gap: 6px; }
+
+/* ---------- Grid and cards ---------- */
+.pdf-grid {
+  --pdf-label-h: 24px;
+  --pdf-act-h: 36px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+  gap: 32px 24px;
+  align-items: end;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pdf-card { display: flex; flex-direction: column; gap: 10px; min-width: 0; border-radius: 4px; transition: opacity var(--dur-ui); }
+.pdf-card.is-ready { cursor: grab; }
+.pdf-card.is-dragging { opacity: .45; cursor: grabbing; }
+.pdf-card.is-over { outline: 3px dashed var(--vio); outline-offset: 8px; }
+
+.pdf-sheet {
+  position: relative;
+  width: 100%;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 1.5px var(--line), 5px 5px 0 var(--shadow);
+}
+.pdf-sheet__box { position: absolute; overflow: hidden; }
+.pdf-sheet__box img,
+.pdf-sheet__ph { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+.pdf-card__label { display: flex; align-items: center; gap: 8px; min-width: 0; height: var(--pdf-label-h); }
+.pdf-card__num {
+  flex: none;
+  padding: 5px 7px;
+  background: var(--btn);
+  color: var(--btn-ink);
+  font: 600 12px/1 var(--font-mono);
+}
+.pdf-card__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 500 12px/1.3 var(--font-sans);
+}
+
+.pdf-card__actions { display: flex; gap: 6px; }
+.pdf-act {
+  width: 40px;
+  height: var(--pdf-act-h);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.pdf-act:hover:not(:disabled) { background: var(--surface-2); }
+.pdf-act:disabled { opacity: .4; cursor: not-allowed; }
+.pdf-act--remove { flex: 1; width: auto; }
+.pdf-act--remove:hover:not(:disabled) { background: var(--bad-bg); color: var(--bad-ink); border-color: var(--danger); }
+
+/* Add images tile, sized like the first page; the spacer lines it up with the sheets. */
+.pdf-add-cell { display: flex; flex-direction: column; gap: 10px; }
+.pdf-add {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px dashed var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 13px/1 var(--font-sans);
+  cursor: pointer;
+  transition: background var(--dur-ui), border-color var(--dur-ui);
+}
+.pdf-add:hover:not(:disabled) { background: var(--surface-2); border-color: var(--vio); }
+.pdf-add.is-hot { background: var(--vio-bg); border-color: var(--vio); color: var(--vio-ink); }
+.pdf-add:disabled { opacity: .45; cursor: not-allowed; }
+.pdf-add-cell__spacer { height: calc(var(--pdf-label-h) + var(--pdf-act-h) + 10px); }
+
+/* ---------- Settings card ---------- */
+.pdf-settings { flex: 1 1 300px; max-width: 100%; display: flex; flex-direction: column; gap: 22px; }
+.pdf-group { display: flex; flex-direction: column; gap: 10px; }
+.pdf-group .k-eyebrow { margin: 0; }
+.pdf-settings .k-seg__opt { padding: 0 4px; white-space: nowrap; }
+.pdf-settings .k-seg__opt:disabled { opacity: .45; cursor: not-allowed; }
+.pdf-hint { margin: 0; color: var(--ink-2); font: 400 13px/1.5 var(--font-sans); }
+
+.pdf-name { display: flex; flex-direction: column; gap: 6px; font: 500 14px/1 var(--font-sans); }
+.pdf-name__row { display: flex; align-items: center; gap: 8px; }
+.pdf-name__row .k-field { flex: 1; min-width: 0; font: 500 15px var(--font-mono); }
+.pdf-name__ext { flex: none; font: 500 14px var(--font-mono); }
+
+.pdf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.pdf-status { display: flex; flex-direction: column; gap: 8px; }
+.pdf-status__row { display: flex; justify-content: space-between; gap: 12px; font: 600 14px/1.3 var(--font-sans); }
+.pdf-status__row b { font: 600 13px/1.3 var(--font-mono); color: var(--vio); }
+.pdf-note { margin: 0; font-weight: 600; }
+.pdf-note .k-icon { flex: none; }
+
+/* Sticky only where the whole card fits beside the grid; a taller card would hide Save PDF. */
+@media (min-width: 920px) and (min-height: 860px) {
+  .pdf-settings { position: sticky; top: 24px; }
+}
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 599px) {
+  .pdf-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 130px), 1fr)); gap: 28px 16px; }
+  .pdf-empty { padding: 48px 4px; }
+  .pdf-drop { padding: 28px 20px; }
+  .pdf-bar__hint { flex-basis: 100%; order: 3; }
+  .pdf-bar__count { flex: 1; }
+}
+
+/* Every tap target at least 44px */
+@media (max-width: 819px) {
+  .pdf-grid { --pdf-act-h: var(--hit); }
+  .pdf-act { width: var(--hit); }
+  .pdf-act--remove { width: auto; min-width: var(--hit); }
+  .pdf-page .k-seg__opt,
+  .pdf-bar__clear { min-height: var(--hit); }
+}

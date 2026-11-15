@@ -1,0 +1,35 @@
+{
+  "id": "/",
+  "name": "Konva",
+  "short_name": "Konva",
+  "description": "Convert, resize and edit images privately in your browser.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#33366F",
+  "background_color": "#FADF3C",
+  "categories": [
+    "photo",
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

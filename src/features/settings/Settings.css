@@ -1,0 +1,236 @@
+/**
+ * Settings styles
+ * Path: src/features/settings/Settings.css
+ *
+ * Privacy hero, section list and the five settings cards. Shared pieces (.k-card, .k-btn,
+ * .k-seg, .k-chip, .k-headline, .k-caption, .k-kbd, .k-note) live in components.css;
+ * .panel-range, .panel-switch and .panel-field come from the Studio's Panels.css.
+ */
+
+/* Smooth jumps between sections, only on this page and only when motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.settings-page) { scroll-behavior: smooth; }
+}
+
+/* ---------- Page ---------- */
+.settings-page { min-height: 100vh; display: flex; flex-direction: column; color: var(--ink); }
+.settings-page > main { flex: 1; }
+.settings-main:focus { outline: none; }
+
+/* ---------- Privacy hero ---------- */
+.settings-hero {
+  scroll-margin-top: 0;
+  overflow: hidden;
+  background: var(--hero);
+  color: var(--hero-ink);
+  padding: clamp(40px, 6vw, 88px) clamp(16px, 4vw, 56px);
+}
+.settings-hero__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 48px clamp(32px, 5vw, 80px);
+}
+.settings-hero__titles { flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+.settings-hero__title { margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.settings-hero__title .k-headline { font-size: clamp(32px, 5vw, 72px); max-width: 100%; }
+.settings-hero__slab-b { margin-left: clamp(20px, 5vw, 80px); }
+.settings-hero__slab-b.is-entering { animation-delay: .07s; }
+.settings-hero__captions { display: flex; flex-direction: column; align-items: flex-start; }
+.settings-hero__caption-b.is-entering { animation-delay: .28s; }
+
+.settings-hero__cards { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.settings-hero__cards h2 { margin: 0 0 12px; font: 600 17px/1.3 var(--font-sans); }
+
+/* Fixed sticker colours: the same white card and navy slab in both themes, as in the design. */
+.settings-hero__steps {
+  padding: 22px 24px;
+  border: var(--stroke) solid var(--ink-navy);
+  border-radius: var(--radius-md);
+  background: #FFFFFF;
+  color: var(--ink-deep);
+  box-shadow: 6px 6px 0 var(--ink-navy);
+}
+.settings-hero__steps ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.settings-hero__steps li { display: flex; gap: 14px; }
+.settings-hero__num { flex: none; font: 600 14px/1.6 var(--font-mono); color: var(--ink-navy); }
+
+.settings-hero__downloads { padding: 22px 24px; border-radius: var(--radius-md); background: var(--ink-navy); color: #FFFFFF; }
+[data-theme="dark"] .settings-hero__downloads { box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .18); }
+.settings-hero__downloads h2 { margin-bottom: 10px; color: var(--amp-yellow); }
+.settings-hero__downloads p { margin: 0; color: #E3E4FA; font: 400 15px/1.6 var(--font-sans); text-wrap: pretty; }
+
+/* ---------- Body ---------- */
+.settings-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 64px) clamp(16px, 3vw, 40px) 80px;
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+.settings-cards { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 32px; }
+
+.settings-nav { flex: none; width: 200px; position: sticky; top: 24px; display: flex; flex-direction: column; gap: 2px; }
+.settings-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--hit);
+  padding: 0 12px;
+  border-radius: var(--radius);
+  color: var(--ink);
+  font: 500 15px/1 var(--font-sans);
+  text-decoration: none;
+}
+.settings-nav__link:hover { background: var(--surface); color: var(--ink); }
+.settings-nav__link[aria-current] { background: var(--surface); font-weight: 600; box-shadow: inset 4px 0 0 var(--vio); }
+
+/* ---------- Cards ---------- */
+.settings-card { scroll-margin-top: 24px; padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+.settings-card__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.settings-card__lede { margin: 4px 0 0; color: var(--ink-2); font-size: 15px; }
+.settings-muted { margin: 0; color: var(--ink-2); font-size: 14px; }
+.settings-muted--tight { margin-top: -8px; }
+.settings-start { align-self: flex-start; }
+.settings-narrow { max-width: 500px; }
+.settings-small { min-height: 36px; padding: 0 14px; }
+
+/* Defaults */
+.settings-defaults { display: flex; flex-direction: column; gap: 22px; }
+.settings-seg--4 { max-width: 504px; }
+.settings-seg--2 { max-width: 300px; }
+
+/* Appearance */
+.settings-themes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 600px; }
+.settings-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border: var(--stroke) solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.settings-theme:hover { background: var(--surface-2); }
+/* A ring with no text on it, so --vio (it reads on both surfaces). */
+.settings-theme[aria-pressed="true"] { border-color: var(--vio); box-shadow: 0 0 0 3px var(--vio-bg); }
+.settings-theme__label { display: flex; align-items: center; gap: 6px; font: 600 14px/1.2 var(--font-sans); }
+.settings-theme__label .k-icon { flex: none; }
+
+.settings-swatch {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 56px;
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.settings-swatch::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: 18px;
+  border-radius: 4px;
+}
+.settings-swatch--light { background: var(--amp-yellow); }
+.settings-swatch--light::after { background: #FFFFFF; }
+.settings-swatch--dark { background: var(--night); }
+.settings-swatch--dark::after { background: var(--night-2); }
+.settings-swatch--system { background: linear-gradient(90deg, var(--amp-yellow) 50%, var(--night) 50%); }
+.settings-swatch--system::after { background: linear-gradient(90deg, #FFFFFF 50%, var(--night-2) 50%); }
+
+/* Rows (offline card and stored data) */
+.settings-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--line);
+}
+.settings-row__text { flex: 1 1 280px; min-width: 0; }
+.settings-row__title { font: 600 15px/1.3 var(--font-sans); }
+.settings-row__title:focus { outline: none; }
+.settings-row__title:focus-visible { outline: 3px solid var(--violet); outline-offset: 2px; }
+.settings-row__note { color: var(--ink-2); font: 400 14px/1.5 var(--font-sans); }
+.settings-row__note--mono { font: 500 13px/1.5 var(--font-mono); overflow-wrap: anywhere; }
+
+/* Shortcuts */
+.settings-keys { margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 0 32px; }
+.settings-keys__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 52px;
+  border-bottom: 1.5px solid var(--line);
+}
+.settings-keys__row dt { font: 400 15px/1.4 var(--font-sans); }
+.settings-keys__row dd { margin: 0; flex: none; display: flex; align-items: center; gap: 4px; }
+.settings-keys__word { padding: 0 2px; color: var(--ink-2); font: 500 12px/1 var(--font-mono); }
+
+/* Stored data */
+.settings-card--storage { gap: 6px; }
+.settings-card--storage > div:first-child { margin-bottom: 10px; }
+.settings-stored { margin: 0; padding: 0; list-style: none; }
+.settings-stored__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 8px 0;
+  border-top: 1.5px solid var(--line);
+}
+.settings-stored__row { flex-wrap: nowrap; }
+.settings-stored__row .settings-row__text { flex-basis: 0; }
+.settings-stored__row .k-btn { flex: none; }
+.settings-stored__key { color: var(--ink); }
+
+.settings-danger { min-height: var(--hit); margin-top: 14px; }
+.settings-danger:hover, .settings-danger:active { transform: none; box-shadow: none; background: var(--bad-bg); }
+
+.settings-confirm {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--danger);
+  border-radius: 10px;
+  background: var(--bad-bg);
+}
+.settings-confirm__text { margin: 0; display: flex; gap: 10px; align-items: flex-start; color: var(--bad-ink); font: 500 14px/1.45 var(--font-sans); }
+.settings-confirm__text .k-icon { flex: none; margin-top: 1px; }
+.settings-confirm__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.settings-confirm .settings-danger { margin-top: 0; background: var(--surface); }
+.settings-confirm .settings-danger:hover { background: var(--surface); }
+.settings-confirm .k-btn--ghost { min-height: var(--hit); background: var(--surface); }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 599px) {
+  .settings-card { padding: 22px 18px; }
+  .settings-hero__steps, .settings-hero__downloads { padding: 18px 18px; }
+  .settings-themes { gap: 8px; }
+  .settings-theme { padding: 8px; }
+  .settings-theme__label { font-size: 13px; }
+  .settings-row .k-btn:not(.settings-small) { width: 100%; }
+}
+
+/* Every tap target at least 44px */
+@media (max-width: 819px) {
+  .settings-page .k-seg__opt,
+  .settings-page .k-btn--ghost { min-height: var(--hit); }
+}

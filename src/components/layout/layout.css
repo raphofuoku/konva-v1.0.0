@@ -1,0 +1,25 @@
+/** layout
+ * Path: src/components/layout/layout.css
+ *
+ * Layout pieces not covered by components.css: top bar extras and the site footer.
+ * Values come from tokens.css.
+ */
+
+ .topbar-offline { height: 32px; }
+ @media (max-width: 1099px) { .topbar-offline { display: none; } }
+
+ .site-footer { background: var(--ink-navy); color: #FFFFFF; }
+ .site-footer .k-footer { padding: clamp(22px, 2.6vw, 32px) 20px; font-size: clamp(20px, 3vw, 36px); }
+ .site-footer__row {
+   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
+   padding: 20px clamp(20px, 4vw, 56px);
+   border-top: 1px solid rgba(255, 255, 255, .18);
+   font: 400 14px/1.4 var(--font-sans); color: #D9DBF5;
+ }
+ .site-footer__row a { color: #FFFFFF; }
+ .site-footer__links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+ @media (max-width: 819px) {
+   .site-footer__links a { display: inline-flex; align-items: center; min-height: var(--hit); }
+ }
+ .site-footer__row a:hover { color: var(--amp-yellow); }
+ .site-footer .k-logo { --top-ink: #FFFFFF; --mark: var(--amp-yellow); }

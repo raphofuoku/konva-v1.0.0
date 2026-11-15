@@ -1,129 +1,216 @@
 # Konva
 
-**Konva** is a web application that allows users to upload images, convert them into various formats (JPEG, PNG, WEBP), resize images with customizable dimensions or percentage, and download the processed images in high quality. The app prioritizes user privacy — all processing happens client-side, in your browser. Images are never uploaded to a server.
+**Edit images locally. Upload nothing.**
 
-> **v2 in progress.** Konva is mid-redesign: the build now runs on Vite + React 19, and the UI is being migrated onto a centralized design-token system before new features land. See [Roadmap](#roadmap) below for what's shipped vs. planned.
+Konva is an image editor that runs entirely in your browser. Convert, resize, crop, adjust, watermark, redact and inspect images, remove backgrounds with an on-device AI model, build a favicon pack from a logo, or turn a stack of images into one PDF. Your images never leave your device: there is no server, no upload and no account.
+
+> **v2 ("Amplified").** A full rebuild on Vite and React 19 with a new design system, a single Studio for every image tool, and offline support. Work happens on the `feat/amplified` branch. See [Roadmap](#roadmap) for what's left before the v2 release.
 
 ## Features
 
-### Image Conversion
-Convert images to different formats (JPEG, PNG, WEBP) while maintaining high quality.
+### Studio (`/studio`)
+One workspace for single images or whole batches. Drop files, paste from the clipboard, open a folder, or paste an image link.
 
-### Image Resizing
-Easily resize images by dimensions or percentage, with an option to lock the aspect ratio.
+| Tool | What it does |
+|---|---|
+| **Convert** | JPEG, PNG, WEBP and AVIF out; iPhone HEIC in. Set a quality, or a target size such as 200 KB. A live size estimate updates as you move the slider. |
+| **Resize** | Pixels with aspect lock, or a percentage with presets. Warns before upscaling. |
+| **Crop** | Free, 1:1, 4:5 and 16:9, plus presets for Instagram, LinkedIn, X and YouTube. Rotate and flip. |
+| **Adjust** | Brightness, contrast, saturation, grayscale and blur, with a before/after slider. **Background removal** uses an optional AI model that downloads once and then works offline. |
+| **Watermark** | Text in any of nine positions or tiled across the image, with opacity and size. |
+| **Redact** | Blur or pixelate faces, number plates and addresses. Draw areas, then nudge them with the arrow keys. |
+| **Metadata** | Read EXIF and GPS (JPEG), strip location on export, copy the colour palette as hex, pick colours with the eyedropper. |
 
-### Multiple Upload Options
-Upload images from your local device or enter an image URL.
+Batch work:
+- Settings apply to every file, or override them on one file.
+- Rename outputs with `{name}`, `{n}`, `{w}` and `{h}`.
+- Download everything as one ZIP, or save straight into a folder.
 
-### Quality Control
-Adjust the image quality during conversion.
+Developer extras: copy the result, copy it as Base64, generate a responsive `srcset` (320 to 1920 px) with its HTML, and share through the system share sheet.
 
-### Responsive Design
-Fully responsive and optimized for both desktop and mobile devices.
+### Icon pack (`/icons`)
+One logo in (SVG or raster). Out comes a ZIP with:
+- favicons at 16, 32 and 48 px, plus a multi-size `favicon.ico`
+- an Apple touch icon, Android icons and a maskable icon
+- a `site.webmanifest`
+- the `<head>` snippet to paste into your site
 
-### Download
-Save the converted or resized images with a simple download button.
+You choose the background, shape and padding.
 
-## Technologies Used
+### Images to PDF (`/pdf`)
+Add images (HEIC included), drag or use the arrow buttons to put them in order, then pick A4, Letter or "fit image" pages, orientation, margins and fit. Konva saves one PDF.
 
-- **React 19** — UI library
-- **Vite** — build tool and dev server
-- **React Router** (`react-router-dom` v6, upgrade to the unified `react-router` package planned) — routing
-- **HTML5 Canvas API** — image resizing and format conversion (drawn via `canvas.toDataURL`)
-- **browser-image-compression** — client-side pre-compression before conversion
-- **FileSaver.js** — triggering image downloads
-- **CSS Custom Properties** (`src/styles/tokens.css`) — centralized design tokens for color, typography, spacing, radius, and shadow; single source of truth for the app's visual style, including dark-mode support
+### Settings (`/settings`)
+- **How privacy works**, explained step by step.
+- **Defaults** for format, quality or target size, and metadata stripping.
+- **Theme:** light, dark or match system.
+- **Offline:** install as an app, apply a waiting update, and manage the background-removal model.
+- **Shortcuts:** the full list.
+- **Stored data:** every item Konva keeps on your device, with a button to clear each one.
 
-## Design System
+### Everywhere
+- **Offline:** after one visit, every page opens without a connection, and each tool works offline after its first use.
+- **Installable** as an app (Chromium browsers show an Install button in Settings).
+- **Light and dark themes**, keyboard support throughout, `prefers-reduced-motion` respected, and 44 px tap targets on phones.
 
-All styling values — color, font, spacing, border-radius, shadow — live in one file: [`src/styles/tokens.css`](./src/styles/tokens.css). Component CSS files reference these as `var(--token-name)` rather than hardcoding values, so a rebrand or dark-mode toggle is a change in one place instead of hunting through every `.css` file. Dark mode is implemented via a `[data-theme="dark"]` override block that remaps the same semantic tokens components already use — no per-component work needed once a component is migrated.
+## Privacy
 
-*Migration to the token system is in progress — see Roadmap.*
+Every image is decoded, edited and encoded on your device with the Canvas API and WebAssembly. Nothing Konva does sends image data anywhere.
 
-**Scope of the "zero hardcoded values" migration.** When the roadmap below says a component's CSS has "zero hardcoded hex/px values," that claim covers exactly four categories: hex colors, spacing (margin/padding/gap), border-radius, and box-shadow — the things `tokens.css` defines a scale for. It intentionally does **not** cover:
+A few things are downloaded the first time they're needed, and none of them carry your images:
 
-- **Fixed element dimensions** — icon/image sizes, card widths/heights, dropdown widths. These are component-specific sizing decisions, not theme-level values, and `tokens.css` doesn't define a scale meant for arbitrary dimensions.
-- **Position offsets** — `top`/`left`/`right`/`bottom` values used for absolute/relative positioning.
-- **Font sizes expressed in raw px** — a separate, smaller cleanup. Every px font-size found during the v2 migration happened to map exactly to an existing `font-size-*` token, so this is a low-risk follow-up whenever it's prioritized, not a gap in the color/spacing/radius/shadow work.
-- **Transition/motion durations** — `tokens.css` has a motion scale (`--transition-fast/base/slow`) but adopting it wasn't part of the token-migration pass.
+| What | When | From |
+|---|---|---|
+| AVIF encoder (WASM) | Exporting AVIF in a browser that can't encode it natively | Konva's own site |
+| HEIC decoder (WASM) | Opening a HEIC photo the browser can't read itself | Konva's own site |
+| Background-removal model (ormbg, about 42 MB) and ONNX Runtime | You press "Download model" in Adjust | Hugging Face and jsDelivr by default, or Konva's own site ([self-hosting](#self-hosting-background-removal)) |
+| An image you paste a link to | You paste the link | That website, fetched directly by your browser |
 
-Where a component's exact hex value doesn't have a matching token (e.g. a `#333` or `#ccc` picked ad hoc in v1), the migration maps it to the *closest* existing token rather than inventing a new one-off token or leaving it hardcoded — these are called out per-component in migration review notes when they happen.
+What stays on your device:
+- **Local storage:** your theme, your default export settings, the names (not the images) of your last 8 exports, and two small flags. They're listed and clearable in Settings › Stored data.
+- **Cache Storage:** the app files and the model, so they work offline.
 
-## How to Use
+## Keyboard shortcuts (Studio)
 
-### Image Conversion
+| Keys | Action |
+|---|---|
+| `1` to `7` | Switch tool |
+| `[` and `]` | Previous / next file |
+| `\` | Toggle before/after |
+| `D` | Download the current file |
+| `Shift` + `D` | Download all |
+| `⌘ K` / `Ctrl K` | Command palette |
+| `Esc` | Close the top overlay |
+| Arrow keys (Redact) | Nudge the newest area (`Shift` for bigger steps) |
 
-1. **Upload an image:** Either from your device or by providing an image URL.
-2. **Select the desired format:** JPEG, PNG, or WEBP.
-3. **Adjust the image quality:** Use the quality slider to control the output quality.
-4. **Click "Convert":** The image will be processed.
-5. **Download the image:** A download button will appear to save the converted image.
+## Tech stack
 
-### Image Resizing
+- **React 19** and **React Router 6**
+- **Vite 8**
+- **Plain CSS** with custom properties (`src/styles/tokens.css`, `src/styles/components.css`). No CSS framework.
+- **Canvas API** for drawing and encoding, plus hand-written ZIP, ICO and PDF writers (`src/lib/konvaEngine.js`)
+- **@jsquash/avif** (AVIF encoding fallback) and **heic-to** (HEIC decoding), both loaded on demand
+- **Transformers.js** with ONNX Runtime Web, running the **ormbg** model for background removal, loaded on demand
+- **Hand-written service worker** (`src/pwa/`), generated at build time with no extra dependencies
+- **Poppins**, **IBM Plex Mono** (via Fontsource) and **Material Symbols Sharp**, all served locally
 
-1. **Upload an image:** From your device or by entering an image URL.
-2. **Choose resize method:** Resize by dimensions (width and height) or by percentage.
-3. **Lock aspect ratio:** (Optional) Enable the "Lock Aspect Ratio" checkbox to maintain the original aspect ratio while resizing.
-4. **Click "Resize":** Apply the resizing to the image.
-5. **Download the resized image:** A download button will appear to save the image.
+## Design system
+
+The "Amplified" look comes from Amp Yellow `#FADF3C`, Ink Navy `#33366F` and Electric Violet `#6A3DF0`. Its signature pieces are navy slab headlines, tilted caption strips, a crop-mark logo, hard-offset buttons that press in, and a yellow halo around images.
+
+- Every colour, size, radius and shadow is a token in `src/styles/tokens.css`.
+- Dark mode remaps the same tokens under `[data-theme="dark"]`.
+- Shared components live in `src/styles/components.css` as `.k-*` classes.
+- Page CSS sits next to each feature and uses tokens only.
+
+Design references and the developer handoff are in `design-doc/`.
+
+## Project structure
+
+```
+src/
+  main.jsx, App.jsx        entry, routes
+  components/layout/       top bar, logo, footer, theme button
+  components/ui/           icon, toasts
+  features/home/           landing page
+  features/studio/         Studio: useStudio hook, panels, stage, tray, palette, tour
+  features/icons/          icon pack generator
+  features/pdf/            images to PDF
+  features/settings/       settings page, stored data, model cache
+  hooks/                   shared hooks (theme, media queries, install, updates...)
+  lib/                     konvaEngine.js (image engine), theme, install prompt
+  pwa/                     service worker template, build step, registration
+  styles/                  tokens.css, components.css
+public/                    icons, manifest, OG image, third-party notices
+scripts/fetch-model.mjs    optional: self-host background removal
+```
 
 ## Development
 
+Requires Node 20.19 or newer (Vite 8).
+
 ```bash
-npm install       # install dependencies
-npm run dev        # start the dev server (Vite, localhost:3000)
-npm run build       # production build to /dist
-npm run preview      # locally preview the production build
+npm install
+npm run dev        # dev server at http://localhost:5173 (no service worker)
+npm run build      # production build to dist/, then writes dist/sw.js
+npm run preview    # serve the production build at http://localhost:4173
 ```
+
+Offline mode only exists in production builds. To try it, run `npm run build && npm run preview`, open the page once, then switch DevTools › Network to Offline and reload.
+
+### Self-hosting background removal
+
+By default the model comes from the Hugging Face hub and the ONNX Runtime from jsDelivr. To serve both from your own domain:
+
+```bash
+npm run model:fetch   # fills public/models/ and public/ort/ (both git-ignored)
+```
+
+Then set these in `.env` and in your host's build settings:
+
+```
+VITE_MODEL_BASE=/models/
+VITE_ORT_BASE=/ort/
+```
+
+On the host, use `npm run model:fetch && npm run build` as the build command.
+
+### Deploying
+
+Konva is a static site: deploy `dist/` anywhere that can serve a single-page app, rewriting unknown paths to `index.html`.
+
+Two hosting details:
+- Serve `sw.js` without long-term caching.
+- `dist/assets/` files are content-hashed and can be cached forever.
+
+## Browser support
+
+Konva targets current Chrome, Edge, Safari and Firefox. Some features depend on the browser:
+- **AVIF export** uses the browser's encoder when it has one, otherwise a WebAssembly encoder.
+- **HEIC** opens natively in Safari; elsewhere through the WebAssembly decoder.
+- **Open a folder** and **save into a folder** need the File System Access API (Chromium).
+- The **Install** button and the **eyedropper** are Chromium-only. In other browsers, use the browser's own "Add to Home Screen" or "Install" option.
+
+## Licences
+
+Third-party software, fonts and the model are listed with their licences in [`public/third-party-notices.txt`](./public/third-party-notices.txt), also linked from the site footer. `heic-to` (LGPL-3.0) is shipped unmodified as a separate file.
 
 ## Roadmap
 
-### Shipped in v2 so far
-- [x] Migrated off Create React App (deprecated) onto Vite
-- [x] Upgraded React 18 → React 19
-- [x] Added centralized design tokens (`src/styles/tokens.css`)
-- [x] Migrated every component's CSS onto design tokens, within the scope defined above (color / spacing / radius / shadow)
-- [x] Dark mode toggle (persisted to `localStorage`, applied via `data-theme` on `<html>`)
+### Shipped in v2
+- [x] Vite and React 19, replacing Create React App
+- [x] "Amplified" design system with light and dark themes
+- [x] One Studio with seven tools, batch processing and per-file overrides
+- [x] Drag-and-drop, paste, folder and URL input
+- [x] ZIP download and save into a folder
+- [x] Live output size estimate, and target-size mode
+- [x] AVIF output and HEIC input
+- [x] Crop with social presets; rotate and flip
+- [x] Adjustments with a before/after slider
+- [x] Watermark
+- [x] Redact (blur or pixelate)
+- [x] EXIF reading, GPS stripping and colour palette
+- [x] On-device background removal
+- [x] Icon pack generator
+- [x] Images to PDF
+- [x] Remembered defaults, toasts, keyboard shortcuts, command palette and a first-run tour
+- [x] Settings with a privacy explainer and stored-data controls
+- [x] Offline support, install as an app, and update prompts
+- [x] Third-party notices
 
-### In progress
-- [ ] Review the handful of flagged, non-exact color/spacing matches surfaced during migration (see PR/migration notes)
+### Before the v2 release
+- [ ] Keep EXIF when "Strip metadata" is off. Today the canvas always drops it, so the switch has no effect (the panels say so).
+- [ ] Logo watermarks. The Home page promises "text or logo"; Studio only does text so far.
+- [ ] Add a licence for Konva's own code.
+- [ ] Contrast audit (4.5:1) in both themes.
+- [ ] 44 px tap target for the top bar logo on phones.
+- [ ] Fresh screenshots for this README.
+- [ ] Merge `feat/amplified` into `main` and deploy.
 
-### Planned — P0 (next up)
-- [ ] Drag-and-drop and clipboard-paste image upload
-- [ ] Batch download as a single ZIP file
-- [ ] Live output file-size estimate while adjusting quality
-- [ ] Toast notifications in place of `alert()`
-
-### Planned — P1
-- [ ] Basic crop tool before convert/resize
-- [ ] AVIF output support
-- [ ] Remember last-used format/quality/size settings
-- [ ] EXIF metadata stripping (privacy — on by default)
-- [ ] Per-file setting overrides in batch mode
-- [ ] Keyboard shortcuts
-- [ ] Font sizes onto `font-size-*` tokens (see Design System scope note)
-
-### Under consideration — P2
-- [ ] PWA / offline support
+### Later
 - [ ] Multi-language UI
-- [ ] Before/after comparison slider
-- [ ] Watermark overlay tool
-
-### Explicitly out of scope
-Konva stays client-side only — no backend, no accounts, no image data ever leaving the browser. AI-based editing (background removal, upscaling) is not planned unless that constraint changes, since it would likely require server-side or WASM processing beyond the current architecture.
-
-## Screenshots
-
-*The screenshots below are from v1 and will be refreshed once the design-system migration lands.*
-
-### Homepage
-[Screenshot of Konva Homepage](./public/konva-homepage.png)
-
-### Image Conversion Page
-[Screenshot of Konva Image Converter](./public/konva-converter.png)
-
-### Image Resizing Page
-[Screenshot of Konva Image Resize](./public/konva-resize.png)
+- [ ] Sticky "Save PDF" bar on phones
+- [ ] Subset the icon font to cut first-load size
 
 ## Author
 
