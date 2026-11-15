@@ -2,12 +2,15 @@
  * modelCache
  * Path: src/features/settings/modelCache.js
  *
- * Finds and deletes the background-removal model files in Cache Storage. Transformers.js
- * keeps them in its own cache today; the service worker (Part 11) may add another, so every
- * cache is searched for entries from the ormbg model rather than relying on one cache name.
+ * Finds and deletes the background-removal files in Cache Storage: the ormbg model and the
+ * ONNX Runtime WASM files that run it (both cached by Transformers.js in "transformers-cache",
+ * whether they come from the Hugging Face hub and jsDelivr or from VITE_MODEL_BASE/VITE_ORT_BASE).
+ * Every cache is searched by URL rather than relying on one cache name. The service worker
+ * deliberately leaves these URLs alone, so they are only ever stored once.
  */
 
-const MODEL_RE = /ormbg/i;
+// Model URLs contain "ormbg"; runtime URLs contain "onnxruntime-web" (CDN) or "ort-wasm" (file name).
+const MODEL_RE = /ormbg|onnxruntime-web|ort-wasm/i;
 
 const hasCaches = () => typeof caches !== 'undefined';
 

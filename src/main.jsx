@@ -1,3 +1,10 @@
+/**
+ * main
+ * Path: src/main.jsx
+ *
+ * Entry point: local fonts and the icon font, the design tokens and components CSS, the service
+ * worker registration (production builds only), then the app.
+ */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -13,6 +20,8 @@ import 'material-symbols/sharp.css';
 
 import './styles/tokens.css';
 import './styles/components.css';
+
+import './pwa/registerSW';
 
 import App from './App';
 

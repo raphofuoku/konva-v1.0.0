@@ -1,3 +1,9 @@
+/**
+ * HomePage
+ * Path: src/features/home/HomePage.jsx
+ *
+ * Home: drop hero (hands files to Studio), tools, how it works, privacy.
+ */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { isImage } from '../../lib/konvaEngine';
@@ -6,7 +12,7 @@ import Icon from '../../components/ui/Icon';
 import SiteFooter from '../../components/layout/SiteFooter';
 import HomeHeader from './HomeHeader';
 import { PRIVACY, STEPS, STEP_TILTS, TOOLS } from './homeContent';
-import './Home.css';
+import './home.css';
 
 const NOT_IMAGE = 'That doesn’t look like an image. Konva reads JPEG, PNG, WEBP, AVIF and HEIC.';
 const URL_BLOCKED = 'That site doesn’t let other pages fetch its images. Save the image to your device, then drop it here.';

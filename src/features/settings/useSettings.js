@@ -10,6 +10,7 @@ import { useToast } from '../../components/ui/Toasts';
 import { useTheme } from '../../hooks/useTheme';
 import { useOfflineReady } from '../../hooks/useOfflineReady';
 import { useInstallPrompt } from '../../hooks/useInstallPrompt';
+import { useAppUpdate } from '../../hooks/useAppUpdate';
 import { THEME_EVENT } from '../../lib/theme';
 import { DEFAULT_KEYS } from '../studio/studioConstants';
 import { readDefaults, readModelCached, writeDefaults } from '../studio/studioStorage';
@@ -28,6 +29,7 @@ const announceTheme = () => window.dispatchEvent(new CustomEvent(THEME_EVENT));
     defaults, setDefault(patch), resetDefaults()
     theme { pref, resolved, setPref }
     offline                        true once a service worker controls the page
+    update { ready, apply() }      a newer version is downloaded and waiting; apply() reloads into it
     install { canInstall, installed, run() }
     model { status 'checking' | 'cached' | 'none' | 'removing', bytes }, removeModel()
     stored                         snapshot from readStored()
@@ -38,6 +40,7 @@ export function useSettings() {
   const { pref, resolved, setPref } = useTheme();
   const offline = useOfflineReady();
   const installer = useInstallPrompt();
+  const appUpdate = useAppUpdate();
 
   const [canStore] = useState(storageAvailable);
   const [stored, setStored] = useState(readStored);
@@ -149,6 +152,7 @@ export function useSettings() {
     resetDefaults,
     theme: { pref, resolved, setPref },
     offline,
+    update: { ready: appUpdate.updateReady, apply: appUpdate.apply },
     install: { canInstall: installer.canInstall, installed: installer.installed, run: runInstall },
     model,
     removeModel,

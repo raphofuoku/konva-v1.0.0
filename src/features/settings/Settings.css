@@ -98,9 +98,6 @@
 .settings-narrow { max-width: 500px; }
 .settings-small { min-height: 36px; padding: 0 14px; }
 
-.k-btn[aria-disabled="true"] { opacity: .4; cursor: not-allowed; }
-.k-btn--ghost[aria-disabled="true"]:hover { background: transparent; }
-
 /* Defaults */
 .settings-defaults { display: flex; flex-direction: column; gap: 22px; }
 .settings-seg--4 { max-width: 504px; }
@@ -204,7 +201,6 @@
 
 .settings-danger { min-height: var(--hit); margin-top: 14px; }
 .settings-danger:hover, .settings-danger:active { transform: none; box-shadow: none; background: var(--bad-bg); }
-.settings-danger[aria-disabled="true"]:hover { background: transparent; }
 
 .settings-confirm {
   margin-top: 14px;

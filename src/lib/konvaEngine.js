@@ -1,3 +1,10 @@
+/**
+ * konvaEngine
+ * Path: src/lib/konvaEngine.js
+ *
+ * Pure image functions (no React): geometry, drawing, encoding, ZIP/ICO/PDF writers, lazy codecs
+ * and background removal.
+ */
 // Konva image engine (ES module). Everything runs in the browser: canvas, File APIs, WASM.
 
 const MIME = { jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif' };
@@ -139,14 +146,38 @@ async function decodeHeic(file) {
   heicMod = heicMod || await import('heic-to');
   return heicMod.heicTo({ blob: file, type: 'image/png' });
 }
+// Where the model and its ONNX Runtime WASM come from. Default: the Hugging Face hub and jsDelivr.
+// To serve both from Konva's own domain, run `npm run model:fetch` and set VITE_MODEL_BASE=/models/
+// and VITE_ORT_BASE=/ort/ (see .env.example). Either way Transformers.js keeps the files in its
+// "transformers-cache", and the URLs keep "ormbg" / "ort-wasm" so Settings can find and remove them.
+const BUILD_ENV = import.meta.env || {};
+function configureModelSource(tf) {
+  const env = tf.env;
+  env.allowLocalModels = false;
+  // Offline, a cached model loads without asking the network anything. Without this, a probe for an
+  // optional file would fail on the network error instead of being treated as missing.
+  env.allowRemoteModels = typeof navigator === 'undefined' || navigator.onLine !== false;
+  if (BUILD_ENV.VITE_MODEL_BASE) {
+    env.remoteHost = new URL(BUILD_ENV.VITE_MODEL_BASE, location.href).href;
+    env.remotePathTemplate = '{model}/';
+  }
+  const wasm = env.backends?.onnx?.wasm;
+  const paths = wasm?.wasmPaths;
+  if (BUILD_ENV.VITE_ORT_BASE && paths && typeof paths === 'object' && !String(paths.mjs).startsWith('blob:')) {
+    // Keep the file variant Transformers.js picked for this browser; only the folder changes.
+    const base = new URL(BUILD_ENV.VITE_ORT_BASE, location.href).href;
+    const file = (u) => u.slice(u.lastIndexOf('/') + 1);
+    wasm.wasmPaths = { mjs: base + file(paths.mjs), wasm: base + file(paths.wasm) };
+  }
+}
 async function loadSegmenter(onProgress) {
   if (seg) return seg;
   tfMod = tfMod || await import('@huggingface/transformers');
-  tfMod.env.allowLocalModels = false;
+  configureModelSource(tfMod);
   const files = {};
   seg = await tfMod.pipeline('background-removal', 'onnx-community/ormbg-ONNX', {
     device: 'wasm', dtype: 'q8', // 8-bit weights: about a quarter of the fp32 download, little visible loss on mattes
-   
+
     progress_callback: e => {
       if (e.status === 'progress' && e.total) { files[e.file] = [e.loaded, e.total]; const v = Object.values(files); onProgress && onProgress(v.reduce((a, x) => a + x[0], 0), v.reduce((a, x) => a + x[1], 0)); }
     }
@@ -232,7 +263,7 @@ async function analyse(f, img) {
 
 const CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
 function crc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
-// Minimal "stored" ZIP writer — images are already compressed, so no deflate needed.
+// Minimal "stored" ZIP writer: images are already compressed, so no deflate needed.
 function zip(entries) {
   const enc = new TextEncoder(); const parts = []; const central = []; let off = 0;
   for (const e of entries) {

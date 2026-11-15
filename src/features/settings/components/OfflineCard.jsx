@@ -2,7 +2,7 @@
  * OfflineCard
  * Path: src/features/settings/components/OfflineCard.jsx
  *
- * Offline status, Install as an app, and the background-removal model cache.
+ * Offline status, a waiting update, Install as an app, and the background-removal model cache.
  */
 import { useRef } from 'react';
 import Icon from '../../../components/ui/Icon';
@@ -56,6 +56,22 @@ export default function OfflineCard({ s }) {
         <p className="settings-muted settings-muted--tight">
           Konva saves its files for offline use after it has loaded once online. Until then it needs a connection.
         </p>
+      )}
+
+      {s.update.ready && (
+        <div className="settings-row">
+          <div className="settings-row__text">
+            <div className="settings-row__title">A new version is ready</div>
+            <div className="settings-row__note">
+              It downloaded in the background. Reload to start using it, or it switches over next time you open
+              Konva.
+            </div>
+          </div>
+          <button type="button" className="k-btn k-btn--ghost settings-small" onClick={s.update.apply}>
+            <Icon name="restart_alt" />
+            Reload
+          </button>
+        </div>
       )}
 
       <div className="settings-row">

@@ -1,3 +1,6 @@
+/** components
+ * Path: src/styles/components.css
+ */
 /* Konva components. Plain class names, one block per component; values come from tokens.css.
 Naming: .k-<component>, modifiers .is-<state> or --<variant>. */
 
@@ -15,6 +18,7 @@ input[type="range"] { accent-color: var(--violet); }
 /* Skip link */
 .k-skip { position: absolute; left: 12px; top: -60px; z-index: 60; background: var(--ink-navy); color: var(--amp-yellow); font: 700 14px/1 var(--font-sans); padding: 12px 16px; text-decoration: none; box-shadow: 4px 4px 0 var(--amp-yellow); }
 .k-skip:focus { top: 12px; }
+@media (max-width: 819px) { .k-skip { padding: 15px 18px; } }
 
 /* Logo: crop-mark wordmark. <a class="k-logo"><span class="k-logo__tr"></span><span class="k-logo__bl"></span><span class="k-logo__word">konva</span></a> */
 .k-logo { --s: 24px; position: relative; display: inline-flex; padding: calc(var(--s) * .21) calc(var(--s) * .46) calc(var(--s) * .33); color: var(--top-ink); text-decoration: none; }
@@ -38,6 +42,7 @@ input[type="range"] { accent-color: var(--violet); }
     .k-subnav .k-topbar__link { flex: none; height: var(--hit); }
 }
 @media (min-width: 900px) { .k-subnav { display: none; } }
+@media (max-width: 819px) { .k-iconbtn { width: var(--hit); height: var(--hit); } }
 
 /* Headline block: navy slab, yellow caps, hard white offset. Stack two with .k-headline--indent on the second. */
 .k-headline { display: inline-block; margin: 0; background: var(--ink-navy); color: var(--amp-yellow); font: 800 var(--fs-display)/1 var(--font-sans); letter-spacing: -.01em; text-transform: uppercase; padding: .16em .26em .14em; box-shadow: 8px 8px 0 var(--paper); }
@@ -58,6 +63,15 @@ input[type="range"] { accent-color: var(--violet); }
 .k-btn:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--btn-offset); }
 .k-btn:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--btn-offset); }
 .k-btn:disabled { opacity: .4; box-shadow: none; transform: none; cursor: not-allowed; }
+/* For a button that turns unavailable while it has focus: aria-disabled keeps focus where it is
+   (a disabled button drops it to <body>); the click handler ignores the press. */
+.k-btn[aria-disabled="true"],
+.k-btn[aria-disabled="true"]:hover,
+.k-btn[aria-disabled="true"]:active { opacity: .4; box-shadow: none; transform: none; cursor: not-allowed; }
+.k-btn--ghost[aria-disabled="true"]:hover,
+.k-btn--ghost[aria-disabled="true"]:active,
+.k-btn--danger[aria-disabled="true"]:hover,
+.k-btn--danger[aria-disabled="true"]:active { background: transparent; }
 .k-btn--block { width: 100%; min-height: 52px; }
 .k-btn--ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); border-radius: var(--radius); box-shadow: none; text-transform: none; font: 600 13px/1 var(--font-sans); letter-spacing: 0; min-height: 40px; padding: 0 16px; }
 .k-btn--ghost:hover, .k-btn--ghost:active { transform: none; box-shadow: none; background: var(--surface-2); }

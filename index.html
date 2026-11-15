@@ -5,14 +5,17 @@
     <link rel="icon" href="/favicon.ico" sizes="48x48">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Raphael Ofuoku" />
-    <meta name="description" content="Web site for image converter and resize image for free" />
-    <meta name="keywords" content="converter, resize, image, logo, free" />
+    <meta name="description" content="Convert, resize, crop and clean up images privately in your browser. Nothing is uploaded." />
+    <meta name="keywords" content="image converter, resize, crop, webp, avif, heic, favicon, pdf, private" />
     <link rel="manifest" href="/site.webmanifest">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
     <meta name="theme-color" content="#33366F">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Konva: edit images, upload nothing">
+    <meta property="og:description" content="Convert, resize, crop and clean up images privately in your browser.">
     <meta property="og:image" content="/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -25,7 +28,7 @@
       Without this, the page briefly paints in light mode (the default
       in tokens.css) even when the visitor has dark mode saved, then
       flips once React mounts. Keep this logic in sync with
-      src/utils/theme.js if the storage key or fallback ever changes.
+      src/lib/theme.js if the storage key or fallback ever changes.
     -->
     <script>
       (function () {
